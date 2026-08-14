@@ -612,3 +612,219 @@ html{scroll-padding-top:82px}
   .menu a{font-size:9.5px}
   .nav-cta{font-size:9px;padding:10px 13px}
 }
+
+/* =========================================================
+   RASTER DIGITAL — FINAL HERO + LOGO POLISH
+   ========================================================= */
+
+/* =========================
+   LOGO
+   ========================= */
+
+.brand {
+  display: flex;
+  align-items: center;
+  height: 56px;
+}
+
+.brand img {
+  width: 150px;
+  height: auto;
+  max-height: 44px;
+  object-fit: contain;
+
+  /*
+    Integra o fundo preto da logo
+    ao fundo escuro do navbar.
+  */
+  mix-blend-mode: screen;
+
+  filter:
+    drop-shadow(0 0 10px rgba(0, 126, 255, 0.28))
+    drop-shadow(0 0 22px rgba(0, 126, 255, 0.08));
+
+  transition:
+    transform 0.3s ease,
+    filter 0.3s ease;
+}
+
+.brand:hover img {
+  transform: translateY(-1px) scale(1.025);
+
+  filter:
+    drop-shadow(0 0 12px rgba(0, 150, 255, 0.42))
+    drop-shadow(0 0 28px rgba(0, 126, 255, 0.12));
+}
+
+
+/* =========================
+   HERO — MAIS EQUILIBRADO
+   ========================= */
+
+.hero-grid {
+  grid-template-columns: 50% 50%;
+}
+
+.hero-copy {
+  padding-right: 18px;
+}
+
+
+/* =========================
+   IMAGEM PRINCIPAL
+   ========================= */
+
+.reference-device-image {
+  width: 440px;
+  max-width: none;
+
+  right: -4px;
+  left: auto;
+
+  top: 25px;
+
+  z-index: 4;
+
+  object-fit: contain;
+
+  filter:
+    drop-shadow(0 20px 30px rgba(0, 0, 0, 0.28))
+    drop-shadow(0 0 18px rgba(0, 112, 255, 0.10));
+}
+
+
+/* =========================
+   GLOW DA IMAGEM
+   ========================= */
+
+.reference-device-glow {
+  width: 450px;
+  height: 255px;
+
+  right: -8px;
+  left: auto;
+
+  top: 58px;
+
+  opacity: 0.72;
+}
+
+
+/* =========================
+   DEVICE STAGE
+   ========================= */
+
+.device-stage {
+  height: 370px;
+}
+
+
+/* =========================
+   BOTÕES — MESMA LINGUAGEM
+   ========================= */
+
+.nav-cta,
+.primary {
+  cursor: pointer;
+}
+
+
+/* =========================
+   TABLET / NOTEBOOK
+   ========================= */
+
+@media (max-width: 980px) {
+
+  .hero-grid {
+    grid-template-columns: 48% 52%;
+  }
+
+  .reference-device-image {
+    width: 420px;
+    right: -10px;
+    left: auto;
+    margin-left: 0;
+    top: 25px;
+  }
+
+  .reference-device-glow {
+    width: 430px;
+    right: -10px;
+    left: auto;
+    margin-left: 0;
+    top: 55px;
+  }
+
+  .device-stage {
+    height: 370px;
+  }
+}
+
+
+/* =========================
+   TABLET / CELULAR
+   ========================= */
+
+@media (max-width: 720px) {
+
+  .brand img {
+    width: 128px;
+    max-height: 40px;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-copy {
+    padding-right: 0;
+  }
+
+  .reference-device-image {
+    width: 420px;
+    right: auto;
+    left: 50%;
+    margin-left: -210px;
+    top: 0;
+  }
+
+  .reference-device-glow {
+    width: 400px;
+    right: auto;
+    left: 50%;
+    margin-left: -200px;
+    top: 28px;
+  }
+
+  .device-stage {
+    height: 315px;
+  }
+}
+
+
+/* =========================
+   CELULARES PEQUENOS
+   ========================= */
+
+@media (max-width: 430px) {
+
+  .brand img {
+    width: 120px;
+  }
+
+  .reference-device-image {
+    width: 360px;
+    margin-left: -180px;
+    top: 5px;
+  }
+
+  .reference-device-glow {
+    width: 350px;
+    margin-left: -175px;
+    top: 30px;
+  }
+
+  .device-stage {
+    height: 285px;
+  }
+}
