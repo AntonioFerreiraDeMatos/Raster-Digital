@@ -37,7 +37,7 @@ export default function App() {
       <Footer />
       <a
         className="whatsapp-float"
-        href="https://wa.me/5585992908430"
+        href="https://wa.me/5585986275389"
         target="_blank"
         rel="noreferrer"
         aria-label="Falar com a Raster Digital no WhatsApp"

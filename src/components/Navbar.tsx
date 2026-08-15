@@ -15,7 +15,7 @@ const links = [
 // Coloque o número com DDI + DDD, somente números.
 // Exemplo: 5585999999999
 // ==========================================
-const WHATSAPP_NUMBER = "5585992908430";
+const WHATSAPP_NUMBER = "5585986275389";
 
 const whatsappMessage =
   "Olá! Vim pelo site da Raster Digital e gostaria de falar com um especialista.";
