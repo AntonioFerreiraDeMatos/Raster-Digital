@@ -1,49 +1,43 @@
-import { useEffect } from "react";
+import { FaWhatsapp } from "react-icons/fa";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import About from "./components/About";
-import Services from "./components/Services";
+import Solutions from "./components/Solutions";
+import CtaBand from "./components/CtaBand";
 import Projects from "./components/Projects";
-import Testimonials from "./components/Testimonials";
-import Contact from "./components/Contact";
+import Process from "./components/Process";
+import Founder from "./components/Founder";
+import Brands from "./components/Brands";
+import LeadForm from "./components/LeadForm";
 import Footer from "./components/Footer";
-import { MessageCircle } from "lucide-react";
+import { waLink } from "./config/site";
 
 export default function App() {
-  useEffect(() => {
-    const glow = document.querySelector<HTMLElement>(".cursor-glow");
-    if (!glow) return;
-
-    const move = (event: PointerEvent) => {
-      glow.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0) translate(-50%, -50%)`;
-    };
-
-    window.addEventListener("pointermove", move, { passive: true });
-    return () => window.removeEventListener("pointermove", move);
-  }, []);
-
   return (
-    <div className="app">
-      <div className="cursor-glow" aria-hidden="true" />
+    <>
+      <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
       <Navbar />
-      <main>
+      <main id="conteudo">
         <Hero />
-        <About />
-        <Services />
+        <Solutions />
+        <CtaBand
+          title="Seu concorrente já está facilitando a vida dos clientes. E você?"
+          text="Não deixe seus clientes procurando informações sobre sua empresa em vários lugares."
+        />
         <Projects />
-        <Testimonials />
-        <Contact />
+        <Process />
+        <Founder />
+        <Brands />
+        <CtaBand
+          variant="whatsapp"
+          title="Seu próximo cliente pode estar procurando exatamente pelo que você oferece."
+          text="Uma apresentação profissional pode ser o primeiro passo para conquistar a confiança dele."
+        />
+        <LeadForm />
       </main>
       <Footer />
-      <a
-        className="whatsapp-float"
-        href="https://wa.me/5585986275389"
-        target="_blank"
-        rel="noreferrer"
-        aria-label="Falar com a Raster Digital no WhatsApp"
-      >
-        <MessageCircle size={24} strokeWidth={2.2} />
+      <a className="wa-float" href={waLink()} target="_blank" rel="noopener noreferrer" aria-label="Conversar com a Raster Digital no WhatsApp">
+        <FaWhatsapp size={28} />
       </a>
-    </div>
+    </>
   );
 }

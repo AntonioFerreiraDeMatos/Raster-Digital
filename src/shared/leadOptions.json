@@ -1,0 +1,28 @@
+{
+  "segments": [
+    { "value": "pizzaria", "label": "Pizzaria" },
+    { "value": "barbearia", "label": "Barbearia" },
+    { "value": "clinica", "label": "Clínica" },
+    { "value": "restaurante", "label": "Restaurante" },
+    { "value": "lanchonete", "label": "Lanchonete" },
+    { "value": "loja", "label": "Loja" },
+    { "value": "servicos", "label": "Prestador de serviços" },
+    { "value": "outro", "label": "Outro" }
+  ],
+  "services": [
+    { "value": "site", "label": "Criar um site profissional" },
+    { "value": "loja_virtual", "label": "Criar uma loja virtual" },
+    { "value": "sistema", "label": "Criar um sistema administrativo" },
+    { "value": "automacao", "label": "Automatizar processos" },
+    { "value": "melhorar_site", "label": "Melhorar um site existente" },
+    { "value": "orientacao", "label": "Ainda não sei, preciso de orientação" }
+  ],
+  "statuses": [
+    { "value": "novo", "label": "Novo lead" },
+    { "value": "primeiro_contato", "label": "Primeiro contato" },
+    { "value": "negociacao", "label": "Em negociação" },
+    { "value": "proposta_enviada", "label": "Proposta enviada" },
+    { "value": "convertido", "label": "Convertido" },
+    { "value": "perdido", "label": "Perdido" }
+  ]
+}

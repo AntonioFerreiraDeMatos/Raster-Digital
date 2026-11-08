@@ -1,364 +1,78 @@
-import {
-  motion,
-  useMotionValue,
-  useSpring,
-  useTransform,
-} from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowRight, CalendarCheck, MessageCircle, ShoppingBag } from "lucide-react";
+import { goToProposal } from "../config/site";
 
-import type { PointerEvent } from "react";
-
-import {
-  ArrowRight,
-  Play,
-  Sparkles,
-} from "lucide-react";
+const ease = [0.22, 1, 0.36, 1] as const;
 
 export default function Hero() {
-  // ==========================================
-  // PARALLAX DO MOUSE
-  // ==========================================
-
-  const pointerX = useMotionValue(0);
-  const pointerY = useMotionValue(0);
-
-  const smoothX = useSpring(pointerX, {
-    stiffness: 80,
-    damping: 20,
-  });
-
-  const smoothY = useSpring(pointerY, {
-    stiffness: 80,
-    damping: 20,
-  });
-
-  const deviceX = useTransform(
-    smoothX,
-    [-1, 1],
-    [-18, 18]
-  );
-
-  const deviceY = useTransform(
-    smoothY,
-    [-1, 1],
-    [-12, 12]
-  );
-
-  // ==========================================
-  // MOVIMENTO DO MOUSE
-  // ==========================================
-
-  const handlePointerMove = (
-    event: PointerEvent<HTMLElement>
-  ) => {
-    const rect =
-      event.currentTarget.getBoundingClientRect();
-
-    const x =
-      ((event.clientX - rect.left) / rect.width) * 2 - 1;
-
-    const y =
-      ((event.clientY - rect.top) / rect.height) * 2 - 1;
-
-    pointerX.set(x);
-    pointerY.set(y);
-  };
-
-  // ==========================================
-  // RESET DO PARALLAX
-  // ==========================================
-
-  const resetPointer = () => {
-    pointerX.set(0);
-    pointerY.set(0);
-  };
+  const reduce = useReducedMotion();
+  const fade = (delay: number) =>
+    reduce
+      ? {}
+      : { initial: { opacity: 0, y: 18 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.7, delay, ease } };
 
   return (
-    <section
-      id="inicio"
-      className="hero"
-      onPointerMove={handlePointerMove}
-      onPointerLeave={resetPointer}
-    >
-      {/* ======================================
-          EFEITOS DE FUNDO
-      ======================================= */}
-
-      <div className="hero-noise" />
-
-      <div className="hero-orbit orbit-one" />
-
-      <div className="hero-orbit orbit-two" />
-
-      {/* ======================================
-          GRID PRINCIPAL
-      ======================================= */}
-
-      <div className="hero-grid section-shell">
-
-        {/* ====================================
-            SCANLINE
-        ===================================== */}
-
-        <motion.div
-          className="hero-scanline"
-          animate={{
-            x: ["-120%", "120%"],
-            opacity: [0, 0.45, 0],
-          }}
-          transition={{
-            duration: 5.5,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-
-        {/* ====================================
-            CONTEÚDO
-        ===================================== */}
-
-        <motion.div
-          className="hero-copy"
-          initial={{
-            opacity: 0,
-            x: -45,
-          }}
-          animate={{
-            opacity: 1,
-            x: 0,
-          }}
-          transition={{
-            duration: 0.9,
-            ease: "easeOut",
-          }}
-        >
-          {/* BADGE */}
-
-          <motion.div
-            className="hero-pill"
-            initial={{
-              opacity: 0,
-              y: -12,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-            transition={{
-              delay: 0.15,
-              duration: 0.55,
-            }}
-          >
-            <Sparkles size={14} />
-
-            <span>TECNOLOGIA</span>
-
-            <span>•</span>
-
-            <span>DESIGN</span>
-
-            <span>•</span>
-
-            <span>RESULTADOS</span>
-          </motion.div>
-
-          {/* TÍTULO */}
-
-          <motion.h1
-            initial={{
-              opacity: 0,
-              y: 22,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-            transition={{
-              delay: 0.28,
-              duration: 0.7,
-            }}
-          >
-            CONECTANDO
-            <br />
-
-            <span>IDEIAS</span>
-
-            <br />
-
-            E RESULTADOS
-          </motion.h1>
-
-          {/* DESCRIÇÃO */}
-
-          <motion.p
-            initial={{
-              opacity: 0,
-              y: 18,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-            transition={{
-              delay: 0.42,
-              duration: 0.65,
-            }}
-          >
-            Transformamos ideias em experiências digitais
-            que geram valor, presença e crescimento real
-            para o seu negócio.
+    <section id="inicio" className="hero">
+      <div className="hero__glow" aria-hidden="true" />
+      <div className="hero__grid shell">
+        <div className="hero__copy">
+          <motion.p className="eyebrow" {...fade(0.05)}>
+            <span className="eyebrow__dot" /> Soluções digitais para empresas e empreendedores
           </motion.p>
-
-          {/* ==================================
-              BOTÕES
-          =================================== */}
-
-          <motion.div
-            className="hero-actions"
-            initial={{
-              opacity: 0,
-              y: 18,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-            transition={{
-              delay: 0.55,
-              duration: 0.6,
-            }}
-          >
-            <a
-              className="primary"
-              href="#contato"
-            >
-              Falar com especialista
-
-              <ArrowRight size={16} />
-            </a>
-
-            <a
-              className="play-link"
-              href="#sobre"
-            >
-              <span>
-                <Play
-                  size={15}
-                  fill="currentColor"
-                />
-              </span>
-
-              <div>
-                Ver como
-                <br />
-                trabalhamos
-              </div>
+          <motion.h1 {...fade(0.12)}>
+            Seu negócio está pronto para conquistar o <span className="grad">próximo nível?</span>
+          </motion.h1>
+          <motion.p className="hero__lead" {...fade(0.2)}>
+            Criamos experiências digitais que aproximam empresas de seus clientes, facilitam vendas e transformam
+            ideias em soluções reais.
+          </motion.p>
+          <motion.div className="hero__actions" {...fade(0.28)}>
+            <button className="btn btn--primary btn--lg" onClick={() => goToProposal()}>
+              Quero transformar meu negócio <ArrowRight size={18} />
+            </button>
+            <a className="btn btn--ghost btn--lg" href="#projetos">
+              Conhecer nossos projetos
             </a>
           </motion.div>
-
-          {/* ==================================
-              ESTATÍSTICAS
-          =================================== */}
-
-          <motion.div
-            className="hero-stats"
-            initial={{
-              opacity: 0,
-              y: 18,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-            transition={{
-              delay: 0.68,
-              duration: 0.6,
-            }}
-          >
-            <div>
-              <strong>+20</strong>
-
-              <small>
-                Projetos entregues
-              </small>
-            </div>
-
-            <div>
-              <strong>100%</strong>
-
-              <small>
-                Foco em resultados
-              </small>
-            </div>
-
-            <div>
-              <strong>24/7</strong>
-
-              <small>
-                Suporte especializado
-              </small>
-            </div>
-          </motion.div>
-        </motion.div>
-
-        {/* ======================================
-            DISPOSITIVOS
-        ======================================= */}
+          <motion.ul className="hero__assurances" {...fade(0.36)}>
+            <li>Atendimento direto com quem desenvolve</li>
+            <li>Projetos reais no ar</li>
+            <li>Proposta sem compromisso</li>
+          </motion.ul>
+        </div>
 
         <motion.div
-          className="device-stage"
-          initial={{
-            opacity: 0,
-            scale: 0.94,
-            y: 25,
-          }}
-          animate={{
-            opacity: 1,
-            scale: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 1.05,
-            delay: 0.12,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-          style={{
-            x: deviceX,
-            y: deviceY,
-          }}
+          className="hero__visual"
+          aria-hidden="true"
+          initial={reduce ? false : { opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.9, delay: 0.2, ease }}
         >
-          {/* GLOW */}
+          <div className="device device--laptop">
+            <div className="device__bar">
+              <i /> <i /> <i />
+              <span>amandacosmeticos.com.br</span>
+            </div>
+            <img src="/img/amanda-desktop.webp" alt="" width="1280" height="800" fetchPriority="high" />
+          </div>
+          <div className="device device--phone">
+            <img src="/img/amanda-mobile.webp" alt="" width="390" height="844" />
+          </div>
 
-          <motion.div
-            className="reference-device-glow"
-            animate={{
-              opacity: [0.45, 0.8, 0.45],
-              scale: [0.98, 1.03, 0.98],
-            }}
-            transition={{
-              duration: 5,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-
-          {/* IMAGEM */}
-
-          <motion.img
-            className="reference-device-image"
-            src="/hero-reference-devices.jpg"
-            alt="Ecossistema digital Raster Digital em notebook, tablet e smartphone"
-            animate={{
-              y: [-5, 5, -5],
-              rotateZ: [-0.25, 0.25, -0.25],
-            }}
-            transition={{
-              duration: 5.5,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
+          {/* Exemplos ilustrativos do que as soluções fazem pelo negócio */}
+          <div className="float-card float-card--a">
+            <span className="float-card__icon"><ShoppingBag size={16} /></span>
+            <div><b>Pedido recebido</b><small>Pronto para separar</small></div>
+          </div>
+          <div className="float-card float-card--b">
+            <span className="float-card__icon float-card__icon--green"><MessageCircle size={16} /></span>
+            <div><b>Cliente no WhatsApp</b><small>Com o pedido completo</small></div>
+          </div>
+          <div className="float-card float-card--c">
+            <span className="float-card__icon"><CalendarCheck size={16} /></span>
+            <div><b>Horário confirmado</b><small>Agenda organizada</small></div>
+          </div>
         </motion.div>
-
       </div>
     </section>
   );

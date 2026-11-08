@@ -1,24 +1,13 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import Lenis from 'lenis'
-import './index.css'
-import App from './App.tsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./styles/site.css";
+import App from "./App.tsx";
+import { captureOrigin } from "./lib/tracking";
 
-const lenis = new Lenis({
-  duration: 1.05,
-  smoothWheel: true,
-  syncTouch: false,
-})
+captureOrigin();
 
-function raf(time: number) {
-  lenis.raf(time)
-  requestAnimationFrame(raf)
-}
-
-requestAnimationFrame(raf)
-
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <App />
-  </StrictMode>,
-)
+  </StrictMode>
+);
