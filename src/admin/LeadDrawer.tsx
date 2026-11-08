@@ -3,7 +3,7 @@ import { Loader2, Mail, MessageCircle, Pencil, Trash2, X } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import {
   api, ApiError, OPTIONS, SEGMENT_LABEL, SERVICE_LABEL, STATUS_LABEL,
-  formatDate, formatPhone, whatsappTo, type Lead, type LeadEvent, type Status,
+  formatDate, formatPhone, whatsappTo, estimateText, INVESTMENT_LABEL, type Lead, type LeadEvent, type Status,
 } from "./api";
 
 type Props = { id: number; canDelete: boolean; onClose: () => void; onChanged: () => void; onUnauthorized: () => void };
@@ -132,7 +132,11 @@ export default function LeadDrawer({ id, canDelete, onClose, onChanged, onUnauth
               <div><dt>WhatsApp</dt><dd>{formatPhone(lead.whatsapp)}</dd></div>
               <div><dt>E-mail</dt><dd>{lead.email}</dd></div>
               <div><dt>Segmento</dt><dd>{SEGMENT_LABEL[lead.segment]}</dd></div>
-              <div><dt>Serviço desejado</dt><dd>{SERVICE_LABEL[lead.service]}</dd></div>
+              <div><dt>Serviço desejado</dt><dd>{SERVICE_LABEL[lead.service] ?? lead.service}</dd></div>
+              {lead.plan_slug && <div><dt>Plano escolhido</dt><dd>{lead.plan_slug}</dd></div>}
+              <div><dt>Investimento informado</dt><dd>{lead.investment ? INVESTMENT_LABEL[lead.investment] : "Não informado"}</dd></div>
+              <div><dt>Manutenção mensal</dt><dd>{lead.wants_maintenance == null ? "Não informou" : lead.wants_maintenance ? "Tem interesse" : "Não precisa"}</dd></div>
+              {estimateText(lead) && <div className="info__full"><dt>Estimativa do simulador</dt><dd><b>{estimateText(lead)}</b>{lead.estimate_summary && <span className="pre est-sum">{lead.estimate_summary}</span>}</dd></div>}
               <div><dt>Cadastro</dt><dd>{formatDate(lead.created_at)}</dd></div>
               <div><dt>Origem</dt><dd>{lead.source}{lead.utm_campaign ? ` · campanha ${lead.utm_campaign}` : ""}{lead.utm_medium ? ` · ${lead.utm_medium}` : ""}</dd></div>
               {lead.referrer && <div className="info__full"><dt>Veio de</dt><dd className="break">{lead.referrer}</dd></div>}

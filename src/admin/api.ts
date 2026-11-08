@@ -1,6 +1,6 @@
 import options from "../shared/leadOptions.json";
 
-export type Status = "novo" | "primeiro_contato" | "negociacao" | "proposta_enviada" | "convertido" | "perdido";
+export type Status = "novo" | "negociacao" | "proposta_enviada" | "aguardando_retorno" | "convertido" | "perdido";
 
 export type LeadSummary = {
   id: number;
@@ -13,12 +13,18 @@ export type LeadSummary = {
   status: Status;
   source: string;
   submissions: number;
+  investment: string | null;
+  plan_slug: string | null;
+  estimate_min_cents: number | null;
+  estimate_max_cents: number | null;
   created_at: string;
   updated_at: string;
 };
 
 export type Lead = LeadSummary & {
   message: string | null;
+  wants_maintenance: 0 | 1 | null;
+  estimate_summary: string | null;
   consent_at: string;
   privacy_version: string;
   utm_source: string | null;
@@ -88,4 +94,29 @@ export function whatsappTo(lead: Pick<Lead, "whatsapp" | "name">) {
   const first = lead.name.split(" ")[0];
   const text = `Olá, ${first}! Aqui é da Raster Digital. Recebemos sua solicitação pelo site e gostaria de entender melhor o seu negócio.`;
   return `https://wa.me/55${lead.whatsapp}?text=${encodeURIComponent(text)}`;
+}
+
+export const INVESTMENT_LABEL = map(options.investments);
+
+const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 2 });
+export const money = (cents: number) => brl.format(cents / 100);
+
+export function estimateText(l: Pick<LeadSummary, "estimate_min_cents" | "estimate_max_cents">) {
+  if (l.estimate_min_cents == null) return null;
+  return l.estimate_max_cents ? `${money(l.estimate_min_cents)} a ${money(l.estimate_max_cents)}` : `A partir de ${money(l.estimate_min_cents)}`;
+}
+
+/** Reduz e comprime a imagem no navegador (WEBP) antes de enviar ao servidor. */
+export async function uploadImage(file: File, maxSide = 1600): Promise<string> {
+  if (!/^image\/(png|jpeg|webp)$/.test(file.type)) throw new ApiError("Use uma imagem PNG, JPG ou WEBP.", 422);
+  const bitmap = await createImageBitmap(file);
+  const scale = Math.min(1, maxSide / Math.max(bitmap.width, bitmap.height));
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.round(bitmap.width * scale);
+  canvas.height = Math.round(bitmap.height * scale);
+  canvas.getContext("2d")!.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+  let dataUrl = canvas.toDataURL("image/webp", 0.85);
+  if (!dataUrl.startsWith("data:image/webp")) dataUrl = canvas.toDataURL("image/png"); // navegadores sem WEBP
+  const r = await api<{ url: string }>("/images", { method: "POST", body: JSON.stringify({ dataUrl }) });
+  return r.url;
 }

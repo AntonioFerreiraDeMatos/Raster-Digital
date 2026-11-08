@@ -1,20 +1,23 @@
 import { useEffect, useState } from "react";
 import { ArrowRight, Menu, X } from "lucide-react";
-import { goToProposal } from "../config/site";
+import { FaInstagram } from "react-icons/fa";
+import { goToProposal, useContent } from "../lib/content";
 
 const links = [
   ["Soluções", "solucoes"],
   ["Projetos", "projetos"],
-  ["Como trabalhamos", "processo"],
-  ["Quem faz", "fundador"],
+  ["Preços", "precos"],
+  ["Simulador", "simulador"],
+  ["Contato", "contato"],
 ] as const;
 
 export default function Navbar() {
+  const { settings } = useContent();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => setScrolled(window.scrollY > 16);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -29,46 +32,44 @@ export default function Navbar() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
+  const close = () => setOpen(false);
+
   return (
-    <header className={`nav ${scrolled ? "nav--scrolled" : ""} ${open ? "nav--open" : ""}`}>
+    <header className={`nav ${scrolled || open ? "nav--solid" : ""} ${open ? "nav--open" : ""}`}>
       <div className="nav__inner shell">
-        <a className="nav__brand" href="#inicio" aria-label="Raster Digital — início" onClick={() => setOpen(false)}>
-          <picture>
-            <source srcSet="/img/logo.webp" type="image/webp" />
-            <img src="/img/logo.png" alt="Raster Digital" width="160" height="51" />
-          </picture>
+        <a className="nav__brand" href="#inicio" aria-label="Raster Digital — início" onClick={close}>
+          <img src="/img/logo.webp" alt="Raster Digital" width="138" height="44" />
         </a>
 
         <nav id="menu" className="nav__menu" aria-label="Principal">
           {links.map(([label, id]) => (
-            <a key={id} href={`#${id}`} onClick={() => setOpen(false)}>
-              {label}
-            </a>
+            <a key={id} href={`#${id}`} onClick={close}>{label}</a>
           ))}
-          <button
-            className="btn btn--primary nav__cta-mobile"
-            onClick={() => {
-              setOpen(false);
-              goToProposal();
-            }}
-          >
-            Solicitar proposta <ArrowRight size={16} />
-          </button>
+          <div className="nav__mobile-extra">
+            <button className="btn btn--primary" onClick={() => { close(); goToProposal(); }}>
+              Solicitar orçamento <ArrowRight size={16} />
+            </button>
+            {settings.contact.instagram && (
+              <a className="nav__ig-text" href={settings.contact.instagram} target="_blank" rel="noopener noreferrer">
+                <FaInstagram size={18} /> @raster.digital
+              </a>
+            )}
+          </div>
         </nav>
 
-        <button className="btn btn--primary btn--sm nav__cta" onClick={() => goToProposal()}>
-          Solicitar proposta <ArrowRight size={15} />
-        </button>
-
-        <button
-          className="nav__toggle"
-          aria-expanded={open}
-          aria-controls="menu"
-          aria-label={open ? "Fechar menu" : "Abrir menu"}
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="nav__actions">
+          {settings.contact.instagram && (
+            <a className="icon-btn" href={settings.contact.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram da Raster Digital">
+              <FaInstagram size={18} />
+            </a>
+          )}
+          <button className="btn btn--primary btn--sm nav__cta" onClick={() => goToProposal()}>
+            Solicitar orçamento
+          </button>
+          <button className="icon-btn nav__toggle" aria-expanded={open} aria-controls="menu" aria-label={open ? "Fechar menu" : "Abrir menu"} onClick={() => setOpen((v) => !v)}>
+            {open ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
       </div>
     </header>
   );

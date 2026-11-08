@@ -1,88 +1,55 @@
-import { ArrowUpRight, Check, PlayCircle } from "lucide-react";
-import { projects, type Project } from "../data/projects";
+import { ArrowRight, ArrowUpRight, PlayCircle } from "lucide-react";
+import { goToProposal, useContent, type Project } from "../lib/content";
 import Reveal from "./Reveal";
+import SectionHead from "./SectionHead";
 
-function Testimonial({ project }: { project: Project }) {
-  if (project.testimonialVideo) {
-    return (
-      <div className="video">
-        <iframe
-          src={project.testimonialVideo}
-          title={`Depoimento — ${project.client}`}
-          loading="lazy"
-          allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        />
-      </div>
-    );
-  }
-  if (!project.testimonialPending) return null;
-  return (
-    <div className="video video--pending">
-      <PlayCircle size={40} strokeWidth={1.4} />
-      <b>Depoimento em vídeo em breve</b>
-      <small>{project.client} vai contar, com as próprias palavras, como foi construir a loja com a Raster.</small>
-    </div>
-  );
+function hostOf(url: string | null) {
+  return url?.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "") ?? "";
 }
 
-function Featured({ project }: { project: Project }) {
+function ProjectCard({ p, delay }: { p: Project; delay: number }) {
   return (
-    <Reveal as="article" className="case">
-      <div className="case__media">
-        {project.desktopImage && (
+    <Reveal as="article" className={`proj proj--${p.theme}`} delay={delay}>
+      <div className="proj__media">
+        {p.cover_url && (
           <div className="device device--laptop">
-            <div className="device__bar">
-              <i /> <i /> <i />
-              <span>{project.url?.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "")}</span>
-            </div>
-            <img src={project.desktopImage} alt={`Página inicial da ${project.client} no computador`} loading="lazy" width="1280" height="800" />
+            <div className="device__bar"><i /><i /><i /><span>{hostOf(p.url)}</span></div>
+            <img src={p.cover_url} alt={`Página inicial do site da ${p.client}`} loading="lazy" width="1280" height="800" />
           </div>
         )}
-        {project.mobileImage && (
+        {p.mobile_url && (
           <div className="device device--phone">
-            <img src={project.mobileImage} alt={`${project.client} no celular`} loading="lazy" width="390" height="844" />
+            <img src={p.mobile_url} alt={`Site da ${p.client} no celular`} loading="lazy" width="390" height="844" />
+          </div>
+        )}
+        {!p.mobile_url && p.gallery.length > 0 && (
+          <div className="proj__gallery">
+            {p.gallery.slice(0, 3).map((g) => (
+              <img key={g} src={g} alt={`Imagem do site da ${p.client}`} loading="lazy" width="400" height="260" />
+            ))}
           </div>
         )}
       </div>
 
-      <div className="case__info">
-        <p className="case__tag">{project.segment}</p>
-        <h3>
-          {project.client} <span>— {project.title}</span>
-        </h3>
-        <p className="case__summary">{project.summary}</p>
-        <ul className="case__features">
-          {project.features.map((f) => (
-            <li key={f}><Check size={15} /> {f}</li>
-          ))}
-        </ul>
-        {project.url && (
-          <a className="btn btn--primary" href={project.url} target="_blank" rel="noopener noreferrer">
-            Conhecer projeto online <ArrowUpRight size={17} />
-          </a>
-        )}
-        <Testimonial project={project} />
-      </div>
-    </Reveal>
-  );
-}
-
-function Compact({ project, delay }: { project: Project; delay: number }) {
-  return (
-    <Reveal as="article" className="mini-case" delay={delay}>
-      {project.desktopImage && (
-        <div className="mini-case__img">
-          <img src={project.desktopImage} alt={`Site da ${project.client}`} loading="lazy" width="1000" height="625" />
+      <div className="proj__body">
+        <div className="proj__top">
+          {p.logo_url && <img className="proj__logo" src={p.logo_url} alt={`Logotipo ${p.client}`} loading="lazy" height="56" />}
+          <div>
+            <p className="proj__seg">{p.segment}</p>
+            <h3>{p.client}</h3>
+            <p className="proj__title">{p.title}</p>
+          </div>
         </div>
-      )}
-      <div className="mini-case__body">
-        <p className="case__tag">{project.segment}</p>
-        <h3>{project.client} <span>— {project.title}</span></h3>
-        <p>{project.summary}</p>
-        {project.url && (
-          <a className="link" href={project.url} target="_blank" rel="noopener noreferrer">
-            Ver site <ArrowUpRight size={15} />
+        <p className="proj__summary">{p.summary}</p>
+        <ul className="tags">
+          {p.features.map((f) => <li key={f}>{f}</li>)}
+        </ul>
+        {p.video_url ? (
+          <div className="video"><iframe src={p.video_url} title={`Depoimento — ${p.client}`} loading="lazy" allow="encrypted-media; picture-in-picture" allowFullScreen /></div>
+        ) : null}
+        {p.url && (
+          <a className="btn btn--outline btn--sm" href={p.url} target="_blank" rel="noopener noreferrer">
+            Visitar projeto <ArrowUpRight size={15} />
           </a>
         )}
       </div>
@@ -91,22 +58,24 @@ function Compact({ project, delay }: { project: Project; delay: number }) {
 }
 
 export default function Projects() {
-  const featured = projects.filter((p) => p.featured);
-  const others = projects.filter((p) => !p.featured);
+  const { projects } = useContent();
+  if (!projects.length) return null;
+  const pendingVideo = projects.some((p) => p.slug === "amanda-cosmeticos" && !p.video_url);
   return (
     <section id="projetos" className="section section--alt">
       <div className="shell">
-        <Reveal className="section__head">
-          <p className="eyebrow"><span className="eyebrow__dot" /> Projetos de sucesso</p>
-          <h2>Projetos reais. <span className="grad">Negócios que confiaram na Raster.</span></h2>
-          <p className="section__sub">Nada de exemplos fictícios: estes são projetos desenvolvidos pela Raster e que estão no ar.</p>
-        </Reveal>
-        {featured.map((p) => <Featured key={p.slug} project={p} />)}
-        {others.length > 0 && (
-          <div className="mini-cases">
-            {others.map((p, i) => <Compact key={p.slug} project={p} delay={i * 0.08} />)}
-          </div>
+        <SectionHead eyebrow="Projetos de sucesso" title={<>Projetos reais, <span className="grad">no ar</span></>} />
+        <div className="projects">
+          {projects.map((p, i) => <ProjectCard key={p.id} p={p} delay={i * 0.08} />)}
+        </div>
+        {pendingVideo && (
+          <p className="note-line"><PlayCircle size={15} /> Depoimento em vídeo da Amanda Cosméticos em breve.</p>
         )}
+        <Reveal className="center-cta">
+          <button className="btn btn--primary" onClick={() => goToProposal()}>
+            Quero um projeto assim <ArrowRight size={17} />
+          </button>
+        </Reveal>
       </div>
     </section>
   );

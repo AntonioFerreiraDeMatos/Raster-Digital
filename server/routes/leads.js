@@ -2,7 +2,7 @@ import { Router } from "express";
 import rateLimit from "express-rate-limit";
 import { pool } from "../config/db.js";
 import { env } from "../config/env.js";
-import { validateLead, clip } from "../lib/validation.js";
+import { validateLead, validateEstimate, clip } from "../lib/validation.js";
 
 const router = Router();
 
@@ -60,12 +60,16 @@ router.post("/", limiter, async (req, res, next) => {
       return res.status(200).json({ ok: true, duplicate: true });
     }
 
+    const est = validateEstimate(body.estimate);
     const [r] = await pool.query(
-      `INSERT INTO leads (name, company, whatsapp, email, segment, service, message, consent_at, privacy_version,
+      `INSERT INTO leads (name, company, whatsapp, email, segment, service, message, investment, wants_maintenance,
+         plan_slug, estimate_min_cents, estimate_max_cents, estimate_summary, consent_at, privacy_version,
          source, utm_source, utm_medium, utm_campaign, landing_path, referrer, ip, user_agent)
-       VALUES (?, ?, ?, ?, ?, ?, ?, UTC_TIMESTAMP(), ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, UTC_TIMESTAMP(), ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         data.name, data.company, data.whatsapp, data.email, data.segment, data.service, data.message || null,
+        data.investment, data.wants_maintenance, data.plan_slug,
+        est?.min_cents ?? null, est?.max_cents ?? null, est?.summary ?? null,
         env.privacyVersion, origin.source, origin.utm_source, origin.utm_medium, origin.utm_campaign,
         origin.landing_path, origin.referrer, (req.ip || "").slice(0, 45) || null,
         clip(req.get("user-agent"), 255) || null,

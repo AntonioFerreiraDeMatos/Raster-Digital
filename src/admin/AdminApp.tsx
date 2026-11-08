@@ -1,7 +1,10 @@
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 import { Loader2, LogOut, RefreshCw, Search } from "lucide-react";
-import { api, ApiError, OPTIONS, SEGMENT_LABEL, SERVICE_LABEL, STATUS_LABEL, formatDate, formatPhone, type LeadSummary, type Status, type User } from "./api";
+import { api, ApiError, OPTIONS, SEGMENT_LABEL, SERVICE_LABEL, STATUS_LABEL, formatDate, formatPhone, estimateText, INVESTMENT_LABEL, type LeadSummary, type Status, type User } from "./api";
 import LeadDrawer from "./LeadDrawer";
+import { BrandsView, ProjectsView, ServicesView } from "./views/Catalog";
+import ContentView from "./views/ContentView";
+import PasswordView from "./views/PasswordView";
 
 type Stats = { total: number; last7days: number; byStatus: Partial<Record<Status, number>> };
 type List = { items: LeadSummary[]; total: number; page: number; pageSize: number };
@@ -65,12 +68,23 @@ function Login({ onLogin }: { onLogin: (u: User) => void }) {
 }
 
 const KPIS: { key: "total" | Status; label: string }[] = [
-  { key: "total", label: "Total de interessados" },
-  { key: "novo", label: "Novos leads" },
+  { key: "total", label: "Total de oportunidades" },
+  { key: "novo", label: "Novos contatos" },
   { key: "negociacao", label: "Em negociação" },
   { key: "proposta_enviada", label: "Propostas enviadas" },
-  { key: "convertido", label: "Clientes convertidos" },
+  { key: "aguardando_retorno", label: "Aguardando retorno" },
+  { key: "convertido", label: "Contratos fechados" },
 ];
+
+const TABS = [
+  ["leads", "Oportunidades"],
+  ["services", "Serviços e preços"],
+  ["projects", "Projetos"],
+  ["brands", "Marcas"],
+  ["content", "Conteúdo"],
+  ["password", "Minha senha"],
+] as const;
+type Tab = (typeof TABS)[number][0];
 
 function Dashboard({ user, onLogout }: { user: User; onLogout: () => void }) {
   const [stats, setStats] = useState<Stats | null>(null);
@@ -82,6 +96,15 @@ function Dashboard({ user, onLogout }: { user: User; onLogout: () => void }) {
   const [page, setPage] = useState(1);
   const [error, setError] = useState("");
   const [openId, setOpenId] = useState<number | null>(null);
+  const [tab, setTab] = useState<Tab>(() => {
+    const h = location.hash.slice(1);
+    return (TABS.some(([k]) => k === h) ? h : "leads") as Tab;
+  });
+  const changeTab = (t: Tab) => {
+    setTab(t);
+    history.replaceState(null, "", `#${t}`);
+  };
+  const isAdmin = user.role === "admin";
   const [reloadKey, setReloadKey] = useState(0);
   const [loadedKey, setLoadedKey] = useState("");
 
@@ -125,12 +148,26 @@ function Dashboard({ user, onLogout }: { user: User; onLogout: () => void }) {
     <div className="adm">
       <header className="adm-top">
         <img src="/img/logo.png" alt="Raster Digital" width="130" height="41" />
-        <span className="adm-top__title">Painel de leads</span>
-        <span className="adm-top__user">{user.name} · {user.role === "admin" ? "Administrador" : "Comercial"}</span>
+        <span className="adm-top__title">Painel administrativo</span>
+        <a className="adm-top__site" href="/" target="_blank" rel="noopener">Ver site</a>
+        <span className="adm-top__user">{user.name} · {isAdmin ? "Administrador" : "Comercial"}</span>
         <button className="btn btn--ghost btn--sm" onClick={logout}><LogOut size={15} /> Sair</button>
       </header>
+      <nav className="adm-tabs" aria-label="Seções do painel">
+        {TABS.map(([k, label]) => (
+          <button key={k} className={`adm-tab ${tab === k ? "adm-tab--on" : ""}`} aria-current={tab === k ? "page" : undefined} onClick={() => changeTab(k)}>
+            {label}
+          </button>
+        ))}
+      </nav>
 
       <main className="adm-main">
+        {tab === "services" && <ServicesView canEdit={isAdmin} onUnauthorized={onLogout} />}
+        {tab === "projects" && <ProjectsView canEdit={isAdmin} onUnauthorized={onLogout} />}
+        {tab === "brands" && <BrandsView canEdit={isAdmin} onUnauthorized={onLogout} />}
+        {tab === "content" && <ContentView canEdit={isAdmin} onUnauthorized={onLogout} />}
+        {tab === "password" && <PasswordView onUnauthorized={onLogout} />}
+        {tab === "leads" && (<>
         <section className="kpis" aria-label="Indicadores">
           {KPIS.map((k) => (
             <button
@@ -176,7 +213,7 @@ function Dashboard({ user, onLogout }: { user: User; onLogout: () => void }) {
             <span role="columnheader">Interessado</span>
             <span role="columnheader">Segmento / serviço</span>
             <span role="columnheader">WhatsApp</span>
-            <span role="columnheader">Origem</span>
+            <span role="columnheader">Investimento / origem</span>
             <span role="columnheader">Cadastro</span>
             <span role="columnheader">Situação</span>
           </div>
@@ -188,7 +225,7 @@ function Dashboard({ user, onLogout }: { user: User; onLogout: () => void }) {
               </span>
               <span role="cell"><b className="m-label">Segmento: </b>{SEGMENT_LABEL[l.segment]}<small>{SERVICE_LABEL[l.service]}</small></span>
               <span role="cell"><b className="m-label">WhatsApp: </b>{formatPhone(l.whatsapp)}</span>
-              <span role="cell"><b className="m-label">Origem: </b>{l.source}{l.submissions > 1 && <small>{l.submissions} envios</small>}</span>
+              <span role="cell"><b className="m-label">Investimento: </b>{estimateText(l) ?? (l.investment ? INVESTMENT_LABEL[l.investment] : "—")}<small>{l.source}{l.submissions > 1 ? ` · ${l.submissions} envios` : ""}</small></span>
               <span role="cell"><b className="m-label">Cadastro: </b>{formatDate(l.created_at)}</span>
               <span role="cell"><span className={`status status--${l.status}`}>{STATUS_LABEL[l.status]}</span></span>
             </button>
@@ -203,6 +240,7 @@ function Dashboard({ user, onLogout }: { user: User; onLogout: () => void }) {
             <button className="btn btn--ghost btn--sm" disabled={page >= pages} onClick={() => setPage((p) => p + 1)}>Próxima</button>
           </nav>
         )}
+        </>)}
       </main>
 
       {openId !== null && (

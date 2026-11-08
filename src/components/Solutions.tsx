@@ -1,59 +1,41 @@
-import { ArrowRight, Check } from "lucide-react";
-import { solutions } from "../data/solutions";
-import { goToProposal } from "../config/site";
+import { ArrowRight } from "lucide-react";
+import { goToProposal, priceLabel, useContent } from "../lib/content";
+import { iconFor } from "../lib/icons";
 import Reveal from "./Reveal";
+import SectionHead from "./SectionHead";
 
 export default function Solutions() {
+  const { settings, services } = useContent();
+  const bySlug = new Map(services.map((s) => [s.slug, s]));
+
   return (
     <section id="solucoes" className="section">
       <div className="shell">
-        <Reveal className="section__head">
-          <p className="eyebrow"><span className="eyebrow__dot" /> Soluções para empresas</p>
-          <h2>Cada negócio tem um desafio. <span className="grad">A gente resolve o seu.</span></h2>
-          <p className="section__sub">
-            Ferramentas que facilitam o atendimento, organizam seus pedidos e ajudam seus clientes a encontrar e
-            contratar seus serviços.
-          </p>
-        </Reveal>
-
+        <SectionHead eyebrow="Soluções" title={<>O que desenvolvemos <span className="grad">para o seu negócio</span></>} />
         <div className="solutions">
-          {solutions.map((s, i) => {
-            const Icon = s.icon;
+          {settings.solutions.map((item, i) => {
+            const Icon = iconFor(item.icon);
+            const svc = item.service ? bySlug.get(item.service) : undefined;
             return (
-              <Reveal as="article" className="solution" key={s.id} delay={(i % 3) * 0.06}>
-                <div className="solution__top">
-                  <span className="icon-tile"><Icon size={22} /></span>
-                  <h3>{s.title}</h3>
+              <Reveal as="article" className="sol" key={item.name} delay={(i % 3) * 0.05}>
+                <span className="icon-tile"><Icon size={20} /></span>
+                <h3>{item.name}</h3>
+                <p>{item.text}</p>
+                <div className="sol__foot">
+                  <span className="sol__price">{svc ? (svc.price_from || svc.price_cents == null ? priceLabel(svc) : `A partir de ${priceLabel(svc)}`) : "Sob orçamento"}</span>
+                  <a className="link" href={svc ? `#plano-${svc.slug}` : "#simulador"}>
+                    Conhecer <ArrowRight size={14} />
+                  </a>
                 </div>
-                <dl className="solution__body">
-                  <div>
-                    <dt>O desafio</dt>
-                    <dd>{s.problem}</dd>
-                  </div>
-                  <div>
-                    <dt>A solução</dt>
-                    <dd>{s.solution}</dd>
-                  </div>
-                  <div className="solution__benefit">
-                    <dt>Na prática</dt>
-                    <dd>{s.benefit}</dd>
-                  </div>
-                </dl>
-                <ul className="chips">
-                  {s.items.map((it) => (
-                    <li key={it}><Check size={13} /> {it}</li>
-                  ))}
-                </ul>
-                <button
-                  className="btn btn--outline solution__cta"
-                  onClick={() => goToProposal({ segment: s.segment, service: s.service })}
-                >
-                  Solicitar orçamento <ArrowRight size={16} />
-                </button>
               </Reveal>
             );
           })}
         </div>
+        <Reveal className="center-cta">
+          <button className="btn btn--primary" onClick={() => goToProposal()}>
+            Quero desenvolver meu projeto <ArrowRight size={17} />
+          </button>
+        </Reveal>
       </div>
     </section>
   );

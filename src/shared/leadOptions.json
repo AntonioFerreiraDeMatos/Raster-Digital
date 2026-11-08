@@ -1,28 +1,42 @@
 {
   "segments": [
     { "value": "pizzaria", "label": "Pizzaria" },
-    { "value": "barbearia", "label": "Barbearia" },
-    { "value": "clinica", "label": "Clínica" },
     { "value": "restaurante", "label": "Restaurante" },
     { "value": "lanchonete", "label": "Lanchonete" },
-    { "value": "loja", "label": "Loja" },
+    { "value": "barbearia", "label": "Barbearia ou salão" },
+    { "value": "clinica", "label": "Clínica" },
+    { "value": "loja", "label": "Loja ou comércio" },
+    { "value": "advocacia", "label": "Advocacia" },
+    { "value": "automotivo", "label": "Oficina ou automotivo" },
     { "value": "servicos", "label": "Prestador de serviços" },
+    { "value": "empresa", "label": "Empresa" },
     { "value": "outro", "label": "Outro" }
   ],
   "services": [
-    { "value": "site", "label": "Criar um site profissional" },
-    { "value": "loja_virtual", "label": "Criar uma loja virtual" },
-    { "value": "sistema", "label": "Criar um sistema administrativo" },
-    { "value": "automacao", "label": "Automatizar processos" },
+    { "value": "site", "label": "Site institucional" },
+    { "value": "landing", "label": "Landing page" },
+    { "value": "loja_virtual", "label": "Loja virtual" },
+    { "value": "cardapio", "label": "Cardápio ou catálogo digital" },
+    { "value": "agendamento", "label": "Agendamento online" },
+    { "value": "sistema", "label": "Sistema de gestão ou administrativo" },
+    { "value": "dashboard", "label": "Dashboard" },
+    { "value": "automacao", "label": "Automação de processos" },
     { "value": "melhorar_site", "label": "Melhorar um site existente" },
     { "value": "orientacao", "label": "Ainda não sei, preciso de orientação" }
   ],
+  "investments": [
+    { "value": "ate_500", "label": "Até R$ 500" },
+    { "value": "500_1000", "label": "R$ 500 a R$ 1.000" },
+    { "value": "1000_2000", "label": "R$ 1.000 a R$ 2.000" },
+    { "value": "acima_2000", "label": "Acima de R$ 2.000" },
+    { "value": "nao_sei", "label": "Ainda não sei" }
+  ],
   "statuses": [
-    { "value": "novo", "label": "Novo lead" },
-    { "value": "primeiro_contato", "label": "Primeiro contato" },
+    { "value": "novo", "label": "Novo contato" },
     { "value": "negociacao", "label": "Em negociação" },
     { "value": "proposta_enviada", "label": "Proposta enviada" },
-    { "value": "convertido", "label": "Convertido" },
-    { "value": "perdido", "label": "Perdido" }
+    { "value": "aguardando_retorno", "label": "Aguardando retorno" },
+    { "value": "convertido", "label": "Contrato fechado" },
+    { "value": "perdido", "label": "Não convertido" }
   ]
 }

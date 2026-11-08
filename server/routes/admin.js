@@ -5,6 +5,7 @@ import { pool } from "../config/db.js";
 import { env } from "../config/env.js";
 import { COOKIE, requireAdmin, requireRole, signSession } from "../middleware/auth.js";
 import { validateLead, STATUSES, SEGMENTS, clip } from "../lib/validation.js";
+import adminContent from "./adminContent.js";
 
 const router = Router();
 
@@ -19,6 +20,7 @@ const cookieOpts = {
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   limit: 10,
+  skipSuccessfulRequests: true, // conta só tentativas com erro
   standardHeaders: "draft-7",
   legacyHeaders: false,
   message: { error: "Muitas tentativas de login. Aguarde 15 minutos." },
@@ -54,6 +56,7 @@ router.post("/logout", (_req, res) => {
 });
 
 router.use(requireAdmin);
+router.use(adminContent);
 
 router.get("/me", (req, res) => res.json({ user: req.admin }));
 
@@ -98,7 +101,8 @@ router.get("/leads", async (req, res, next) => {
     const sqlWhere = where.length ? `WHERE ${where.join(" AND ")}` : "";
     const [[{ n }]] = await pool.query(`SELECT COUNT(*) AS n FROM leads ${sqlWhere}`, params);
     const [items] = await pool.query(
-      `SELECT id, name, company, whatsapp, email, segment, service, status, source, submissions, created_at, updated_at
+      `SELECT id, name, company, whatsapp, email, segment, service, status, source, submissions, investment,
+         plan_slug, estimate_min_cents, estimate_max_cents, created_at, updated_at
        FROM leads ${sqlWhere} ORDER BY created_at DESC, id DESC LIMIT ? OFFSET ?`,
       [...params, pageSize, (page - 1) * pageSize]
     );
@@ -130,7 +134,7 @@ router.get("/leads/:id", async (req, res, next) => {
   }
 });
 
-const EDITABLE = ["name", "company", "whatsapp", "email", "segment", "service", "message"];
+const EDITABLE = ["name", "company", "whatsapp", "email", "segment", "service", "message", "investment", "wants_maintenance"];
 
 router.patch("/leads/:id", async (req, res, next) => {
   let conn;
@@ -150,13 +154,14 @@ router.patch("/leads/:id", async (req, res, next) => {
       return res.status(422).json({ error: "Revise os campos destacados.", fields: errors });
     }
 
-    const changed = EDITABLE.filter((k) => k in data && (data[k] || null) !== (lead[k] || null));
+    const norm = (v) => (v === "" || v === undefined ? null : v);
+    const changed = EDITABLE.filter((k) => k in data && norm(data[k]) !== norm(lead[k]));
     conn = await pool.getConnection();
     await conn.beginTransaction();
     if (changed.length) {
       await conn.query(
         `UPDATE leads SET ${changed.map((k) => `${k} = ?`).join(", ")} WHERE id = ?`,
-        [...changed.map((k) => data[k] || null), id]
+        [...changed.map((k) => norm(data[k])), id]
       );
       await conn.query(
         "INSERT INTO lead_events (lead_id, admin_user_id, type, body) VALUES (?, ?, 'edicao', ?)",

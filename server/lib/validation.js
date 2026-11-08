@@ -3,6 +3,7 @@ import options from "../../src/shared/leadOptions.json" with { type: "json" };
 export const SEGMENTS = new Set(options.segments.map((o) => o.value));
 export const SERVICES = new Set(options.services.map((o) => o.value));
 export const STATUSES = new Set(options.statuses.map((o) => o.value));
+export const INVESTMENTS = new Set(options.investments.map((o) => o.value));
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const clean = (v, max) => (typeof v === "string" ? v.replace(/\s+/g, " ").trim().slice(0, max) : "");
@@ -56,7 +57,28 @@ export function validateLead(body, { partial = false } = {}) {
   if (!partial || has("message")) {
     data.message = cleanText(body.message, 2000);
   }
+  // Campos comerciais opcionais
+  if (has("investment") && body.investment !== "" && body.investment != null) {
+    data.investment = clean(body.investment, 40);
+    if (!INVESTMENTS.has(data.investment)) errors.investment = "Faixa de investimento inválida.";
+  } else if (!partial) data.investment = null;
+  if (has("wants_maintenance")) {
+    data.wants_maintenance = body.wants_maintenance === true ? 1 : body.wants_maintenance === false ? 0 : null;
+  } else if (!partial) data.wants_maintenance = null;
+  if (has("plan_slug")) {
+    data.plan_slug = /^[a-z0-9-]{1,60}$/.test(String(body.plan_slug)) ? body.plan_slug : null;
+  } else if (!partial) data.plan_slug = null;
   return { data, errors };
+}
+
+/** Estimativa vinda do simulador (somente informativa; o valor final é definido na proposta). */
+export function validateEstimate(e) {
+  if (!e || typeof e !== "object") return null;
+  const n = (v) => (Number.isInteger(v) && v >= 0 && v <= 100_000_000 ? v : null);
+  const summary = cleanText(e.summary, 1500);
+  const min = n(e.min_cents);
+  if (!summary || min == null) return null;
+  return { min_cents: min, max_cents: n(e.max_cents), summary };
 }
 
 export const clip = clean;

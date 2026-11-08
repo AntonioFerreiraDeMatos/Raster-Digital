@@ -10,6 +10,8 @@ import { bootstrapAdmin } from "./config/bootstrapAdmin.js";
 import { pool } from "./config/db.js";
 import leadsRouter from "./routes/leads.js";
 import adminRouter from "./routes/admin.js";
+import { apiPublic, media } from "./routes/public.js";
+import { getPublicContent, seedContent } from "./lib/content.js";
 
 assertEnv();
 
@@ -40,7 +42,9 @@ app.use(
   })
 );
 app.use(compression());
-app.use("/api", express.json({ limit: "20kb" }));
+// Painel aceita imagens (base64) de até ~1,5 MB; o restante da API, payloads pequenos.
+app.use("/api/admin/images", express.json({ limit: "2.2mb" }));
+app.use("/api", express.json({ limit: "64kb" }));
 
 app.get("/api/health", async (_req, res) => {
   try {
@@ -51,6 +55,8 @@ app.get("/api/health", async (_req, res) => {
   }
 });
 app.use("/api/leads", leadsRouter);
+app.use("/api", apiPublic);
+app.use("/media", media);
 app.use(
   "/api/admin",
   (_req, res, next) => {
@@ -63,6 +69,20 @@ app.use("/api", (_req, res) => res.status(404).json({ error: "Rota não encontra
 
 // Site estático gerado pelo Vite. Arquivos com hash em /assets recebem cache longo.
 app.use("/assets", express.static(path.join(dist, "assets"), { immutable: true, maxAge: "1y" }));
+
+// Página inicial com o conteúdo do banco embutido (sem esperar outra requisição).
+let indexTemplate = null;
+app.get(["/", "/index.html"], async (_req, res, next) => {
+  try {
+    if (!env.isProd || !indexTemplate) indexTemplate = fs.readFileSync(path.join(dist, "index.html"), "utf8");
+    const data = JSON.stringify(await getPublicContent()).replace(/</g, "\\u003c");
+    res.set("Cache-Control", "no-cache");
+    res.type("html").send(indexTemplate.replace("<!--app-data-->", `<script id="app-data" type="application/json">${data}</script>`));
+  } catch (err) {
+    console.error("[index] conteúdo indisponível:", err.message);
+    next(); // cai no arquivo estático; o site busca /api/content
+  }
+});
 app.use(express.static(dist, { extensions: ["html"], maxAge: "1h" }));
 app.use((req, res) => {
   const notFound = path.join(dist, "404.html");
@@ -81,6 +101,7 @@ app.use((err, _req, res, _next) => {
 
 migrate()
   .then(bootstrapAdmin)
+  .then(seedContent)
   .catch((e) => console.error("[migrate] falhou:", e.message))
   .finally(() => {
     app.listen(env.port, () => console.log(`Raster Digital rodando na porta ${env.port}`));
