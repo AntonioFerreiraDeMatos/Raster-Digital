@@ -9,7 +9,8 @@ export const SITE = {
   // DDI + DDD + número, somente dígitos
   whatsapp: "5585986275389",
   whatsappDisplay: "(85) 98627-5389",
-  email: "contato@rasterdigital.com",
+  // Preencha quando existir uma caixa de e-mail ativa (ex.: contato@rasterdigital.com.br)
+  email: "",
   city: "Fortaleza — CE",
   founder: "Antonio Matos",
   social: {

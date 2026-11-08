@@ -23,7 +23,7 @@ export default function Footer() {
         <div className="footer__col">
           <h4>Contato</h4>
           <a href={waLink()} target="_blank" rel="noopener noreferrer"><FaWhatsapp /> {SITE.whatsappDisplay}</a>
-          <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+          {SITE.email && <a href={`mailto:${SITE.email}`}>{SITE.email}</a>}
           <span>{SITE.city}</span>
         </div>
         <div className="footer__col">
