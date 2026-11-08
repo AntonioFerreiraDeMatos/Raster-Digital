@@ -6,6 +6,7 @@ import fs from "node:fs";
 import { fileURLToPath } from "node:url";
 import { env, assertEnv } from "./config/env.js";
 import { migrate } from "./config/migrate.js";
+import { bootstrapAdmin } from "./config/bootstrapAdmin.js";
 import { pool } from "./config/db.js";
 import leadsRouter from "./routes/leads.js";
 import adminRouter from "./routes/admin.js";
@@ -79,6 +80,7 @@ app.use((err, _req, res, _next) => {
 });
 
 migrate()
+  .then(bootstrapAdmin)
   .catch((e) => console.error("[migrate] falhou:", e.message))
   .finally(() => {
     app.listen(env.port, () => console.log(`Raster Digital rodando na porta ${env.port}`));

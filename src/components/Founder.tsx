@@ -4,6 +4,7 @@ import { SITE } from "../config/site";
 import Reveal from "./Reveal";
 
 const highlights = [
+  "Estudante de Análise e Desenvolvimento de Sistemas na Universidade de Fortaleza (Unifor)",
   "Desenvolvimento de soluções digitais",
   "Construção de sistemas e aplicações web",
   "Desenvolvimento Full Stack — do visual ao funcionamento",
@@ -39,7 +40,8 @@ export default function Founder() {
             Por trás de cada projeto existe uma pessoa <span className="grad">comprometida com o seu negócio.</span>
           </h2>
           <p>
-            Sou {SITE.founder}, fundador da Raster Digital. Cuido pessoalmente do planejamento, do desenvolvimento e do
+            Sou {SITE.founder}, fundador da Raster Digital e estudante de Análise e Desenvolvimento de Sistemas na
+            Universidade de Fortaleza (Unifor). Cuido pessoalmente do planejamento, do desenvolvimento e do
             acompanhamento de cada projeto. Isso significa que você conversa diretamente com quem constrói a sua
             solução, sem intermediários e sem respostas genéricas.
           </p>
