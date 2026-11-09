@@ -103,7 +103,7 @@ export const settings = {
   solutions: [
     { name: "Sites institucionais", text: "Credibilidade para sua empresa.", service: "site-institucional", icon: "globe" },
     { name: "Landing pages", text: "Uma página que gera contatos.", service: "landing-page", icon: "target" },
-    { name: "Lojas virtuais", text: "Venda pela internet.", service: "loja-virtual", icon: "bag" },
+    { name: "Lojas virtuais", text: "Sua loja vendendo 24 horas por dia.", service: "loja-virtual", icon: "bag" },
     { name: "Cardápios digitais", text: "Pedidos direto no WhatsApp.", service: "cardapio-digital", icon: "menu" },
     { name: "Sistemas administrativos", text: "Processos organizados.", service: "administrativo", icon: "layout" },
     { name: "Dashboards", text: "Seus números em tempo real.", service: "dashboard", icon: "chart" },
@@ -145,7 +145,7 @@ export const settings = {
     complexity: [
       { id: "simples", label: "Simples", factor: 1 },
       { id: "intermediario", label: "Intermediário", factor: 1.3 },
-      { id: "avancado", label: "Avançado", factor: null },
+      { id: "avancado", label: "Avançado", factor: null, min_cents: 40000 },
     ],
     addons: [
       { id: "paginas", label: "Mais páginas ou seções", price_cents: 12000 },

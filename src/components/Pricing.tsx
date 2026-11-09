@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Check, ChevronDown, Server, Wrench, X } from "lucide-react";
+import { Check, ChevronDown, Clock, Server, Wrench, X } from "lucide-react";
 import { CATEGORY_LABEL, goToProposal, leadServiceFor, money, priceLabel, useContent, type Category, type Service } from "../lib/content";
 import Reveal from "./Reveal";
 import SectionHead from "./SectionHead";
@@ -12,6 +12,7 @@ function PlanCard({ s }: { s: Service }) {
     <article id={`plano-${s.slug}`} className={`plan ${s.highlight ? "plan--hl" : ""}`}>
       {s.highlight && <span className="plan__badge">Mais procurado</span>}
       <h3>{s.name}</h3>
+      {s.slug.startsWith("loja") && <p className="plan__247"><Clock size={14} /> Sua loja vendendo 24 horas por dia</p>}
       <p className="plan__desc">{s.description}</p>
       <p className="plan__price">{priceLabel(s)}</p>
       <p className="plan__renew">

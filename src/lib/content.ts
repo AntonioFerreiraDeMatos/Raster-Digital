@@ -43,7 +43,7 @@ export type Settings = {
   founder: { name: string; role: string; text: string; highlights: string[] };
   segments: { name: string; icon: string; items: string[] }[];
   simulator: {
-    complexity: { id: string; label: string; factor: number | null }[];
+    complexity: { id: string; label: string; factor: number | null; min_cents?: number | null }[];
     addons: { id: string; label: string; price_cents: number | null }[];
   };
 };

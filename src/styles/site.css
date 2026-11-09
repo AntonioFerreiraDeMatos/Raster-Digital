@@ -100,7 +100,7 @@ h3 { font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1rem); font-weight: 650; letter-
 
 /* ---------- Navegação ---------- */
 .nav { position: fixed; inset: 0 0 auto; z-index: 50; border-bottom: 1px solid transparent; transition: background 0.3s, border-color 0.3s; }
-.nav--solid { background: rgba(3, 8, 20, 0.85); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom-color: var(--line); }
+.nav--solid { background: rgba(3, 8, 20, 0.97); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom-color: var(--line); }
 .nav__inner { display: flex; align-items: center; gap: 20px; height: 68px; }
 .nav__brand img { width: 124px; height: auto; }
 .nav__menu { display: flex; gap: 2px; margin-left: auto; }
@@ -160,8 +160,8 @@ h3 { font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1rem); font-weight: 650; letter-
 .marquee { display: flex; overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
 .marquee__track { display: flex; flex: none; align-items: center; gap: clamp(28px, 5vw, 56px); padding-right: clamp(28px, 5vw, 56px); animation: marquee 32s linear infinite; }
 .marquee:hover .marquee__track { animation-play-state: paused; }
-.marquee__item { flex: none; display: grid; place-items: center; height: clamp(76px, 10vw, 96px); padding: 10px 18px; border-radius: 14px; background: #fff; box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.8); }
-.marquee__item img { height: 100%; width: auto; max-width: 200px; object-fit: contain; }
+.marquee__item { flex: none; display: flex; align-items: center; justify-content: center; box-sizing: border-box; height: clamp(76px, 10vw, 96px); padding: 10px 18px; overflow: hidden; border-radius: 14px; background: #fff; box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.8); }
+.marquee__item img { display: block; height: auto; width: auto; max-height: 100%; max-width: 200px; object-fit: contain; }
 @keyframes marquee { to { transform: translateX(-100%); } }
 .marquee--static { justify-content: center; mask-image: none; -webkit-mask-image: none; }
 .marquee--static .marquee__track { animation: none; flex-wrap: wrap; justify-content: center; padding: 0 var(--gutter); flex: 1; }
@@ -403,3 +403,5 @@ h3 { font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1rem); font-weight: 650; letter-
   .nav__actions .icon-btn:not(.nav__toggle) { display: none; }
   .plan, .extra { padding: 16px; }
 }
+
+.plan__247 { display: inline-flex; align-items: center; gap: 6px; align-self: flex-start; font-size: 0.78rem; font-weight: 700; color: #4ade80; background: rgba(74, 222, 128, 0.1); border: 1px solid rgba(74, 222, 128, 0.35); padding: 4px 10px; border-radius: 999px; margin: 2px 0 6px; }

@@ -47,6 +47,11 @@ export function estimate(input: EstimateInput, sim: Settings["simulator"], maint
     else total += a.price_cents;
   }
 
+  // Piso da complexidade (ex.: avançado a partir de R$ 400)
+  if (cx.min_cents && total < cx.min_cents) {
+    lines.push({ label: `Mínimo para complexidade ${cx.label.toLowerCase()}`, cents: cx.min_cents - total });
+    total = cx.min_cents;
+  }
   const needsAnalysis = reasons.length > 0;
   // O mínimo é exatamente a soma dos preços cadastrados (nunca acima do preço anunciado)
   return {

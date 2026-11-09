@@ -21,7 +21,7 @@ const LABELS: Record<string, string> = {
   whatsapp: "WhatsApp (só números, com 55)", whatsappDisplay: "WhatsApp (como aparece no site)", instagram: "Instagram", linkedin: "LinkedIn",
   github: "GitHub", city: "Cidade", name: "Nome", text: "Texto", service: "Serviço ligado (identificador)", icon: "Ícone",
   price_cents: "Valor", items: "Itens", note: "Observação", headline: "Título", included: "Incluído", notIncluded: "Não incluído",
-  role: "Cargo", highlights: "Destaques", complexity: "Complexidade", addons: "Adicionais", id: "Código", label: "Nome exibido", factor: "Fator (ex.: 1.3)",
+  role: "Cargo", highlights: "Destaques", complexity: "Complexidade", addons: "Adicionais", id: "Código", label: "Nome exibido", factor: "Fator (ex.: 1.3)", min_cents: "Valor mínimo",
 };
 const label = (k: string) => LABELS[k] ?? k;
 
