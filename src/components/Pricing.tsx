@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Check, ChevronDown, Clock, Server, Wrench, X } from "lucide-react";
+import { Check, ChevronDown, Clock, Server, Wrench } from "lucide-react";
 import { CATEGORY_LABEL, goToProposal, leadServiceFor, money, priceLabel, useContent, type Category, type Service } from "../lib/content";
 import Reveal from "./Reveal";
 import SectionHead from "./SectionHead";
@@ -85,9 +85,13 @@ export default function Pricing() {
             <h3>{h.headline}</h3>
             <ul>
               {h.included.map((i) => <li key={i}><Check size={14} /> {i}</li>)}
-              {h.notIncluded.map((i) => <li key={i} className="muted"><X size={14} /> {i}</li>)}
             </ul>
-            <p className="extra__note">{h.note}</p>
+            {h.notIncluded.length > 0 && (
+              <p className="extra__note">
+                Não inclui: {h.notIncluded.map((i) => i.charAt(0).toLowerCase() + i.slice(1)).join("; ")}. {h.note}
+              </p>
+            )}
+            {h.notIncluded.length === 0 && <p className="extra__note">{h.note}</p>}
           </Reveal>
           <Reveal as="article" className="extra" delay={0.06}>
             <span className="icon-tile"><Wrench size={20} /></span>
