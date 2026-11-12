@@ -20,6 +20,11 @@ export const env = {
   // Atrás do proxy da Hostinger, o IP real chega via X-Forwarded-For
   trustProxy: process.env.TRUST_PROXY ?? "1",
   privacyVersion: "2026-11",
+  // Integração com o CRM do ERP (opcional: sem as duas variáveis, fica desligada)
+  erp: {
+    url: process.env.ERP_LEADS_URL || "",
+    token: process.env.ERP_LEADS_TOKEN || "",
+  },
 };
 
 export function assertEnv() {

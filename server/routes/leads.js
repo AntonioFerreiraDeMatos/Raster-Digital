@@ -3,6 +3,7 @@ import rateLimit from "express-rate-limit";
 import { pool } from "../config/db.js";
 import { env } from "../config/env.js";
 import { validateLead, validateEstimate, clip } from "../lib/validation.js";
+import { syncLead } from "../lib/erpSync.js";
 
 const router = Router();
 
@@ -57,7 +58,9 @@ router.post("/", limiter, async (req, res, next) => {
         (data.message ? `\n\n${data.message}` : "");
       await pool.query("UPDATE leads SET submissions = submissions + 1 WHERE id = ?", [id]);
       await pool.query("INSERT INTO lead_events (lead_id, type, body) VALUES (?, 'reenvio', ?)", [id, note]);
-      return res.status(200).json({ ok: true, duplicate: true });
+      res.status(200).json({ ok: true, duplicate: true });
+      syncLead(id, { resubmission: true });
+      return;
     }
 
     const est = validateEstimate(body.estimate);
@@ -77,6 +80,7 @@ router.post("/", limiter, async (req, res, next) => {
     );
     await pool.query("INSERT INTO lead_events (lead_id, type, to_status) VALUES (?, 'criado', 'novo')", [r.insertId]);
     res.status(201).json({ ok: true });
+    syncLead(r.insertId); // depois da resposta: o visitante não espera o ERP
   } catch (err) {
     next(err);
   }
