@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Check, ChevronDown, Clock, Server, Wrench } from "lucide-react";
+import { Check, ChevronDown, Clock, Server } from "lucide-react";
 import { CATEGORY_LABEL, goToProposal, leadServiceFor, money, priceLabel, useContent, type Category, type Service } from "../lib/content";
 import Reveal from "./Reveal";
 import SectionHead from "./SectionHead";
@@ -56,7 +56,7 @@ export default function Pricing() {
   }, [services]);
 
   const list = services.filter((s) => s.category === cat);
-  const { maintenance: m, hosting: h } = settings;
+  const { hosting: h } = settings;
 
   return (
     <section id="precos" className="section">
@@ -79,7 +79,7 @@ export default function Pricing() {
           {list.map((s) => <PlanCard key={s.id} s={s} />)}
         </div>
 
-        <div className="extras">
+        <div className="extras extras--single">
           <Reveal as="article" className="extra extra--hosting">
             <span className="icon-tile"><Server size={20} /></span>
             <h3>{h.headline}</h3>
@@ -92,12 +92,6 @@ export default function Pricing() {
               </p>
             )}
             {h.notIncluded.length === 0 && <p className="extra__note">{h.note}</p>}
-          </Reveal>
-          <Reveal as="article" className="extra" delay={0.06}>
-            <span className="icon-tile"><Wrench size={20} /></span>
-            <h3>Manutenção opcional <span className="extra__price">{money(m.price_cents)}/mês</span></h3>
-            <ul>{m.items.map((i) => <li key={i}><Check size={14} /> {i}</li>)}</ul>
-            <p className="extra__note">{m.note}</p>
           </Reveal>
         </div>
       </div>
