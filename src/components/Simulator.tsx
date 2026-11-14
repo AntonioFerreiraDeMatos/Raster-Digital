@@ -4,6 +4,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import options from "../shared/leadOptions.json";
 import { CATEGORY_LABEL, goToProposal, leadServiceFor, money, useContent, waLink, type Category } from "../lib/content";
 import { estimate } from "../lib/estimate";
+import { MAINTENANCE_PLANS } from "./Maintenance";
 import Reveal from "./Reveal";
 import SectionHead from "./SectionHead";
 
@@ -14,12 +15,14 @@ export default function Simulator() {
   const [segment, setSegment] = useState("");
   const [complexity, setComplexity] = useState(sim.complexity[0]?.id ?? "simples");
   const [addons, setAddons] = useState<string[]>([]);
-  const [maintenance, setMaintenance] = useState(false);
+  const [maintTier, setMaintTier] = useState("");
+  const maintPlan = MAINTENANCE_PLANS.find((p) => p.tier === maintTier);
+  const maintenance = !!maintPlan;
 
   const service = services.find((s) => s.slug === slug) ?? services[0];
   const result = useMemo(
-    () => (service ? estimate({ service, complexity, addons, maintenance }, sim, settings.maintenance.price_cents) : null),
-    [service, complexity, addons, maintenance, sim, settings.maintenance.price_cents]
+    () => (service ? estimate({ service, complexity, addons, maintenance }, sim, maintPlan?.price_cents ?? 0) : null),
+    [service, complexity, addons, maintenance, sim, maintPlan]
   );
   if (!service || !result) return null;
 
@@ -36,7 +39,7 @@ export default function Simulator() {
     segLabel && `Segmento: ${segLabel}`,
     `Complexidade: ${cxLabel}`,
     `Recursos: ${addonLabels.length ? addonLabels.join(", ") : "nenhum adicional"}`,
-    `Manutenção mensal: ${maintenance ? `sim (${money(settings.maintenance.price_cents)}/mês)` : "não"}`,
+    `Manutenção mensal: ${maintPlan ? `Plano ${maintPlan.name} (${money(maintPlan.price_cents)}/mês)` : "não"}`,
     `Estimativa: ${valueText}`,
   ].filter(Boolean).join("\n");
 
@@ -88,10 +91,19 @@ export default function Simulator() {
                 ))}
               </div>
             </fieldset>
-            <label className="switch">
-              <input type="checkbox" checked={maintenance} onChange={(e) => setMaintenance(e.target.checked)} />
-              <span>Quero manutenção mensal ({money(settings.maintenance.price_cents)}/mês, opcional)</span>
-            </label>
+            <fieldset className="field">
+              <legend>Plano de manutenção mensal (opcional)</legend>
+              <div className="seg-control sim__maint">
+                {[{ tier: "", name: "Sem manutenção", price_cents: 0 }, ...MAINTENANCE_PLANS].map((p) => (
+                  <label key={p.tier || "nenhum"} className={maintTier === p.tier ? "on" : ""}>
+                    <input type="radio" name="maint" value={p.tier} checked={maintTier === p.tier} onChange={() => setMaintTier(p.tier)} />
+                    {p.name}
+                    {p.price_cents > 0 && <small>{money(p.price_cents)}/mês</small>}
+                  </label>
+                ))}
+              </div>
+              <a className="sim__maint-link" href="#manutencao">Comparar os planos de manutenção</a>
+            </fieldset>
           </div>
 
           <aside className="sim__result" aria-live="polite">
@@ -101,7 +113,7 @@ export default function Simulator() {
               {result.needsAnalysis ? <>A partir de <b>{money(result.min_cents)}</b></> : <><b>{money(result.min_cents)}</b> a <b>{money(result.max_cents!)}</b></>}
             </p>
             {result.needsAnalysis && <p className="sim__warn">Inclui itens que precisam de análise ({result.reasons.join(", ")}). O valor final vem na proposta.</p>}
-            {maintenance && <p className="sim__monthly">+ {money(result.monthly_cents)}/mês de manutenção</p>}
+            {maintPlan && <p className="sim__monthly">+ {money(result.monthly_cents)}/mês · Manutenção {maintPlan.name}</p>}
             <p className="sim__hosting">12 meses de hospedagem grátis</p>
             <button
               className="btn btn--primary btn--block"
