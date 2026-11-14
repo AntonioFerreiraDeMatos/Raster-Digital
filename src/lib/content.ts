@@ -34,11 +34,18 @@ export type Project = {
 
 export type Brand = { id: number; name: string; logo_url: string; url: string | null; relation: string };
 
+export type MaintenanceTier = "essencial" | "premium" | "platinum";
+export type MaintenancePlan = {
+  tier: MaintenanceTier; number: string; name: string; badge: string; tagline: string;
+  price_cents: number; requests: string; minutes: string; items: string[];
+};
+
 export type Settings = {
   hero: { eyebrow: string; title: string; highlight: string; subtitle: string };
   contact: { whatsapp: string; whatsappDisplay: string; instagram: string; linkedin: string; github: string; city: string };
   solutions: { name: string; text: string; service: string | null; icon: string }[];
   maintenance: { price_cents: number; items: string[]; note: string };
+  maintenancePlans: { eyebrow: string; title: string; highlight: string; subtitle: string; note: string; plans: MaintenancePlan[] };
   hosting: { headline: string; included: string[]; notIncluded: string[]; note: string };
   founder: { name: string; role: string; text: string; highlights: string[] };
   segments: { name: string; icon: string; items: string[] }[];

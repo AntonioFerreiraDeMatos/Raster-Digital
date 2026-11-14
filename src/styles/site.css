@@ -407,7 +407,7 @@ h3 { font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1rem); font-weight: 650; letter-
 .plan__247 { display: inline-flex; align-items: center; gap: 6px; align-self: flex-start; font-size: 0.78rem; font-weight: 700; color: #4ade80; background: rgba(74, 222, 128, 0.1); border: 1px solid rgba(74, 222, 128, 0.35); padding: 4px 10px; border-radius: 999px; margin: 2px 0 6px; }
 
 /* ---------- Planos de manutenção (reaproveita .plan / .btn / .icon-tile) ---------- */
-.mplans { --plat: #d9e2ef; --plat-2: #9fb0c6; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; align-items: stretch; }
+.mplans { --plat: #d9e2ef; --plat-2: #9fb0c6; display: grid; grid-template-columns: repeat(var(--cols, 3), 1fr); gap: 18px; align-items: stretch; }
 .mplan { gap: 10px; padding: 26px 22px 22px; transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease; }
 .mplan:hover { transform: translateY(-3px); border-color: var(--line-strong); box-shadow: var(--shadow); }
 .mplan__num { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); }

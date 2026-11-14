@@ -1,85 +1,13 @@
 import { Check, Crown, ShieldCheck, Sparkles } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
-import { money, useContent, waLink } from "../lib/content";
+import { money, useContent, waLink, type MaintenancePlan } from "../lib/content";
 import Reveal from "./Reveal";
 import SectionHead from "./SectionHead";
 
-type Tier = "essencial" | "premium" | "platinum";
-
-type MaintenancePlan = {
-  tier: Tier;
-  number: string;
-  name: string;
-  tagline: string;
-  price_cents: number;
-  minutes: number;
-  requests: string;
-  items: string[];
-};
-
-/** Planos de manutenção mensal. Limites de tempo e solicitações são mensais e não acumulativos. */
-export const MAINTENANCE_PLANS: MaintenancePlan[] = [
-  {
-    tier: "essencial",
-    number: "01",
-    name: "Essencial",
-    tagline: "O cuidado básico para seu site seguir no ar sem surpresas.",
-    price_cents: 4990,
-    minutes: 15,
-    requests: "1 alteração simples",
-    items: [
-      "Monitoramento básico do site",
-      "Verificação do funcionamento das páginas",
-      "Verificação de links e botões principais",
-      "Correção de pequenos erros técnicos",
-      "1 solicitação de alteração simples por mês",
-      "Suporte via WhatsApp em horário comercial",
-      "Até 15 minutos de ajustes mensais",
-    ],
-  },
-  {
-    tier: "premium",
-    number: "02",
-    name: "Premium",
-    tagline: "Acompanhamento ativo para quem atualiza o site com frequência.",
-    price_cents: 9990,
-    minutes: 45,
-    requests: "Até 2 alterações",
-    items: [
-      "Todos os benefícios do Essencial",
-      "Até 2 solicitações de alterações por mês",
-      "Atualização de textos, imagens e informações",
-      "Teste de formulários e botões de WhatsApp",
-      "Verificação de desempenho e carregamento",
-      "Verificação de segurança e atualizações técnicas aplicáveis",
-      "Relatório mensal simplificado",
-      "Atendimento prioritário",
-      "Até 45 minutos de ajustes mensais",
-    ],
-  },
-  {
-    tier: "platinum",
-    number: "03",
-    name: "Platinum",
-    tagline: "Gestão completa e atenção exclusiva para sua presença digital.",
-    price_cents: 14990,
-    minutes: 90,
-    requests: "Até 4 alterações",
-    items: [
-      "Todos os benefícios do Premium",
-      "Até 4 solicitações de alterações por mês",
-      "Atualização de banners, imagens e conteúdos",
-      "Monitoramento mais frequente do site",
-      "Verificação de SEO técnico básico",
-      "Análise básica de acessos, quando disponível",
-      "Verificação de formulários, integrações e funcionalidades",
-      "Backup e orientação de recuperação, quando tecnicamente disponíveis",
-      "Atendimento prioritário especial",
-      "Relatório mensal de acompanhamento",
-      "Até 90 minutos de ajustes mensais",
-    ],
-  },
-];
+/** Planos de manutenção mensal, editáveis no /admin (Conteúdo → Planos de manutenção). */
+export function useMaintenancePlans(): MaintenancePlan[] {
+  return useContent().settings.maintenancePlans?.plans ?? [];
+}
 
 export function maintenanceMessage(p: Pick<MaintenancePlan, "name" | "price_cents">) {
   return `Olá! Vim pelo site da Raster Digital e quero contratar o Plano de Manutenção ${p.name} (${money(p.price_cents)}/mês). Podemos conversar?`;
@@ -89,6 +17,9 @@ const TIER_ICON = { essencial: ShieldCheck, premium: Sparkles, platinum: Crown }
 
 export default function Maintenance() {
   const { settings } = useContent();
+  const cfg = settings.maintenancePlans;
+  const plans = cfg?.plans ?? [];
+  if (!cfg || plans.length === 0) return null;
   const phone = settings.contact.whatsapp;
 
   return (
@@ -96,29 +27,31 @@ export default function Maintenance() {
       <div className="shell">
         <SectionHead
           center
-          eyebrow="Planos de manutenção"
-          title={<>Seu site não precisa apenas estar no ar. <span className="grad">Ele precisa continuar evoluindo.</span></>}
-          sub="Com os planos de manutenção da Raster Digital, seu negócio conta com acompanhamento técnico, atualizações e suporte para manter sua presença digital funcionando."
+          eyebrow={cfg.eyebrow}
+          title={<>{cfg.title} {cfg.highlight && <span className="grad">{cfg.highlight}</span>}</>}
+          sub={cfg.subtitle}
         />
 
-        <div className="mplans">
-          {MAINTENANCE_PLANS.map((p, i) => {
-            const Icon = TIER_ICON[p.tier];
-            const hl = p.tier === "premium";
+        <div className="mplans" style={{ ["--cols" as string]: plans.length }}>
+          {plans.map((p, i) => {
+            const tier = TIER_ICON[p.tier] ? p.tier : "essencial";
+            const Icon = TIER_ICON[tier];
+            const hl = tier === "premium";
             return (
-              <Reveal as="article" key={p.tier} delay={i * 0.06} className={`plan mplan mplan--${p.tier}`}>
-                {hl && <span className="plan__badge mplan__badge">Mais recomendado</span>}
-                {p.tier === "platinum" && <span className="plan__badge mplan__badge mplan__badge--plat">Exclusivo</span>}
-                <p className="mplan__num">Plano {p.number}</p>
+              <Reveal as="article" key={`${p.name}-${i}`} delay={i * 0.06} className={`plan mplan mplan--${tier}`}>
+                {p.badge && <span className={`plan__badge mplan__badge ${tier === "platinum" ? "mplan__badge--plat" : ""}`}>{p.badge}</span>}
+                {p.number && <p className="mplan__num">Plano {p.number}</p>}
                 <h3 className="mplan__name"><span className="icon-tile icon-tile--sm"><Icon size={18} /></span>{p.name}</h3>
-                <p className="plan__desc">{p.tagline}</p>
+                {p.tagline && <p className="plan__desc">{p.tagline}</p>}
                 <p className="plan__price mplan__price">
                   {money(p.price_cents)}<span>/mês</span>
                 </p>
-                <p className="mplan__limits">
-                  <span>{p.requests}</span>
-                  <span>{p.minutes} min de ajustes</span>
-                </p>
+                {(p.requests || p.minutes) && (
+                  <p className="mplan__limits">
+                    {p.requests && <span>{p.requests}</span>}
+                    {p.minutes && <span>{p.minutes}</span>}
+                  </p>
+                )}
                 <ul className="plan__scope mplan__scope">
                   {p.items.map((it) => <li key={it}><Check size={14} /> {it}</li>)}
                 </ul>
@@ -127,7 +60,7 @@ export default function Maintenance() {
                   href={waLink(phone, maintenanceMessage(p))}
                   target="_blank"
                   rel="noopener noreferrer"
-                  data-plan={p.tier}
+                  data-plan={tier}
                 >
                   <FaWhatsapp size={17} /> Contratar {p.name}
                 </a>
@@ -136,12 +69,7 @@ export default function Maintenance() {
           })}
         </div>
 
-        <p className="mplans__note">
-          Limites de tempo e de solicitações são mensais e não acumulativos: o que não for usado no mês não passa para o mês seguinte.
-          Os planos contemplam manutenção e ajustes dentro dos limites contratados. Desenvolvimento de novas funcionalidades, sistemas,
-          páginas adicionais, redesign completo e serviços extraordinários são orçados separadamente. Hospedagem e domínio não estão
-          inclusos, salvo contratação específica.
-        </p>
+        {cfg.note && <p className="mplans__note">{cfg.note}</p>}
       </div>
     </section>
   );

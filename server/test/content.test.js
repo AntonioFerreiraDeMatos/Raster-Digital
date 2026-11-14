@@ -183,3 +183,29 @@ test("minha senha: exige a senha atual e troca de verdade", async () => {
   const r = await fetch(BASE + "/api/admin/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: SALES.email, password: "NovaSenha#2026" }) });
   assert.equal(r.status, 200);
 });
+
+test("planos de manutenção: padrão no site, admin edita preço (reflete no site) e validação", async () => {
+  const pub = await (await fetch(BASE + "/api/content")).json();
+  const mp = pub.settings.maintenancePlans;
+  assert.deepEqual(mp.plans.map((p) => [p.name, p.price_cents, p.tier]), [["Essencial", 4990, "essencial"], ["Premium", 9990, "premium"], ["Platinum", 14990, "platinum"]]);
+  assert.equal(mp.plans[1].badge, "Mais recomendado");
+  assert.match(mp.note, /não acumulativos/);
+
+  const original = (await (await call(admin, "/settings")).json()).settings.maintenancePlans;
+  const withPrice = (cents) => ({ ...original, plans: original.plans.map((p, i) => (i === 0 ? { ...p, price_cents: cents } : p)) });
+  try {
+    const r = await call(admin, "/settings/maintenancePlans", "PUT", { value: withPrice(5490) });
+    assert.equal(r.status, 200);
+    const c = await (await fetch(BASE + "/api/content")).json();
+    assert.equal(c.settings.maintenancePlans.plans[0].price_cents, 5490);
+
+    assert.equal((await call(admin, "/settings/maintenancePlans", "PUT", { value: withPrice(null) })).status, 422);
+    assert.equal((await call(admin, "/settings/maintenancePlans", "PUT", { value: withPrice(0) })).status, 422);
+    const badTier = { ...original, plans: original.plans.map((p) => ({ ...p, tier: "ouro" })) };
+    assert.equal((await call(admin, "/settings/maintenancePlans", "PUT", { value: badTier })).status, 422);
+    assert.equal((await call(admin, "/settings/maintenancePlans", "PUT", { value: { ...original, plans: [] } })).status, 422);
+    assert.equal((await call(sales, "/settings/maintenancePlans", "PUT", { value: original })).status, 403);
+  } finally {
+    await call(admin, "/settings/maintenancePlans", "PUT", { value: original });
+  }
+});

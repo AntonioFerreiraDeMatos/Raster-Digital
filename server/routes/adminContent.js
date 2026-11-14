@@ -268,6 +268,16 @@ router.put("/settings/:name", adminOnly, async (req, res, next) => {
         if (value[k] && !/^https:\/\/[^\s<>"']+$/.test(value[k])) return fail(res, { [k]: "Use um link https://." });
       }
     }
+    if (name === "maintenancePlans") {
+      const plans = Array.isArray(value.plans) ? value.plans : [];
+      if (plans.length < 1 || plans.length > 4) return fail(res, { plans: "Cadastre de 1 a 4 planos." });
+      for (const [i, p] of plans.entries()) {
+        if (!p || typeof p.name !== "string" || !p.name) return fail(res, { plans: `Plano ${i + 1}: informe o nome.` });
+        if (!Number.isInteger(p.price_cents) || p.price_cents <= 0) return fail(res, { plans: `Plano ${p.name}: informe o valor mensal.` });
+        if (!["essencial", "premium", "platinum"].includes(p.tier)) return fail(res, { plans: `Plano ${p.name}: estilo deve ser essencial, premium ou platinum.` });
+        if (!Array.isArray(p.items)) return fail(res, { plans: `Plano ${p.name}: lista de benefícios inválida.` });
+      }
+    }
     await pool.query("INSERT INTO settings (name, value) VALUES (?, ?) ON DUPLICATE KEY UPDATE value = VALUES(value)", [name, JSON.stringify(value)]);
     done(res, { value });
   } catch (e) { next(e); }
