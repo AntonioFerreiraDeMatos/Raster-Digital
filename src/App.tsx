@@ -7,6 +7,7 @@ import Solutions from "./components/Solutions";
 import BrandMarquee from "./components/BrandMarquee";
 import Projects from "./components/Projects";
 import Pricing from "./components/Pricing";
+import Maintenance from "./components/Maintenance";
 import Simulator from "./components/Simulator";
 import Segments from "./components/Segments";
 import Founder from "./components/Founder";
@@ -53,6 +54,7 @@ export default function App() {
         <BrandMarquee />
         <Projects />
         <Pricing />
+        <Maintenance />
         <Simulator />
         <Segments />
         <Founder />
