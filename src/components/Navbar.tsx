@@ -7,6 +7,7 @@ const links = [
   ["Soluções", "solucoes"],
   ["Projetos", "projetos"],
   ["Preços", "precos"],
+  ["Manutenção", "manutencao"],
   ["Simulador", "simulador"],
   ["Contato", "contato"],
 ] as const;

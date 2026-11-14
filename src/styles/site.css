@@ -405,3 +405,40 @@ h3 { font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1rem); font-weight: 650; letter-
 }
 
 .plan__247 { display: inline-flex; align-items: center; gap: 6px; align-self: flex-start; font-size: 0.78rem; font-weight: 700; color: #4ade80; background: rgba(74, 222, 128, 0.1); border: 1px solid rgba(74, 222, 128, 0.35); padding: 4px 10px; border-radius: 999px; margin: 2px 0 6px; }
+
+/* ---------- Planos de manutenção (reaproveita .plan / .btn / .icon-tile) ---------- */
+.mplans { --plat: #d9e2ef; --plat-2: #9fb0c6; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; align-items: stretch; }
+.mplan { gap: 10px; padding: 26px 22px 22px; transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease; }
+.mplan:hover { transform: translateY(-3px); border-color: var(--line-strong); box-shadow: var(--shadow); }
+.mplan__num { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); }
+.mplan__name { display: flex; align-items: center; gap: 10px; font-size: 1.3rem; letter-spacing: -0.01em; }
+.mplan__price span { font-size: 0.9rem; font-weight: 600; color: var(--text-3); margin-left: 3px; letter-spacing: 0; }
+.mplan__limits { display: flex; flex-wrap: wrap; gap: 6px; }
+.mplan__limits span { font-size: 0.74rem; font-weight: 600; color: var(--text-2); padding: 4px 10px; border-radius: 999px; background: rgba(10, 124, 255, 0.08); border: 1px solid var(--line); }
+.mplan__scope { padding-top: 12px; margin-top: 2px; border-top: 1px solid var(--line); flex: 1; align-content: start; }
+.mplan__cta { margin-top: 14px; gap: 8px; }
+.mplan__badge { left: 50%; right: auto; transform: translateX(-50%); white-space: nowrap; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 12px; box-shadow: 0 8px 22px -10px rgba(34, 200, 255, 0.8); }
+
+/* Premium — destaque com o gradiente da marca */
+.mplan--premium { border-color: rgba(34, 200, 255, 0.55); background: linear-gradient(170deg, rgba(10, 124, 255, 0.2), var(--surface) 58%); box-shadow: 0 0 0 1px rgba(34, 200, 255, 0.18), 0 24px 60px -28px rgba(10, 124, 255, 0.75); }
+.mplan--premium:hover { border-color: var(--cyan); }
+.mplan--premium .mplan__limits span { border-color: var(--line-strong); color: var(--text); }
+
+/* Platinum — detalhes em prata/platina */
+.mplan--platinum { border-color: rgba(217, 226, 239, 0.28); background: linear-gradient(170deg, rgba(217, 226, 239, 0.09), var(--surface) 55%); }
+.mplan--platinum:hover { border-color: rgba(217, 226, 239, 0.55); }
+.mplan--platinum .mplan__num, .mplan--platinum .mplan__scope svg { color: var(--plat-2); }
+.mplan--platinum .icon-tile { color: var(--plat); border-color: rgba(217, 226, 239, 0.35); background: linear-gradient(145deg, rgba(217, 226, 239, 0.18), rgba(217, 226, 239, 0.03)); }
+.mplan--platinum .mplan__name { background: linear-gradient(100deg, #ffffff, var(--plat-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.mplan--platinum .mplan__name .icon-tile { -webkit-text-fill-color: initial; }
+.mplan--platinum .mplan__limits span { background: rgba(217, 226, 239, 0.07); border-color: rgba(217, 226, 239, 0.22); }
+.mplan--platinum .mplan__cta { border-color: rgba(217, 226, 239, 0.45); }
+.mplan--platinum .mplan__cta:hover { background: rgba(217, 226, 239, 0.1); border-color: var(--plat); }
+.mplan__badge--plat { background: linear-gradient(100deg, #f4f7fb, #9fb0c6); color: #0a1730; box-shadow: 0 8px 22px -10px rgba(217, 226, 239, 0.6); }
+
+.mplans__note { max-width: 820px; margin: 26px auto 0; text-align: center; font-size: 0.78rem; line-height: 1.6; color: var(--text-3); }
+
+@media (max-width: 960px) {
+  .mplans { grid-template-columns: 1fr; max-width: 520px; margin-inline: auto; gap: 26px; }
+}
+@media (prefers-reduced-motion: reduce) { .mplan, .mplan:hover { transition: none; transform: none; } }
