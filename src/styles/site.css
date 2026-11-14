@@ -442,3 +442,4 @@ h3 { font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1rem); font-weight: 650; letter-
   .mplans { grid-template-columns: 1fr; max-width: 520px; margin-inline: auto; gap: 26px; }
 }
 @media (prefers-reduced-motion: reduce) { .mplan, .mplan:hover { transition: none; transform: none; } }
+.extras--single { grid-template-columns: 1fr; }
