@@ -7,7 +7,8 @@ import { pool } from "../config/db.js";
 import { env } from "../config/env.js";
 
 const BASE = process.env.BASE_URL || "http://localhost:3000";
-const RUN = Date.now();
+// Único por arquivo: os arquivos de teste rodam em paralelo e cada um só limpa o que criou.
+const RUN = Date.now() * 1000 + Math.floor(Math.random() * 1000);
 const ADMIN = { email: `c-admin-${RUN}@raster.test`, password: "SenhaTeste#2026" };
 const SALES = { email: `c-sales-${RUN}@raster.test`, password: "SenhaTeste#2026" };
 if (env.isProd) throw new Error("Não rode os testes com NODE_ENV=production.");
@@ -44,8 +45,8 @@ after(async () => {
   for (const id of created.projects) await pool.query("DELETE FROM projects WHERE id = ?", [id]);
   for (const id of created.brands) await pool.query("DELETE FROM brands WHERE id = ?", [id]);
   for (const id of created.images) await pool.query("DELETE FROM images WHERE id = ?", [id]);
-  await pool.query("DELETE FROM leads WHERE email LIKE '%@raster.test'");
-  await pool.query("DELETE FROM admin_users WHERE email LIKE '%@raster.test'");
+  await pool.query("DELETE FROM leads WHERE email LIKE ?", [`%-${RUN}@raster.test`]);
+  await pool.query("DELETE FROM admin_users WHERE email LIKE ?", [`%-${RUN}@raster.test`]);
   await pool.end();
 });
 

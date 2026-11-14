@@ -9,7 +9,8 @@ import { pool } from "../config/db.js";
 import { env } from "../config/env.js";
 
 const BASE = process.env.BASE_URL || "http://localhost:3000";
-const RUN = Date.now();
+// Único por arquivo: os arquivos de teste rodam em paralelo e cada um só limpa o que criou.
+const RUN = Date.now() * 1000 + Math.floor(Math.random() * 1000);
 const ADMIN = { email: `teste-admin-${RUN}@raster.test`, password: "SenhaTeste#2026" };
 const SALES = { email: `teste-comercial-${RUN}@raster.test`, password: "SenhaTeste#2026" };
 const LEAD_EMAIL = `lead-${RUN}@raster.test`;
@@ -56,8 +57,8 @@ before(async () => {
 });
 
 after(async () => {
-  await pool.query("DELETE FROM leads WHERE email LIKE '%@raster.test'");
-  await pool.query("DELETE FROM admin_users WHERE email LIKE '%@raster.test'");
+  await pool.query("DELETE FROM leads WHERE email LIKE ?", [`%-${RUN}@raster.test`]);
+  await pool.query("DELETE FROM admin_users WHERE email LIKE ?", [`%-${RUN}@raster.test`]);
   await pool.end();
 });
 
