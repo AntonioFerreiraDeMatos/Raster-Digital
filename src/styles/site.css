@@ -443,3 +443,8 @@ h3 { font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1rem); font-weight: 650; letter-
 }
 @media (prefers-reduced-motion: reduce) { .mplan, .mplan:hover { transition: none; transform: none; } }
 .extras--single { grid-template-columns: 1fr; }
+.sim__maint label { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; }
+.sim__maint small { font-size: 0.74rem; font-weight: 500; color: var(--text-3); }
+.sim__maint label.on small { color: var(--cyan); }
+.sim__maint-link { display: inline-block; margin-top: 8px; font-size: 0.8rem; font-weight: 600; color: var(--cyan); }
+@media (max-width: 600px) { .sim__maint label { flex-basis: calc(50% - 3px); } }
