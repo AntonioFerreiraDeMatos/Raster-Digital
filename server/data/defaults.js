@@ -116,6 +116,33 @@ export const settings = {
     items: ["Monitoramento básico", "Correções técnicas", "Atualizações compatíveis", "Backup conforme a infraestrutura contratada", "Pequenos ajustes (até 30 min/mês)", "Suporte técnico básico"],
     note: "Opcional e sem fidelidade. Novas funcionalidades, integrações e grandes alterações são orçadas à parte.",
   },
+  maintenancePlans: {
+    eyebrow: "Planos de manutenção",
+    title: "Seu site não precisa apenas estar no ar.",
+    highlight: "Ele precisa continuar evoluindo.",
+    subtitle: "Com os planos de manutenção da Raster Digital, seu negócio conta com acompanhamento técnico, atualizações e suporte para manter sua presença digital funcionando.",
+    note: "Limites de tempo e de solicitações são mensais e não acumulativos: o que não for usado no mês não passa para o mês seguinte. Os planos contemplam manutenção e ajustes dentro dos limites contratados. Desenvolvimento de novas funcionalidades, sistemas, páginas adicionais, redesign completo e serviços extraordinários são orçados separadamente. Hospedagem e domínio não estão inclusos, salvo contratação específica.",
+    plans: [
+      {
+        tier: "essencial", number: "01", name: "Essencial", badge: "",
+        tagline: "O cuidado básico para seu site seguir no ar sem surpresas.",
+        price_cents: 4990, requests: "1 alteração simples", minutes: "15 min de ajustes",
+        items: ["Monitoramento básico do site", "Verificação do funcionamento das páginas", "Verificação de links e botões principais", "Correção de pequenos erros técnicos", "1 solicitação de alteração simples por mês", "Suporte via WhatsApp em horário comercial", "Até 15 minutos de ajustes mensais"],
+      },
+      {
+        tier: "premium", number: "02", name: "Premium", badge: "Mais recomendado",
+        tagline: "Acompanhamento ativo para quem atualiza o site com frequência.",
+        price_cents: 9990, requests: "Até 2 alterações", minutes: "45 min de ajustes",
+        items: ["Todos os benefícios do Essencial", "Até 2 solicitações de alterações por mês", "Atualização de textos, imagens e informações", "Teste de formulários e botões de WhatsApp", "Verificação de desempenho e carregamento", "Verificação de segurança e atualizações técnicas aplicáveis", "Relatório mensal simplificado", "Atendimento prioritário", "Até 45 minutos de ajustes mensais"],
+      },
+      {
+        tier: "platinum", number: "03", name: "Platinum", badge: "Exclusivo",
+        tagline: "Gestão completa e atenção exclusiva para sua presença digital.",
+        price_cents: 14990, requests: "Até 4 alterações", minutes: "90 min de ajustes",
+        items: ["Todos os benefícios do Premium", "Até 4 solicitações de alterações por mês", "Atualização de banners, imagens e conteúdos", "Monitoramento mais frequente do site", "Verificação de SEO técnico básico", "Análise básica de acessos, quando disponível", "Verificação de formulários, integrações e funcionalidades", "Backup e orientação de recuperação, quando tecnicamente disponíveis", "Atendimento prioritário especial", "Relatório mensal de acompanhamento", "Até 90 minutos de ajustes mensais"],
+      },
+    ],
+  },
   hosting: {
     headline: "12 meses de hospedagem grátis!",
     included: ["Site ou sistema no ar com HTTPS", "Banco de dados quando o projeto exigir", "Backup da infraestrutura"],

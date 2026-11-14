@@ -9,7 +9,7 @@ const SECTIONS: { key: string; title: string; help: string }[] = [
   { key: "hero", title: "Primeira dobra", help: "Título e texto de abertura do site." },
   { key: "contact", title: "Contatos e redes", help: "WhatsApp (DDI+DDD+número), Instagram e demais links." },
   { key: "solutions", title: "Soluções", help: "Cards da seção Soluções. “service” liga o card a um serviço (identificador)." },
-  { key: "maintenance", title: "Manutenção opcional", help: "Valor mensal e o que está incluído." },
+  { key: "maintenancePlans", title: "Planos de manutenção", help: "Textos da seção e os planos mensais. “Estilo” define o visual do card: essencial, premium ou platinum. Destaques vazios não mostram selo." },
   { key: "hosting", title: "Hospedagem", help: "O que está e o que não está incluído." },
   { key: "segments", title: "Soluções por segmento", help: "Possibilidades de desenvolvimento por tipo de negócio." },
   { key: "founder", title: "Fundador", help: "Sua apresentação profissional." },
@@ -22,6 +22,7 @@ const LABELS: Record<string, string> = {
   github: "GitHub", city: "Cidade", name: "Nome", text: "Texto", service: "Serviço ligado (identificador)", icon: "Ícone",
   price_cents: "Valor", items: "Itens", note: "Observação", headline: "Título", included: "Incluído", notIncluded: "Não incluído",
   role: "Cargo", highlights: "Destaques", complexity: "Complexidade", addons: "Adicionais", id: "Código", label: "Nome exibido", factor: "Fator (ex.: 1.3)", min_cents: "Valor mínimo",
+  plans: "Planos", tier: "Estilo (essencial, premium ou platinum)", number: "Número do plano", badge: "Selo (vazio = sem selo)", tagline: "Frase curta", requests: "Etiqueta de solicitações", minutes: "Etiqueta de tempo",
 };
 const label = (k: string) => LABELS[k] ?? k;
 

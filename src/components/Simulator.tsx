@@ -4,7 +4,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import options from "../shared/leadOptions.json";
 import { CATEGORY_LABEL, goToProposal, leadServiceFor, money, useContent, waLink, type Category } from "../lib/content";
 import { estimate } from "../lib/estimate";
-import { MAINTENANCE_PLANS } from "./Maintenance";
+import { useMaintenancePlans } from "./Maintenance";
 import Reveal from "./Reveal";
 import SectionHead from "./SectionHead";
 
@@ -15,8 +15,9 @@ export default function Simulator() {
   const [segment, setSegment] = useState("");
   const [complexity, setComplexity] = useState(sim.complexity[0]?.id ?? "simples");
   const [addons, setAddons] = useState<string[]>([]);
-  const [maintTier, setMaintTier] = useState("");
-  const maintPlan = MAINTENANCE_PLANS.find((p) => p.tier === maintTier);
+  const maintPlans = useMaintenancePlans();
+  const [maintName, setMaintName] = useState("");
+  const maintPlan = maintPlans.find((p) => p.name === maintName);
   const maintenance = !!maintPlan;
 
   const service = services.find((s) => s.slug === slug) ?? services[0];
@@ -91,19 +92,21 @@ export default function Simulator() {
                 ))}
               </div>
             </fieldset>
-            <fieldset className="field">
-              <legend>Plano de manutenção mensal (opcional)</legend>
-              <div className="seg-control sim__maint">
-                {[{ tier: "", name: "Sem manutenção", price_cents: 0 }, ...MAINTENANCE_PLANS].map((p) => (
-                  <label key={p.tier || "nenhum"} className={maintTier === p.tier ? "on" : ""}>
-                    <input type="radio" name="maint" value={p.tier} checked={maintTier === p.tier} onChange={() => setMaintTier(p.tier)} />
-                    {p.name}
-                    {p.price_cents > 0 && <small>{money(p.price_cents)}/mês</small>}
-                  </label>
-                ))}
-              </div>
-              <a className="sim__maint-link" href="#manutencao">Comparar os planos de manutenção</a>
-            </fieldset>
+            {maintPlans.length > 0 && (
+              <fieldset className="field">
+                <legend>Plano de manutenção mensal (opcional)</legend>
+                <div className="seg-control sim__maint">
+                  {[{ name: "", price_cents: 0 }, ...maintPlans].map((p) => (
+                    <label key={p.name || "nenhum"} className={maintName === p.name ? "on" : ""}>
+                      <input type="radio" name="maint" value={p.name} checked={maintName === p.name} onChange={() => setMaintName(p.name)} />
+                      {p.name || "Sem manutenção"}
+                      {p.price_cents > 0 && <small>{money(p.price_cents)}/mês</small>}
+                    </label>
+                  ))}
+                </div>
+                <a className="sim__maint-link" href="#manutencao">Comparar os planos de manutenção</a>
+              </fieldset>
+            )}
           </div>
 
           <aside className="sim__result" aria-live="polite">
