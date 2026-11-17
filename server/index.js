@@ -14,6 +14,7 @@ import adminRouter from "./routes/admin.js";
 import { apiPublic, media } from "./routes/public.js";
 import { getPublicContent, seedContent } from "./lib/content.js";
 import { buildLlmsTxt } from "./lib/llms.js";
+import { buildSsrHtml, buildJsonLd } from "./lib/seo.js";
 
 assertEnv();
 
@@ -43,6 +44,12 @@ app.use(
     crossOriginEmbedderPolicy: false,
   })
 );
+// Endereço único para o Google: www.rasterdigital.com.br redireciona para rasterdigital.com.br.
+app.use((req, res, next) => {
+  const host = req.headers.host || "";
+  if (env.isProd && host.startsWith("www.")) return res.redirect(301, `https://${host.slice(4)}${req.originalUrl}`);
+  next();
+});
 app.use(compression());
 // Painel aceita imagens (base64) de até ~1,5 MB; o restante da API, payloads pequenos.
 app.use("/api/admin/images", express.json({ limit: "2.2mb" }));
@@ -88,9 +95,15 @@ let indexTemplate = null;
 app.get(["/", "/index.html"], async (_req, res, next) => {
   try {
     if (!env.isProd || !indexTemplate) indexTemplate = fs.readFileSync(path.join(dist, "index.html"), "utf8");
-    const data = JSON.stringify(await getPublicContent()).replace(/</g, "\\u003c");
+    const content = await getPublicContent();
+    const data = JSON.stringify(content).replace(/</g, "\\u003c");
     res.set("Cache-Control", "no-cache");
-    res.type("html").send(indexTemplate.replace("<!--app-data-->", `<script id="app-data" type="application/json">${data}</script>`));
+    res.type("html").send(
+      indexTemplate
+        .replace("</head>", `${buildJsonLd(content)}</head>`)
+        .replace('<div id="root"></div>', `<div id="root">${buildSsrHtml(content)}</div>`)
+        .replace("<!--app-data-->", `<script id="app-data" type="application/json">${data}</script>`)
+    );
   } catch (err) {
     console.error("[index] conteúdo indisponível:", err.message);
     next(); // cai no arquivo estático; o site busca /api/content

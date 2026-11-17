@@ -447,3 +447,16 @@ h3 { font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1rem); font-weight: 650; letter-
 .sim__maint label.on small { color: var(--cyan); }
 .sim__maint-link { display: inline-block; margin-top: 8px; font-size: 0.8rem; font-weight: 600; color: var(--cyan); }
 @media (max-width: 600px) { .sim__maint label { flex-basis: calc(50% - 3px); } }
+
+/* Dúvidas frequentes */
+.faq { display: grid; gap: 10px; max-width: 820px; margin-inline: auto; }
+.faq__item { border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+.faq__item summary { cursor: pointer; list-style: none; padding: 16px 48px 16px 18px; font-weight: 600; position: relative; }
+.faq__item summary::-webkit-details-marker { display: none; }
+.faq__item summary::after { content: "+"; position: absolute; right: 18px; top: 50%; transform: translateY(-50%); font-size: 1.3rem; color: var(--cyan); }
+.faq__item[open] summary::after { content: "–"; }
+.faq__item p { margin: 0; padding: 0 18px 16px; color: var(--text-2); line-height: 1.6; }
+
+/* Conteúdo entregue pelo servidor antes do JavaScript carregar */
+.ssr { max-width: 900px; margin: 0 auto; padding: 96px 20px 40px; color: var(--text-2); }
+.ssr h1, .ssr h2 { color: var(--text); }

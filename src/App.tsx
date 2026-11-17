@@ -11,6 +11,7 @@ import Maintenance from "./components/Maintenance";
 import Simulator from "./components/Simulator";
 import Segments from "./components/Segments";
 import Founder from "./components/Founder";
+import Faq from "./components/Faq";
 import LeadForm from "./components/LeadForm";
 import Footer from "./components/Footer";
 
@@ -58,6 +59,7 @@ export default function App() {
         <Simulator />
         <Segments />
         <Founder />
+        <Faq />
         <LeadForm />
       </main>
       <Footer />
