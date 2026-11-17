@@ -13,6 +13,7 @@ import { startErpSync } from "./lib/erpSync.js";
 import adminRouter from "./routes/admin.js";
 import { apiPublic, media } from "./routes/public.js";
 import { getPublicContent, seedContent } from "./lib/content.js";
+import { buildLlmsTxt } from "./lib/llms.js";
 
 assertEnv();
 
@@ -70,6 +71,17 @@ app.use("/api", (_req, res) => res.status(404).json({ error: "Rota não encontra
 
 // Site estático gerado pelo Vite. Arquivos com hash em /assets recebem cache longo.
 app.use("/assets", express.static(path.join(dist, "assets"), { immutable: true, maxAge: "1y" }));
+
+// Resumo do site para assistentes de IA, sempre com os dados atuais do banco.
+app.get("/llms.txt", async (_req, res, next) => {
+  try {
+    res.set("Cache-Control", "public, max-age=3600");
+    res.type("text/plain; charset=utf-8").send(buildLlmsTxt(await getPublicContent()));
+  } catch (err) {
+    console.error("[llms] conteúdo indisponível:", err.message);
+    next();
+  }
+});
 
 // Página inicial com o conteúdo do banco embutido (sem esperar outra requisição).
 let indexTemplate = null;
