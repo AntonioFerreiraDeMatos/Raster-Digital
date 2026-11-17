@@ -78,11 +78,20 @@ export const projects = [
     logo_url: "/img/brands/js-retifica.webp", cover_url: "/img/projects/js-desktop.webp", mobile_url: "/img/projects/js-mobile.webp",
     gallery: ["/img/projects/js-motor-solda.webp", "/img/projects/js-cabecotes.webp", "/img/projects/js-bloco.webp"], video_url: null,
   },
+  {
+    slug: "cumbuco-de-buggy", client: "Cumbuco de Buggy", title: "Site de turismo trilíngue", segment: "Turismo e passeios",
+    summary: "Site rápido em português, inglês e espanhol para passeios de buggy em Cumbuco, com galeria, vídeo e reservas direto pelo WhatsApp.",
+    url: "https://cumbucodebuggy.online", theme: "padrao",
+    features: ["Português, inglês e espanhol", "Roteiros de passeio", "Galeria de fotos e vídeo", "Avaliações de clientes", "Reservas pelo WhatsApp", "SEO para turismo"],
+    logo_url: "/img/brands/cumbuco-de-buggy.webp", cover_url: "/img/projects/cumbuco-desktop.webp", mobile_url: "/img/projects/cumbuco-mobile.webp",
+    gallery: [], video_url: null,
+  },
 ].map((p, i) => ({ ...p, sort: i }));
 
 export const brands = [
   { name: "Amanda Cosméticos", logo_url: "/img/brands/amanda-cosmeticos.webp", url: "https://www.amandacosmeticos.com.br", relation: "Cliente · Loja virtual" },
   { name: "JS Retífica", logo_url: "/img/brands/js-retifica.webp", url: "https://www.jsretifica.com.br/", relation: "Cliente · Site institucional" },
+  { name: "Cumbuco de Buggy", logo_url: "/img/brands/cumbuco-de-buggy.webp", url: "https://cumbucodebuggy.online", relation: "Cliente · Site de turismo" },
 ].map((b, i) => ({ ...b, sort: i }));
 
 export const settings = {
