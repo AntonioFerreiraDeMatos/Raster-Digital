@@ -5,8 +5,7 @@ const [founder, amandaDesk, amandaMob] = process.argv.slice(2);
 const out = "public/img";
 await sharp("public/logo.png").resize({ width: 360 }).png({ compressionLevel: 9, palette: true }).toFile(`${out}/logo.png`);
 await sharp("public/logo.png").resize({ width: 360 }).webp({ quality: 85 }).toFile(`${out}/logo.webp`);
-await sharp("public/logo.png").resize(64, 64, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toFile(`public/favicon-64.png`);
-await sharp("public/logo.png").resize(180, 180, { fit: "contain", background: "#020713" }).png().toFile(`public/apple-touch-icon.png`);
+// Favicons, apple-touch-icon, logo quadrada e imagens de compartilhamento: scripts/gerar-imagens-google.py
 if (founder) {
   await sharp(founder).resize({ width: 720 }).webp({ quality: 82 }).toFile(`${out}/antonio-matos.webp`);
   await sharp(founder).resize({ width: 720 }).jpeg({ quality: 82, mozjpeg: true }).toFile(`${out}/antonio-matos.jpg`);
