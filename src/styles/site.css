@@ -134,35 +134,78 @@ h3 { font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1rem); font-weight: 650; letter-
 .hero h1.eyebrow { line-height: inherit; }
 .hero__title { font-size: clamp(1.95rem, 1.2rem + 3.2vw, 3.25rem); line-height: 1.15; letter-spacing: -0.022em; font-weight: 750; text-wrap: balance; }
 .hero__lead { margin-top: 16px; color: var(--text-2); font-size: clamp(1rem, 0.95rem + 0.35vw, 1.12rem); max-width: 520px; }
-.hero__founder { display: flex; align-items: center; gap: 12px; margin-top: 18px; max-width: 520px; text-align: left; }
-.hero__founder picture { flex: none; display: block; line-height: 0; }
-.hero__founder img { width: 48px; height: 48px; flex: none; border-radius: 50%; object-fit: cover; object-position: center 18%; border: 1px solid var(--line-strong); }
-.hero__founder p { color: var(--text-2); font-size: 0.86rem; line-height: 1.5; }
-.hero__founder b { color: var(--text); font-weight: 600; }
+/* Apresentação do fundador no texto (linha de luz à esquerda) */
+.hero__note { margin-top: 18px; max-width: 520px; padding-left: 14px; border-left: 2px solid var(--cyan); color: var(--text-2); font-size: 0.93rem; line-height: 1.55; }
+.hero__note b { color: var(--text); font-weight: 650; }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
 .hero__facts { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 22px; color: var(--text-2); font-size: 0.86rem; }
 .hero__facts li { display: inline-flex; align-items: center; gap: 6px; }
 .hero__facts svg { color: var(--green); }
-.hero__art { position: relative; aspect-ratio: 1; width: 100%; max-width: 500px; justify-self: center; }
+/* ---- Composição: fundador + logo 3D ----
+   .hero__art é a âncora da cena 3D (heroScene.ts lê o tamanho e a posição dela para desenhar o "R").
+   Menor e atrás da foto: a marca dá identidade sem competir com o rosto. */
+.hero__visual { position: relative; width: 100%; max-width: 540px; aspect-ratio: 27 / 28; justify-self: end; perspective: 1200px; }
+.hero__art { position: absolute; left: -10%; top: 7%; width: 56%; aspect-ratio: 1; z-index: 0; }
+.hero__portrait {
+  position: absolute; right: 0; top: 0; width: 78%; margin: 0; z-index: 1;
+  translate: calc(var(--px, 0) * -8px) calc(var(--py, 0) * -6px); rotate: 0 1 0 calc(var(--px, 0) * -3deg);
+  transition: translate 0.8s cubic-bezier(0.22, 1, 0.36, 1), rotate 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+/* Luz azul/ciano atrás do fundador + arco que ecoa as órbitas da marca */
+.hero__portrait::before {
+  content: ""; position: absolute; left: 4%; right: -4%; top: -2%; height: 78%; z-index: -1; pointer-events: none; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(10, 124, 255, 0.42), rgba(34, 200, 255, 0.12) 55%, transparent);
+  filter: blur(6px);
+}
+.hero__portrait::after {
+  content: ""; position: absolute; left: 12%; top: 3%; width: 84%; aspect-ratio: 1; z-index: -1; pointer-events: none; border-radius: 50%;
+  border: 1px solid rgba(34, 200, 255, 0.45); box-shadow: 0 0 40px rgba(34, 200, 255, 0.18), inset 0 0 30px rgba(10, 124, 255, 0.15);
+  -webkit-mask-image: linear-gradient(180deg, #000 30%, transparent 62%); mask-image: linear-gradient(180deg, #000 30%, transparent 62%);
+}
+/* A foto real, sem retoque: bordas e base se dissolvem no fundo do site */
+.hero__photo {
+  aspect-ratio: 720 / 959;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 28%, #000 88%, transparent 100%), linear-gradient(180deg, transparent 0%, #000 14%, #000 70%, transparent 99%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 28%, #000 88%, transparent 100%), linear-gradient(180deg, transparent 0%, #000 14%, #000 70%, transparent 99%);
+  mask-composite: intersect;
+}
+.hero__photo picture { display: block; height: 100%; }
+.hero__photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+/* Nome e cargo */
+.hero__id {
+  position: absolute; right: 4%; bottom: 25%; display: grid; gap: 2px; padding: 10px 16px 11px; border-radius: 14px; text-align: left;
+  background: rgba(6, 16, 36, 0.68); backdrop-filter: blur(12px) saturate(140%); -webkit-backdrop-filter: blur(12px) saturate(140%);
+  border: 1px solid var(--line-strong); box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+.hero__id::before { content: ""; position: absolute; left: 0; top: 22%; bottom: 22%; width: 2px; border-radius: 2px; background: var(--grad); box-shadow: 0 0 12px rgba(34, 200, 255, 0.8); }
+.hero__id-name { font-size: 1rem; font-weight: 750; letter-spacing: 0.06em; text-transform: uppercase; }
+.hero__id-role { font-size: 0.78rem; font-weight: 600; color: var(--cyan); }
+/* Formação acadêmica */
+.hero__edu {
+  position: absolute; left: 0; bottom: 3%; z-index: 2; display: flex; align-items: center; gap: 11px; max-width: 66%; padding: 10px 14px; border-radius: 14px; text-align: left;
+  background: rgba(6, 16, 36, 0.72); backdrop-filter: blur(12px) saturate(140%); -webkit-backdrop-filter: blur(12px) saturate(140%);
+  border: 1px solid var(--line); box-shadow: var(--shadow);
+  translate: calc(var(--px, 0) * -14px) calc(var(--py, 0) * -10px); transition: translate 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hero__edu-text { display: grid; gap: 1px; line-height: 1.3; }
+.hero__edu-text b { font-size: 0.8rem; font-weight: 650; }
+.hero__edu-text span { font-size: 0.74rem; color: var(--text-2); }
+.hero__edu-text small { font-size: 0.72rem; color: var(--cyan); font-weight: 600; }
+/* Faixa de credibilidade */
+.hero__trust {
+  grid-column: 1 / -1; display: grid; grid-template-columns: repeat(5, 1fr); margin-top: clamp(28px, 4vw, 44px); padding: 14px 6px; border-radius: var(--radius);
+  background: rgba(8, 20, 42, 0.5); border: 1px solid var(--line); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+}
+.hero__trust li { display: flex; align-items: center; gap: 10px; padding: 4px 14px; color: var(--text-2); font-size: 0.8rem; line-height: 1.35; }
+.hero__trust li + li { border-left: 1px solid var(--line); }
+.hero__trust svg { flex: none; color: var(--cyan); }
 .orbit { position: absolute; inset: 0; margin: auto; border-radius: 50%; border: 1px solid var(--line-strong); }
 .orbit--1 { width: 100%; height: 100%; border-style: dashed; opacity: 0.45; animation: spin 60s linear infinite; }
 .orbit--2 { width: 74%; height: 74%; opacity: 0.6; }
 .orbit--3 { width: 48%; height: 48%; background: radial-gradient(closest-side, rgba(10, 124, 255, 0.28), transparent); border-color: rgba(34, 200, 255, 0.5); box-shadow: 0 0 60px rgba(10, 124, 255, 0.35); }
 .hero__core { position: absolute; inset: 0; display: grid; place-items: center; }
 .hero__core img { width: 54%; filter: drop-shadow(0 0 28px rgba(34, 200, 255, 0.5)); }
-/* Etiquetas: flutuam (transform) e acompanham o mouse em profundidades diferentes (translate). */
-.chip {
-  position: absolute; z-index: 2; padding: 7px 13px; border-radius: 999px; font-size: 0.78rem; font-weight: 600;
-  background: rgba(8, 20, 42, 0.62); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--line-strong); box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.07);
-  animation: float 6s ease-in-out infinite; white-space: nowrap;
-  translate: calc(var(--px, 0) * var(--d, 10) * 1px) calc(var(--py, 0) * var(--d, 10) * 1px); transition: translate 0.5s ease-out;
-}
-.chip--1 { top: 10%; left: 6%; --d: 22; }
-.chip--2 { top: 20%; right: 0; animation-delay: -1.5s; --d: -16; }
-.chip--3 { bottom: 16%; left: 0; animation-delay: -3s; --d: 14; }
-.chip--4 { bottom: 6%; right: 10%; animation-delay: -4.5s; --d: -26; }
-@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 
 /* ---------- Seções ---------- */
 .section { padding: clamp(56px, 8vw, 96px) 0; position: relative; }
@@ -373,6 +416,8 @@ h3 { font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1rem); font-weight: 650; letter-
   .solutions, .segments { grid-template-columns: repeat(2, 1fr); }
   .projects { grid-template-columns: 1fr; max-width: 680px; margin-inline: auto; }
   .footer__grid { grid-template-columns: 1fr 1fr; }
+  .hero__trust { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); row-gap: 6px; }
+  .hero__trust li + li { border-left: 0; }
 }
 
 @media (max-width: 900px) {
@@ -392,11 +437,16 @@ h3 { font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1rem); font-weight: 650; letter-
 
   .hero__inner, .sim, .lead__grid, .extras { grid-template-columns: 1fr; }
   .hero__copy { text-align: center; }
-  .hero__lead, .hero__founder { margin-inline: auto; }
+  .hero__lead, .hero__note { margin-inline: auto; }
+  .hero__note { border-left: 0; padding-left: 0; }
   .hero__actions, .hero__facts { justify-content: center; }
   .hero { min-height: 0; }
-  .hero__scrim { background: linear-gradient(180deg, rgba(3, 8, 20, 0.55), rgba(3, 8, 20, 0.7) 55%, transparent 75%); }
-  .hero__art { max-width: 340px; }
+  /* Véu só atrás do texto: a foto e a logo 3D, logo abaixo, ficam com o brilho original */
+  .hero__scrim { background: linear-gradient(180deg, rgba(3, 8, 20, 0.55), rgba(3, 8, 20, 0.62) 34%, rgba(3, 8, 20, 0.3) 44%, transparent 52%); }
+  .hero__visual { justify-self: center; max-width: 440px; margin-top: 8px; }
+  .hero__trust { grid-template-columns: 1fr; justify-self: center; width: 100%; max-width: 480px; padding: 6px; }
+  .hero__trust li { padding: 10px 12px; }
+  .hero__trust li + li { border-left: 0; border-top: 1px solid var(--line); }
   .sim__result { position: static; }
   .founder { grid-template-columns: 1fr; text-align: center; }
   .founder__photo { max-width: 300px; margin-inline: auto; width: 100%; }
@@ -419,8 +469,15 @@ h3 { font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1rem); font-weight: 650; letter-
   .nav__brand img { width: 112px; }
   .hero { padding-top: 92px; }
   .hero__actions .btn { width: 100%; }
-  .hero__art { max-width: 320px; }
-  .chip { font-size: 0.7rem; padding: 5px 10px; }
+  .hero__visual { max-width: 380px; }
+  .hero__art { left: -8%; top: 3%; width: 62%; }
+  .hero__id { padding: 8px 12px 9px; bottom: 28%; }
+  .hero__id-name { font-size: 0.86rem; }
+  .hero__id-role { font-size: 0.7rem; }
+  .hero__edu { max-width: 76%; gap: 8px; padding: 8px 10px; }
+  .hero__edu .icon-tile { width: 30px; height: 30px; border-radius: 9px; }
+  .hero__edu-text b { font-size: 0.72rem; }
+  .hero__edu-text span, .hero__edu-text small { font-size: 0.66rem; }
   .sol { padding: 16px; }
   .tabs { width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; border-radius: 14px; overflow: visible; }
   .tab { padding: 8px 6px; font-size: 0.74rem; line-height: 1.25; white-space: normal; border-radius: 10px; }

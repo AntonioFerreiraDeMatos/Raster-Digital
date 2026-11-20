@@ -20,7 +20,9 @@ export default function Founder() {
           <p className="eyebrow">Quem desenvolve</p>
           <h2>{f.name}</h2>
           <p className="founder__role">{f.role} · Raster Digital</p>
-          <p className="founder__text">{f.text}</p>
+          {f.text.split(/\n\s*\n/).map((para) => para.trim()).filter(Boolean).map((para) => (
+            <p className="founder__text" key={para}>{para}</p>
+          ))}
           <ul className="founder__list">
             {f.highlights.map((h) => <li key={h}><Check size={15} /> {h}</li>)}
           </ul>

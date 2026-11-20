@@ -4,6 +4,15 @@ Mudanças publicadas em https://www.rasterdigital.com.br (cada item foi para o a
 
 ## 2026-11-20
 
+### Primeira dobra com o fundador e a logo 3D
+- **Foto real de Antonio Matos em destaque** (cerca de 35% da largura): bordas que se dissolvem no fundo, luz azul/ciano, entrada suave e leve profundidade com o mouse.
+- **Logo 3D preservada:** mesma cena (`heroScene.ts` sem alterações), menor e ao lado da foto. Animação, órbitas, luzes, chão de pixels e giro no clique continuam iguais.
+- Placa com nome e cargo revelada por animação e **selo de formação** (Análise e Desenvolvimento de Sistemas, Unifor, conclusão prevista para 2026), editável em **/admin → Conteúdo → Fundador** (curso, instituição e situação).
+- **Faixa de credibilidade** com 5 compromissos no rodapé do topo (lista no celular).
+- Nova apresentação do fundador no topo ("Você não precisa lidar com intermediários…") e texto em três parágrafos na seção "Quem desenvolve" (migration 008, só onde o texto ainda era o original).
+- Removidas as etiquetas flutuantes "Sites / Lojas virtuais / Sistemas / Dashboards"; no celular, o véu escuro atrás do texto foi encurtado para a logo 3D manter o brilho.
+- **Sem mudança** em títulos, botões, preços, formulário, links, navegação ou SEO. Com "reduzir movimento", sem animações e com a logo estática.
+
 ### Textos de conversão e SEO local (Caucaia e Fortaleza)
 - **Primeira dobra:** novo título "Seu negócio merece mais do que estar na internet. Merece crescer com tecnologia.", subtítulo e botões "Quero uma solução para meu negócio" / "Conhecer projetos reais". Apresentação do fundador com foto logo abaixo do texto (editável em **/admin → Conteúdo → Primeira dobra → Apresentação do fundador**).
 - **H1 para o Google:** "Criação de sites profissionais em Caucaia – CE" (campo "Chamada acima do título", mesmo visual de antes).

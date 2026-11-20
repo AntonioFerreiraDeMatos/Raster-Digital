@@ -17,7 +17,8 @@ export function buildSsrHtml({ services, projects, settings }) {
 <h1>${esc(h.eyebrow || h.title)}</h1>
 <p><strong>${esc(h.title)} ${esc(h.highlight)}</strong></p>
 <p>${esc(h.subtitle)} Criação de sites profissionais, landing pages, lojas virtuais, cardápios digitais, sistemas e dashboards em Caucaia, Fortaleza e Região Metropolitana, para empresas de todo o Brasil.</p>
-${h.intro ? `<p>${esc(f.name)}, ${esc(String(f.role || "").toLowerCase())} da Raster Digital. ${esc(h.intro)}</p>` : ""}
+${h.intro ? `<p>${esc(h.intro)}</p>` : ""}
+${f.course ? `<p>${esc(f.name)}: ${esc(f.course)}${f.school ? ` — ${esc(f.school)}` : ""}${f.graduation ? ` (${esc(f.graduation)})` : ""}.</p>` : ""}
 <h2>Quantas oportunidades seu negócio pode estar perdendo?</h2>
 <ul>${problems.map((p) => `<li><strong>${esc(p.title)}</strong>: ${esc(p.text)}</li>`).join("")}</ul>
 <h2>Serviços e preços</h2>
@@ -25,7 +26,7 @@ ${h.intro ? `<p>${esc(f.name)}, ${esc(String(f.role || "").toLowerCase())} da Ra
 <h2>Projetos publicados</h2>
 <ul>${projects.map((p) => `<li><a href="${esc(p.url || SITE)}">${esc(p.client)}</a>: ${esc(p.title)}. ${esc(p.summary)}</li>`).join("")}</ul>
 ${f.name ? `<h2>Quem desenvolve: ${esc(f.name)}</h2>
-<p>${esc(f.text)}</p>
+${String(f.text || "").split(/\n\s*\n/).filter((x) => x.trim()).map((x) => `<p>${esc(x.trim())}</p>`).join("")}
 <ul>${(f.highlights || []).map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
 <h2>Dúvidas frequentes</h2>
 ${faq.map((f) => `<h3>${esc(f.q)}</h3><p>${esc(f.a)}</p>`).join("")}

@@ -96,12 +96,12 @@ export const brands = [
 
 export const settings = {
   hero: {
-    // eyebrow é o H1 da página (palavra-chave local); intro aparece com a foto do fundador na primeira dobra.
+    // eyebrow é o H1 da página (palavra-chave local); intro é a apresentação do fundador abaixo do texto de apoio.
     eyebrow: "Criação de sites profissionais em Caucaia – CE",
     title: "Seu negócio merece mais do que estar na internet.",
     highlight: "Merece crescer com tecnologia.",
     subtitle: "Desenvolvemos sites profissionais, lojas virtuais e sistemas personalizados para empresas que querem conquistar clientes, aumentar oportunidades de vendas e simplificar sua operação.",
-    intro: "Você conversa diretamente com quem desenvolve sua solução. Entendemos sua necessidade, planejamos o projeto e construímos uma tecnologia pensada para a realidade do seu negócio.",
+    intro: "Você não precisa lidar com intermediários. Aqui, conversa diretamente com Antonio Matos, fundador e desenvolvedor da Raster Digital, desde o planejamento até o desenvolvimento da sua solução.",
   },
   contact: {
     whatsapp: "5585986275389",
@@ -166,7 +166,12 @@ export const settings = {
   founder: {
     name: "Antonio Matos",
     role: "Fundador e desenvolvedor",
-    text: "Sou Antonio Matos, fundador e desenvolvedor da Raster Digital. Meu trabalho é transformar desafios empresariais em soluções digitais que facilitam processos, fortalecem marcas e criam novas oportunidades de negócio.",
+    // Selo de formação no topo do site. Ao concluir o curso, troque "Conclusão prevista: 2026" no /admin.
+    course: "Análise e Desenvolvimento de Sistemas",
+    school: "Universidade de Fortaleza — Unifor",
+    graduation: "Conclusão prevista: 2026",
+    // Parágrafos separados por linha em branco.
+    text: "Sou Antonio Matos, fundador e desenvolvedor da Raster Digital. Acredito que a tecnologia precisa resolver problemas reais, facilitar a rotina das empresas e criar novas oportunidades de crescimento.\n\nPor isso, participo diretamente do planejamento e desenvolvimento de cada solução, buscando entender as necessidades de cada negócio para entregar projetos com propósito, qualidade e transparência.\n\nAqui, você conversa diretamente com quem desenvolve seu projeto.",
     highlights: [
       "Atendimento diretamente com o desenvolvedor, do primeiro contato à entrega",
       "Participação pessoal no planejamento e no desenvolvimento de cada projeto",

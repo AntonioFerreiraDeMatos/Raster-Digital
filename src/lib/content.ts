@@ -52,7 +52,8 @@ export type Settings = {
   hosting: { headline: string; included: string[]; notIncluded: string[]; note: string };
   /** Parcelamento exibido nos preços (0 ou 1 = não mostrar). */
   payment?: { installments: number };
-  founder: { name: string; role: string; text: string; highlights: string[] };
+  /** text aceita parágrafos separados por linha em branco; course/school/graduation formam o selo de formação do topo. */
+  founder: { name: string; role: string; course?: string; school?: string; graduation?: string; text: string; highlights: string[] };
   segments: { name: string; icon: string; items: string[] }[];
   simulator: {
     complexity: { id: string; label: string; factor: number | null; min_cents?: number | null }[];

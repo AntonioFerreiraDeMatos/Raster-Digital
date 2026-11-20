@@ -6,14 +6,14 @@ import { LinesField, MoneyField, TextField } from "../fields";
 type Json = string | number | boolean | null | Json[] | { [k: string]: Json };
 
 const SECTIONS: { key: string; title: string; help: string }[] = [
-  { key: "hero", title: "Primeira dobra", help: "Título e texto de abertura do site. A “Chamada acima do título” é o título principal para o Google (H1): mantenha a palavra-chave, ex.: Criação de sites profissionais em Caucaia – CE. A “Apresentação do fundador” aparece com sua foto logo abaixo do texto de apoio (vazia = não mostra)." },
+  { key: "hero", title: "Primeira dobra", help: "Título e texto de abertura do site. A “Chamada acima do título” é o título principal para o Google (H1): mantenha a palavra-chave, ex.: Criação de sites profissionais em Caucaia – CE. A “Apresentação do fundador” aparece logo abaixo do texto de apoio, com o seu nome em destaque (vazia = não mostra)." },
   { key: "contact", title: "Contatos e redes", help: "WhatsApp (DDI+DDD+número), Instagram e demais links." },
   { key: "solutions", title: "Soluções", help: "Cards da seção Soluções. “service” liga o card a um serviço (identificador)." },
   { key: "maintenancePlans", title: "Planos de manutenção", help: "Textos da seção e os planos mensais. “Estilo” define o visual do card: essencial, premium ou platinum. Destaques vazios não mostram selo." },
   { key: "hosting", title: "Hospedagem", help: "O que está e o que não está incluído." },
   { key: "payment", title: "Parcelamento", help: "Em quantas vezes o cliente pode parcelar o desenvolvimento. O valor da parcela aparece nos cards de preço e no simulador. Use 0 para não mostrar." },
   { key: "segments", title: "Soluções por segmento", help: "Possibilidades de desenvolvimento por tipo de negócio." },
-  { key: "founder", title: "Fundador", help: "Sua apresentação profissional." },
+  { key: "founder", title: "Fundador", help: "Sua apresentação profissional. Curso, instituição e situação formam o selo de formação ao lado da sua foto no topo do site (ao concluir, troque a situação para, por ex., “Concluído em 2026”). No texto, deixe uma linha em branco para separar parágrafos." },
   { key: "simulator", title: "Simulador", help: "Complexidade (fator multiplicador; vazio = sob análise) e adicionais." },
 ];
 
@@ -22,7 +22,7 @@ const LABELS: Record<string, string> = {
   whatsapp: "WhatsApp (só números, com 55)", whatsappDisplay: "WhatsApp (como aparece no site)", instagram: "Instagram", linkedin: "LinkedIn",
   github: "GitHub", city: "Cidade", name: "Nome", text: "Texto", service: "Serviço ligado (identificador)", icon: "Ícone",
   price_cents: "Valor", items: "Itens", note: "Observação", headline: "Título", included: "Incluído", notIncluded: "Não incluído",
-  role: "Cargo", highlights: "Destaques", complexity: "Complexidade", addons: "Adicionais", id: "Código", label: "Nome exibido", factor: "Fator (ex.: 1.3)", min_cents: "Valor mínimo",
+  role: "Cargo", course: "Curso (selo de formação)", school: "Instituição", graduation: "Situação (ex.: Conclusão prevista: 2026)", highlights: "Destaques", complexity: "Complexidade", addons: "Adicionais", id: "Código", label: "Nome exibido", factor: "Fator (ex.: 1.3)", min_cents: "Valor mínimo",
   plans: "Planos", tier: "Estilo (essencial, premium ou platinum)", number: "Número do plano", badge: "Selo (vazio = sem selo)", tagline: "Frase curta", requests: "Etiqueta de solicitações", minutes: "Etiqueta de tempo",
   installments: "Número de parcelas (0 = não mostrar)",
 };
