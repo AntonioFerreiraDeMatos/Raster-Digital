@@ -46,6 +46,7 @@ function validateService(b) {
     hosting_cents: cents(b.hosting_cents),
     scope: strList(b.scope, 15, 200),
     highlight: bool(b.highlight),
+    badge: clip(b.badge ?? "", 40) || null,
     sort: int(b.sort),
     active: bool(b.active ?? true),
   };
@@ -70,16 +71,16 @@ async function saveService(req, res, next, id) {
   try {
     const { d, f } = validateService(req.body ?? {});
     if (Object.keys(f).length) return fail(res, f);
-    const vals = [d.slug, d.category, d.name, d.description, d.price_cents, d.price_from, d.hosting_cents, JSON.stringify(d.scope), d.highlight, d.sort, d.active];
+    const vals = [d.slug, d.category, d.name, d.description, d.price_cents, d.price_from, d.hosting_cents, JSON.stringify(d.scope), d.highlight, d.badge, d.sort, d.active];
     if (id) {
       const [r] = await pool.query(
-        `UPDATE services SET slug=?, category=?, name=?, description=?, price_cents=?, price_from=?, hosting_cents=?, scope=?, highlight=?, sort=?, active=? WHERE id=?`,
+        `UPDATE services SET slug=?, category=?, name=?, description=?, price_cents=?, price_from=?, hosting_cents=?, scope=?, highlight=?, badge=?, sort=?, active=? WHERE id=?`,
         [...vals, id]
       );
       if (!r.affectedRows) return res.status(404).json({ error: "Serviço não encontrado." });
     } else {
       const [r] = await pool.query(
-        `INSERT INTO services (slug, category, name, description, price_cents, price_from, hosting_cents, scope, highlight, sort, active) VALUES (?,?,?,?,?,?,?,?,?,?,?)`,
+        `INSERT INTO services (slug, category, name, description, price_cents, price_from, hosting_cents, scope, highlight, badge, sort, active) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`,
         vals
       );
       id = r.insertId;
@@ -266,6 +267,11 @@ router.put("/settings/:name", adminOnly, async (req, res, next) => {
       if (!/^\d{12,13}$/.test(String(value.whatsapp ?? ""))) return fail(res, { whatsapp: "Use DDI + DDD + número, só dígitos." });
       for (const k of ["instagram", "linkedin", "github"]) {
         if (value[k] && !/^https:\/\/[^\s<>"']+$/.test(value[k])) return fail(res, { [k]: "Use um link https://." });
+      }
+    }
+    if (name === "payment") {
+      if (!Number.isInteger(value.installments) || value.installments < 0 || value.installments > 12) {
+        return fail(res, { installments: "Informe de 0 a 12 parcelas (0 ou 1 = não mostrar)." });
       }
     }
     if (name === "maintenancePlans") {

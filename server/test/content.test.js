@@ -58,8 +58,8 @@ test("conteúdo público: serviços, projetos, marcas e configurações", async 
   assert.equal(lp.hosting_cents, 9900);
   assert.ok(lp.scope.length > 0);
   assert.equal(c.services.find((s) => s.slug === "personalizado").price_from, true);
-  assert.deepEqual(c.projects.map((p) => p.slug).sort(), ["amanda-cosmeticos", "js-retifica"]);
-  assert.equal(c.brands.length, 2);
+  assert.deepEqual(c.projects.map((p) => p.slug).sort(), ["amanda-cosmeticos", "cumbuco-de-buggy", "js-retifica"]);
+  assert.equal(c.brands.length, 3);
   assert.equal(c.settings.maintenance.price_cents, 5990);
   assert.equal(c.settings.contact.instagram, "https://www.instagram.com/raster.digital/");
 });
@@ -209,4 +209,43 @@ test("planos de manutenção: padrão no site, admin edita preço (reflete no si
   } finally {
     await call(admin, "/settings/maintenancePlans", "PUT", { value: original });
   }
+});
+
+test("selo dos cards e parcelamento: padrão, edição pelo painel e validação", async () => {
+  const pub = await (await fetch(BASE + "/api/content")).json();
+  assert.equal(pub.services.find((s) => s.slug === "landing-page").badge, "Comece por aqui");
+  assert.equal(pub.services.find((s) => s.slug === "loja-virtual").badge, null);
+  assert.equal(pub.settings.payment.installments, 3);
+
+  // selo próprio num serviço novo; vazio volta a null
+  const body = { slug: `selo-${RUN}`, category: "presenca", name: "Serviço Selo", description: "Descrição de teste", price_cents: 35000, price_from: false, hosting_cents: null, scope: ["Item"], highlight: false, badge: "  Novo  ", sort: 99, active: true };
+  const r = await call(admin, "/services", "POST", body);
+  assert.equal(r.status, 200);
+  const { item } = await r.json();
+  created.services.push(item.id);
+  assert.equal(item.badge, "Novo");
+  const r2 = await call(admin, `/services/${item.id}`, "PUT", { ...body, badge: "" });
+  assert.equal((await r2.json()).item.badge, null);
+
+  const original = (await (await call(admin, "/settings")).json()).settings.payment;
+  try {
+    assert.equal((await call(admin, "/settings/payment", "PUT", { value: { installments: 20 } })).status, 422);
+    assert.equal((await call(admin, "/settings/payment", "PUT", { value: { installments: 2.5 } })).status, 422);
+    assert.equal((await call(sales, "/settings/payment", "PUT", { value: { installments: 4 } })).status, 403);
+    assert.equal((await call(admin, "/settings/payment", "PUT", { value: { installments: 4 } })).status, 200);
+    const c = await (await fetch(BASE + "/api/content")).json();
+    assert.equal(c.settings.payment.installments, 4);
+    assert.match(await (await fetch(BASE + "/llms.txt")).text(), /em até 4x/);
+  } finally {
+    await call(admin, "/settings/payment", "PUT", { value: original });
+  }
+});
+
+test("llms.txt: mostra os planos de manutenção atuais, não o valor antigo", async () => {
+  const txt = await (await fetch(BASE + "/llms.txt")).text();
+  assert.match(txt, /## Planos de manutenção/);
+  assert.match(txt, /\*\*Essencial\*\* \(R\$\s?49,90\/mês\)/);
+  assert.match(txt, /\*\*Platinum\*\* \(R\$\s?149,90\/mês\)/);
+  assert.doesNotMatch(txt, /59,90/);
+  assert.match(txt, /pagamento único, em até 3x/);
 });

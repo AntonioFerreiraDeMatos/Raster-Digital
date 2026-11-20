@@ -16,9 +16,9 @@ export async function seedContent() {
   if (await empty("services")) {
     for (const s of defaults.services) {
       await pool.query(
-        `INSERT INTO services (slug, category, name, description, price_cents, price_from, hosting_cents, scope, highlight, sort)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-        [s.slug, s.category, s.name, s.description, s.price_cents, s.priceFrom ? 1 : 0, s.hosting_cents, JSON.stringify(s.scope), s.highlight ? 1 : 0, s.sort]
+        `INSERT INTO services (slug, category, name, description, price_cents, price_from, hosting_cents, scope, highlight, badge, sort)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        [s.slug, s.category, s.name, s.description, s.price_cents, s.priceFrom ? 1 : 0, s.hosting_cents, JSON.stringify(s.scope), s.highlight ? 1 : 0, s.badge || null, s.sort]
       );
     }
   }
@@ -45,7 +45,7 @@ export async function seedContent() {
 export const mapService = (r) => ({
   id: r.id, slug: r.slug, category: r.category, name: r.name, description: r.description,
   price_cents: r.price_cents, price_from: !!r.price_from, hosting_cents: r.hosting_cents,
-  scope: parse(r.scope, []), highlight: !!r.highlight, sort: r.sort, active: !!r.active,
+  scope: parse(r.scope, []), highlight: !!r.highlight, badge: r.badge || null, sort: r.sort, active: !!r.active,
 });
 export const mapProject = (r) => ({
   id: r.id, slug: r.slug, client: r.client, title: r.title, segment: r.segment, summary: r.summary, url: r.url,

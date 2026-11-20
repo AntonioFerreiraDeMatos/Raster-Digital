@@ -2,9 +2,9 @@ import { useMemo, useState } from "react";
 import { ArrowRight, Calculator } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import options from "../shared/leadOptions.json";
-import { CATEGORY_LABEL, goToProposal, leadServiceFor, money, useContent, waLink, type Category } from "../lib/content";
+import { CATEGORY_LABEL, goToProposal, installmentsOf, leadServiceFor, money, useContent, waLink, type Category } from "../lib/content";
 import { estimate } from "../lib/estimate";
-import { useMaintenancePlans } from "./Maintenance";
+import { useMaintenancePlans } from "../lib/maintenance";
 import Reveal from "./Reveal";
 import SectionHead from "./SectionHead";
 
@@ -16,6 +16,7 @@ export default function Simulator() {
   const [complexity, setComplexity] = useState(sim.complexity[0]?.id ?? "simples");
   const [addons, setAddons] = useState<string[]>([]);
   const maintPlans = useMaintenancePlans();
+  const installments = installmentsOf(settings);
   const [maintName, setMaintName] = useState("");
   const maintPlan = maintPlans.find((p) => p.name === maintName);
   const maintenance = !!maintPlan;
@@ -115,6 +116,7 @@ export default function Simulator() {
             <p className="sim__value">
               {result.needsAnalysis ? <>A partir de <b>{money(result.min_cents)}</b></> : <><b>{money(result.min_cents)}</b> a <b>{money(result.max_cents!)}</b></>}
             </p>
+            {installments > 0 && <p className="sim__inst">Parcele em até {installments}x</p>}
             {result.needsAnalysis && <p className="sim__warn">Inclui itens que precisam de análise ({result.reasons.join(", ")}). O valor final vem na proposta.</p>}
             {maintPlan && <p className="sim__monthly">+ {money(result.monthly_cents)}/mês · Manutenção {maintPlan.name}</p>}
             <p className="sim__hosting">12 meses de hospedagem grátis</p>

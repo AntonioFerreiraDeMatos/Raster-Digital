@@ -2,6 +2,28 @@
 
 Mudanças publicadas em https://www.rasterdigital.com.br (cada item foi para o ar com um push na `main`).
 
+## 2026-11-20
+
+### Site mais imersivo
+- **"R" da marca em 3D** no topo (Three.js), com órbitas, chão de grade e reflexos. Clicar no "R" faz ele girar.
+  - Carrega depois que a página abre, em arquivo separado, sem atrasar o carregamento.
+  - Pausa quando sai da tela ou a aba fica em segundo plano; versão mais leve no celular e em aparelhos simples.
+  - Quem prefere menos movimento, usa economia de dados ou não tem WebGL vê a versão estática.
+- Ambiente do site: manchas de luz com parallax na rolagem, luz que segue o cursor e barra de progresso de leitura.
+- Cards com borda iluminada e leve inclinação 3D sob o mouse (só com mouse; no celular nada muda).
+- Seções entram saindo do desfoque para o foco; aparelhos dos projetos ganham perspectiva na rolagem.
+
+### Preços
+- **Parcelamento:** cada card mostra "ou em até 3x de R$ …" e o simulador mostra "Parcele em até 3x". O número de parcelas fica em **/admin → Conteúdo → Parcelamento** (0 desliga).
+- **Selo próprio por serviço:** novo campo "Selo do card" em **/admin → Serviços**. A Landing Page passa a mostrar **"Comece por aqui"** (migration 006). Sem selo, um serviço destacado continua com "Mais procurado".
+- Texto da seção de preços: "pago uma vez e sem mensalidade obrigatória".
+- **/llms.txt** (lido por Google e IAs) lista os Planos de Manutenção atuais (Essencial, Premium, Platinum) no lugar do valor antigo de R$ 59,90 e informa o parcelamento.
+
+### Correções
+- Banco novo: a migration do Cumbuco de Buggy impedia o cadastro dos outros projetos e marcas iniciais. Não afeta o site no ar.
+- Lint: as funções dos planos de manutenção saíram de `Maintenance.tsx` para `src/lib/maintenance.ts`.
+- Testes: novos testes de selo, parcelamento e llms.txt. Suíte completa: 23/23 com banco limpo.
+
 ## 2026-11-14
 
 ### Planos de Manutenção

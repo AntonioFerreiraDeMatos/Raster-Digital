@@ -231,6 +231,7 @@ h3 { font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1rem); font-weight: 650; letter-
 .plan__badge { position: absolute; top: -10px; right: 16px; font-size: 0.7rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: var(--grad); }
 .plan__desc { color: var(--text-2); font-size: 0.88rem; min-height: 2.6em; }
 .plan__price { font-size: clamp(1.45rem, 1.2rem + 0.8vw, 1.75rem); font-weight: 800; letter-spacing: -0.02em; }
+.plan__inst { margin-top: -6px; font-size: 0.84rem; font-weight: 600; color: var(--cyan); }
 .plan__renew { font-size: 0.76rem; color: var(--text-3); }
 .plan__toggle { display: inline-flex; align-items: center; gap: 4px; align-self: flex-start; font-size: 0.82rem; color: var(--cyan); font-weight: 600; padding: 4px 0; }
 .plan__toggle svg { transition: transform 0.2s; }
@@ -260,6 +261,7 @@ h3 { font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1rem); font-weight: 650; letter-
 .sim__value b { font-weight: 800; }
 .sim__warn { font-size: 0.8rem; color: #fcd34d; }
 .sim__monthly { font-size: 0.86rem; color: var(--text-2); }
+.sim__inst { font-size: 0.86rem; font-weight: 600; color: var(--cyan); }
 .sim__hosting { font-size: 0.82rem; color: var(--green); font-weight: 600; }
 .sim__fine { font-size: 0.74rem; color: var(--text-3); text-align: center; }
 .seg-control { display: flex; gap: 6px; flex-wrap: wrap; }

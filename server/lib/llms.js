@@ -19,7 +19,9 @@ export function buildLlmsTxt({ services, projects, settings }) {
   if (c.linkedin) lines.push(`- LinkedIn: ${c.linkedin}`);
   lines.push("- Orçamento: formulário e simulador de preços em " + SITE + "/#contato", "");
 
-  lines.push("## Serviços e preços", "", "Valores de desenvolvimento (pagamento único). Hospedagem anual informada quando se aplica; os 12 primeiros meses são grátis.", "");
+  const n = Number(settings.payment?.installments) || 0;
+  const pay = n >= 2 ? `pagamento único, em até ${n}x` : "pagamento único";
+  lines.push("## Serviços e preços", "", `Valores de desenvolvimento (${pay}). Hospedagem anual informada quando se aplica; os 12 primeiros meses são grátis.`, "");
   for (const [key, title] of Object.entries(CATEGORIES)) {
     const list = services.filter((s) => s.category === key);
     if (!list.length) continue;
@@ -32,8 +34,13 @@ export function buildLlmsTxt({ services, projects, settings }) {
     lines.push("");
   }
 
-  const m = settings.maintenance;
-  if (m?.price_cents) lines.push("## Manutenção", "", `Plano a partir de ${brl(m.price_cents)}/mês. ${m.note || ""}`.trim(), "");
+  // Planos de manutenção atuais (o antigo "maintenance" não aparece mais no site)
+  const plans = (settings.maintenancePlans?.plans || []).filter((p) => p?.name && p.price_cents > 0);
+  if (plans.length) {
+    lines.push("## Planos de manutenção (opcionais)", "");
+    for (const p of plans) lines.push(`- **${p.name}** (${brl(p.price_cents)}/mês)${p.tagline ? `: ${p.tagline}` : ""}`);
+    lines.push("", "Desenvolvimento de novas funcionalidades, páginas adicionais e redesign são orçados à parte.", "");
+  }
 
   if (projects.length) {
     lines.push("## Projetos publicados", "");

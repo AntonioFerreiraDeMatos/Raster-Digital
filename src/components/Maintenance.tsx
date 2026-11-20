@@ -1,17 +1,9 @@
 import { Check, Crown, ShieldCheck, Sparkles } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
-import { money, useContent, waLink, type MaintenancePlan } from "../lib/content";
+import { money, useContent, waLink } from "../lib/content";
+import { maintenanceMessage } from "../lib/maintenance";
 import Reveal from "./Reveal";
 import SectionHead from "./SectionHead";
-
-/** Planos de manutenção mensal, editáveis no /admin (Conteúdo → Planos de manutenção). */
-export function useMaintenancePlans(): MaintenancePlan[] {
-  return useContent().settings.maintenancePlans?.plans ?? [];
-}
-
-export function maintenanceMessage(p: Pick<MaintenancePlan, "name" | "price_cents">) {
-  return `Olá! Vim pelo site da Raster Digital e quero contratar o Plano de Manutenção ${p.name} (${money(p.price_cents)}/mês). Podemos conversar?`;
-}
 
 const TIER_ICON = { essencial: ShieldCheck, premium: Sparkles, platinum: Crown } as const;
 

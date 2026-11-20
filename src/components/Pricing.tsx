@@ -1,20 +1,23 @@
 import { useEffect, useState } from "react";
 import { Check, ChevronDown, Clock, Server } from "lucide-react";
-import { CATEGORY_LABEL, goToProposal, leadServiceFor, money, priceLabel, useContent, type Category, type Service } from "../lib/content";
+import { CATEGORY_LABEL, goToProposal, installmentLabel, installmentsOf, leadServiceFor, money, priceLabel, useContent, type Category, type Service } from "../lib/content";
 import Reveal from "./Reveal";
 import SectionHead from "./SectionHead";
 
 const CATS: Category[] = ["presenca", "comercial", "profissional"];
 
-function PlanCard({ s }: { s: Service }) {
+function PlanCard({ s, installments }: { s: Service; installments: number }) {
   const [open, setOpen] = useState(false);
+  const badge = s.badge || (s.highlight ? "Mais procurado" : "");
+  const inst = installmentLabel(s.price_cents, installments);
   return (
     <article id={`plano-${s.slug}`} className={`plan ${s.highlight ? "plan--hl" : ""}`}>
-      {s.highlight && <span className="plan__badge">Mais procurado</span>}
+      {badge && <span className="plan__badge">{badge}</span>}
       <h3>{s.name}</h3>
       {s.slug.startsWith("loja") && <p className="plan__247"><Clock size={14} /> Sua loja vendendo 24 horas por dia</p>}
       <p className="plan__desc">{s.description}</p>
       <p className="plan__price">{priceLabel(s)}</p>
+      {inst && <p className="plan__inst">{inst}</p>}
       <p className="plan__renew">
         {s.hosting_cents != null ? <>Hospedagem grátis por 12 meses · depois {money(s.hosting_cents)}/ano</> : "Hospedagem sob orçamento"}
       </p>
@@ -57,6 +60,7 @@ export default function Pricing() {
 
   const list = services.filter((s) => s.category === cat);
   const { hosting: h } = settings;
+  const installments = installmentsOf(settings);
 
   return (
     <section id="precos" className="section">
@@ -64,7 +68,7 @@ export default function Pricing() {
         <SectionHead
           eyebrow="Planos e preços"
           title={<>Planos e soluções <span className="grad">para seu negócio</span></>}
-          sub="Preço fechado de desenvolvimento. Valores iniciais de lançamento."
+          sub={`Preço fechado de desenvolvimento, pago uma vez e sem mensalidade obrigatória. Valores iniciais de lançamento${installments ? `, em até ${installments}x` : ""}.`}
         />
 
         <div className="tabs" role="tablist" aria-label="Categorias de planos">
@@ -76,7 +80,7 @@ export default function Pricing() {
         </div>
 
         <div className="plans" role="tabpanel">
-          {list.map((s) => <PlanCard key={s.id} s={s} />)}
+          {list.map((s) => <PlanCard key={s.id} s={s} installments={installments} />)}
         </div>
 
         <div className="extras extras--single">

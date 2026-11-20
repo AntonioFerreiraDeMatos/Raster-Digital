@@ -7,7 +7,7 @@ const common = "1 rodada de ajustes após a entrega · Versão para celular · 1
 
 export const services = [
   // Sites e presença digital
-  { slug: "landing-page", category: "presenca", name: "Landing Page", price: 249, hosting: 99,
+  { slug: "landing-page", category: "presenca", name: "Landing Page", price: 249, hosting: 99, badge: "Comece por aqui",
     description: "Uma página objetiva para apresentar sua oferta e gerar contatos.",
     scope: ["1 página com até 6 seções", "Botão de WhatsApp e formulário de contato", "Otimização básica para o Google", common] },
   { slug: "cardapio-digital", category: "presenca", name: "Cardápio Digital", price: 299, hosting: 119, highlight: 1,
@@ -151,6 +151,9 @@ export const settings = {
         items: ["Todos os benefícios do Premium", "Até 4 solicitações de alterações por mês", "Atualização de banners, imagens e conteúdos", "Monitoramento mais frequente do site", "Verificação de SEO técnico básico", "Análise básica de acessos, quando disponível", "Verificação de formulários, integrações e funcionalidades", "Backup e orientação de recuperação, quando tecnicamente disponíveis", "Atendimento prioritário especial", "Relatório mensal de acompanhamento", "Até 90 minutos de ajustes mensais"],
       },
     ],
+  },
+  payment: {
+    installments: 3,
   },
   hosting: {
     headline: "12 meses de hospedagem grátis!",

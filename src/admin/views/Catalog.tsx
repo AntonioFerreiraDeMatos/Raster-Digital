@@ -168,7 +168,7 @@ function ListView<T extends WithId>({
 /* ---------------- Serviços e preços ---------------- */
 type ServiceRow = WithId & {
   slug: string; category: string; name: string; description: string; price_cents: number | null; price_from: boolean;
-  hosting_cents: number | null; scope: string[]; highlight: boolean;
+  hosting_cents: number | null; scope: string[]; highlight: boolean; badge: string | null;
 };
 const CATS = [
   { value: "presenca", label: "Sites e presença digital" },
@@ -186,10 +186,10 @@ export function ServicesView({ canEdit, onUnauthorized }: { canEdit: boolean; on
       intro="Preços de desenvolvimento, renovação anual da hospedagem e o que cada plano inclui."
       newItem="Novo serviço"
       itemTitle={(s) => s.name}
-      empty={{ id: 0, active: true, sort: 0, slug: "", category: "presenca", name: "", description: "", price_cents: 0, price_from: false, hosting_cents: null, scope: [], highlight: false }}
+      empty={{ id: 0, active: true, sort: 0, slug: "", category: "presenca", name: "", description: "", price_cents: 0, price_from: false, hosting_cents: null, scope: [], highlight: false, badge: null }}
       columns={(s) => (
         <>
-          <b>{s.name}{s.highlight && <span className="pill">Destaque</span>}</b>
+          <b>{s.name}{(s.badge || s.highlight) && <span className="pill">{s.badge || "Mais procurado"}</span>}</b>
           <small>{catLabel(s.category)} · {s.price_cents == null ? "Sob orçamento" : `${s.price_from ? "A partir de " : ""}${money(s.price_cents)}`} · renovação {s.hosting_cents == null ? "sob orçamento" : `${money(s.hosting_cents)}/ano`}</small>
         </>
       )}
@@ -201,6 +201,7 @@ export function ServicesView({ canEdit, onUnauthorized }: { canEdit: boolean; on
           <TextField label="Descrição curta" value={v.description} onChange={(x) => set("description", x)} error={f.description} />
           <MoneyField label="Preço de desenvolvimento" value={v.price_cents} onChange={(x) => set("price_cents", x)} allowEmpty error={f.price_cents} />
           <MoneyField label="Renovação anual da hospedagem" value={v.hosting_cents} onChange={(x) => set("hosting_cents", x)} allowEmpty error={f.hosting_cents} />
+          <TextField label="Selo do card" value={v.badge ?? ""} onChange={(x) => set("badge", x.trim() === "" ? null : x)} hint='Ex.: "Comece por aqui". Vazio: mostra "Mais procurado" se estiver destacado' />
           <LinesField full label="O que está incluído (escopo e limites)" value={v.scope} onChange={(x) => set("scope", x)} rows={6} error={f.scope} />
           <div className="field--full row-2">
             <Toggle label='Mostrar "A partir de"' checked={v.price_from} onChange={(c) => set("price_from", c)} />

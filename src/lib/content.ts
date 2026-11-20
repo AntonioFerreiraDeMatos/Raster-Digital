@@ -13,6 +13,8 @@ export type Service = {
   hosting_cents: number | null;
   scope: string[];
   highlight: boolean;
+  /** Selo próprio (ex.: "Comece por aqui"); sem selo, o destaque mostra "Mais procurado". */
+  badge?: string | null;
 };
 
 export type Project = {
@@ -47,6 +49,8 @@ export type Settings = {
   maintenance: { price_cents: number; items: string[]; note: string };
   maintenancePlans: { eyebrow: string; title: string; highlight: string; subtitle: string; note: string; plans: MaintenancePlan[] };
   hosting: { headline: string; included: string[]; notIncluded: string[]; note: string };
+  /** Parcelamento exibido nos preços (0 ou 1 = não mostrar). */
+  payment?: { installments: number };
   founder: { name: string; role: string; text: string; highlights: string[] };
   segments: { name: string; icon: string; items: string[] }[];
   simulator: {
@@ -89,6 +93,18 @@ export const money = (cents: number) => (cents % 100 === 0 ? brlInt : brlDec).fo
 export function priceLabel(s: Pick<Service, "price_cents" | "price_from">) {
   if (s.price_cents == null) return "Sob orçamento";
   return s.price_from ? `A partir de ${money(s.price_cents)}` : money(s.price_cents);
+}
+
+/** Número de parcelas exibido no site (0 = parcelamento desligado). */
+export function installmentsOf(settings: Pick<Settings, "payment">) {
+  const n = Math.trunc(Number(settings.payment?.installments) || 0);
+  return n >= 2 && n <= 12 ? n : 0;
+}
+
+/** "ou em até 3x de R$ 116,63"; vazio quando não há preço ou parcelamento. */
+export function installmentLabel(cents: number | null, n: number) {
+  if (cents == null || cents <= 0 || n < 2) return "";
+  return `ou em até ${n}x de ${money(Math.round(cents / n))}`;
 }
 
 /** Converte o serviço do catálogo no "tipo de solução" do formulário. */
