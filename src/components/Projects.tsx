@@ -1,3 +1,5 @@
+import { useRef } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, ArrowUpRight, PlayCircle } from "lucide-react";
 import { goToProposal, useContent, type Project } from "../lib/content";
 import Reveal from "./Reveal";
@@ -8,19 +10,31 @@ function hostOf(url: string | null) {
 }
 
 function ProjectCard({ p, delay }: { p: Project; delay: number }) {
+  // Aparelhos em perspectiva: o notebook "deita" para trás ao entrar e se endireita no meio da tela;
+  // o celular sobe mais rápido (parallax), dando profundidade.
+  const mediaRef = useRef<HTMLDivElement>(null);
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: mediaRef, offset: ["start end", "end start"] });
+  const laptopTilt = useTransform(scrollYProgress, [0, 0.5, 1], [18, 0, -6]);
+  const laptopY = useTransform(scrollYProgress, [0, 0.5, 1], [24, 0, -8]);
+  const phoneY = useTransform(scrollYProgress, [0, 0.5, 1], [70, 0, -18]);
+
   return (
     <Reveal as="article" className={`proj proj--${p.theme}`} delay={delay}>
-      <div className="proj__media">
+      <div className="proj__media" ref={mediaRef}>
         {p.cover_url && (
-          <div className="device device--laptop">
+          <motion.div
+            className="device device--laptop"
+            style={reduce ? undefined : { rotateX: laptopTilt, y: laptopY, transformPerspective: 1100, transformOrigin: "50% 100%" }}
+          >
             <div className="device__bar"><i /><i /><i /><span>{hostOf(p.url)}</span></div>
             <img src={p.cover_url} alt={`Página inicial do site da ${p.client}`} loading="lazy" width="1280" height="800" />
-          </div>
+          </motion.div>
         )}
         {p.mobile_url && (
-          <div className="device device--phone">
+          <motion.div className="device device--phone" style={reduce ? undefined : { y: phoneY }}>
             <img src={p.mobile_url} alt={`Site da ${p.client} no celular`} loading="lazy" width="390" height="844" />
-          </div>
+          </motion.div>
         )}
         {!p.mobile_url && p.gallery.length > 0 && (
           <div className="proj__gallery">

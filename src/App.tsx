@@ -14,6 +14,7 @@ import Founder from "./components/Founder";
 import Faq from "./components/Faq";
 import LeadForm from "./components/LeadForm";
 import Footer from "./components/Footer";
+import Ambient from "./components/Ambient";
 
 export default function App() {
   const [content, setContent] = useState<Content | null>(readEmbedded);
@@ -48,6 +49,7 @@ export default function App() {
   return (
     <ContentContext.Provider value={content}>
       <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
+      <Ambient />
       <Navbar />
       <main id="conteudo">
         <Hero />

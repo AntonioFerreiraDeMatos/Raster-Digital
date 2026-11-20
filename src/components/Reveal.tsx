@@ -1,7 +1,11 @@
 import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
 
-/** Entrada suave ao rolar. Respeita quem prefere menos animação. */
+/**
+ * Entrada ao rolar com profundidade: sobe, cresce um pouco e sai do desfoque para o foco.
+ * Ao terminar, remove o filtro (um filter ativo atrapalharia o efeito de vidro dos cards).
+ * Respeita quem prefere menos animação.
+ */
 export default function Reveal({
   children,
   delay = 0,
@@ -18,10 +22,10 @@ export default function Reveal({
   return (
     <Tag
       className={className}
-      initial={reduce ? false : { opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={reduce ? false : { opacity: 0, y: 36, scale: 0.97, filter: "blur(8px)" }}
+      whileInView={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)", transitionEnd: { filter: "none", transform: "none" } }}
       viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.75, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </Tag>
