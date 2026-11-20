@@ -33,7 +33,7 @@ function PlanCard({ s, installments }: { s: Service; installments: number }) {
         className={`btn ${s.highlight ? "btn--primary" : "btn--outline"} btn--sm btn--block`}
         onClick={() => goToProposal({ plan_slug: s.slug, plan_name: s.name, service: leadServiceFor(s.slug) })}
       >
-        Tenho interesse neste plano
+        Quero este plano
       </button>
     </article>
   );
@@ -67,8 +67,8 @@ export default function Pricing() {
       <div className="shell">
         <SectionHead
           eyebrow="Planos e preços"
-          title={<>Planos e soluções <span className="grad">para seu negócio</span></>}
-          sub={`Preço fechado de desenvolvimento, pago uma vez e sem mensalidade obrigatória. Valores iniciais de lançamento${installments ? `, em até ${installments}x` : ""}.`}
+          title={<>Encontre a solução certa para <span className="grad">o momento do seu negócio.</span></>}
+          sub={`Cada empresa tem uma necessidade. Desenvolvemos soluções com investimento transparente, escopo definido e possibilidades de evolução. Preço fechado de desenvolvimento, pago uma vez e sem mensalidade obrigatória. Valores iniciais de lançamento${installments ? `, em até ${installments}x` : ""}.`}
         />
 
         <div className="tabs" role="tablist" aria-label="Categorias de planos">

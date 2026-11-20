@@ -43,7 +43,8 @@ export type MaintenancePlan = {
 };
 
 export type Settings = {
-  hero: { eyebrow: string; title: string; highlight: string; subtitle: string };
+  /** eyebrow = H1 da página (palavra-chave local); intro = apresentação do fundador na primeira dobra. */
+  hero: { eyebrow: string; title: string; highlight: string; subtitle: string; intro?: string };
   contact: { whatsapp: string; whatsappDisplay: string; instagram: string; linkedin: string; github: string; city: string };
   solutions: { name: string; text: string; service: string | null; icon: string }[];
   maintenance: { price_cents: number; items: string[]; note: string };

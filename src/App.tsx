@@ -3,6 +3,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import { ContentContext, readEmbedded, waLink, type Content } from "./lib/content";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
+import Problems from "./components/Problems";
 import Solutions from "./components/Solutions";
 import BrandMarquee from "./components/BrandMarquee";
 import Projects from "./components/Projects";
@@ -53,6 +54,7 @@ export default function App() {
       <Navbar />
       <main id="conteudo">
         <Hero />
+        <Problems />
         <Solutions />
         <BrandMarquee />
         <Projects />

@@ -1,6 +1,6 @@
 import { Check } from "lucide-react";
-import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
-import { useContent } from "../lib/content";
+import { FaGithub, FaInstagram, FaLinkedin, FaWhatsapp } from "react-icons/fa";
+import { useContent, waLink } from "../lib/content";
 import Reveal from "./Reveal";
 
 export default function Founder() {
@@ -24,6 +24,12 @@ export default function Founder() {
           <ul className="founder__list">
             {f.highlights.map((h) => <li key={h}><Check size={15} /> {h}</li>)}
           </ul>
+          <div className="founder__cta">
+            <p>Converse diretamente com quem vai desenvolver seu projeto.</p>
+            <a className="btn btn--whatsapp" href={waLink(c.whatsapp)} target="_blank" rel="noopener noreferrer">
+              <FaWhatsapp size={18} /> Falar com o desenvolvedor
+            </a>
+          </div>
           <div className="founder__social">
             {c.instagram && <a href={c.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram"><FaInstagram size={18} /></a>}
             {c.linkedin && <a href={c.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedin size={18} /></a>}

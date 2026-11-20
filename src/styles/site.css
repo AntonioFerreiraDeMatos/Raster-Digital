@@ -130,7 +130,15 @@ h3 { font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1rem); font-weight: 650; letter-
   background-size: 56px 56px; mask-image: radial-gradient(ellipse 70% 70% at 70% 40%, #000, transparent 75%);
 }
 .hero__inner { position: relative; display: grid; grid-template-columns: 1.1fr 0.9fr; align-items: center; gap: clamp(24px, 5vw, 56px); }
+/* H1 com o visual da "chamada"; o título grande é um <p> com o visual do antigo h1. */
+.hero h1.eyebrow { line-height: inherit; }
+.hero__title { font-size: clamp(1.95rem, 1.2rem + 3.2vw, 3.25rem); line-height: 1.15; letter-spacing: -0.022em; font-weight: 750; text-wrap: balance; }
 .hero__lead { margin-top: 16px; color: var(--text-2); font-size: clamp(1rem, 0.95rem + 0.35vw, 1.12rem); max-width: 520px; }
+.hero__founder { display: flex; align-items: center; gap: 12px; margin-top: 18px; max-width: 520px; text-align: left; }
+.hero__founder picture { flex: none; display: block; line-height: 0; }
+.hero__founder img { width: 48px; height: 48px; flex: none; border-radius: 50%; object-fit: cover; object-position: center 18%; border: 1px solid var(--line-strong); }
+.hero__founder p { color: var(--text-2); font-size: 0.86rem; line-height: 1.5; }
+.hero__founder b { color: var(--text); font-weight: 600; }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
 .hero__facts { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 22px; color: var(--text-2); font-size: 0.86rem; }
 .hero__facts li { display: inline-flex; align-items: center; gap: 6px; }
@@ -163,6 +171,9 @@ h3 { font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1rem); font-weight: 650; letter-
 .head--center { margin-inline: auto; text-align: center; }
 .head__sub { margin-top: 10px; color: var(--text-2); }
 .center-cta { display: flex; justify-content: center; margin-top: clamp(28px, 4vw, 40px); }
+/* Frase comercial acima do botão de fechamento de seção */
+.cta-close { flex-direction: column; align-items: center; gap: 14px; text-align: center; }
+.cta-close p { max-width: 620px; color: var(--text-2); }
 .note-line { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 18px; color: var(--text-3); font-size: 0.86rem; }
 
 /* Soluções */
@@ -290,6 +301,8 @@ h3 { font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1rem); font-weight: 650; letter-
 .founder__list { display: grid; gap: 8px; margin-top: 18px; font-size: 0.92rem; }
 .founder__list li { display: flex; gap: 8px; align-items: flex-start; }
 .founder__list svg { color: var(--cyan); flex: none; margin-top: 4px; }
+.founder__cta { display: grid; gap: 10px; justify-items: start; margin-top: 22px; }
+.founder__cta p { color: var(--text-2); font-size: 0.92rem; }
 .founder__social { display: flex; gap: 8px; margin-top: 20px; }
 .founder__social a { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 11px; border: 1px solid var(--line); color: var(--text-2); transition: 0.2s; }
 .founder__social a:hover { color: var(--text); border-color: var(--line-strong); }
@@ -379,7 +392,7 @@ h3 { font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1rem); font-weight: 650; letter-
 
   .hero__inner, .sim, .lead__grid, .extras { grid-template-columns: 1fr; }
   .hero__copy { text-align: center; }
-  .hero__lead { margin-inline: auto; }
+  .hero__lead, .hero__founder { margin-inline: auto; }
   .hero__actions, .hero__facts { justify-content: center; }
   .hero { min-height: 0; }
   .hero__scrim { background: linear-gradient(180deg, rgba(3, 8, 20, 0.55), rgba(3, 8, 20, 0.7) 55%, transparent 75%); }
@@ -390,12 +403,14 @@ h3 { font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1rem); font-weight: 650; letter-
   .founder__text { margin-inline: auto; }
   .founder__list { text-align: left; max-width: 480px; margin-inline: auto; }
   .founder__social { justify-content: center; }
+  .founder__cta { justify-items: center; }
   .lead__intro { justify-items: center; text-align: center; }
 }
 
 @media (max-width: 600px) {
   .segments, .form-grid, .checks { grid-template-columns: 1fr; }
   .solutions { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .solutions.problems { grid-template-columns: 1fr; }
   .sol { padding: 14px; gap: 6px; }
   .sol .icon-tile { width: 36px; height: 36px; border-radius: 10px; }
   .sol p { font-size: 0.82rem; }

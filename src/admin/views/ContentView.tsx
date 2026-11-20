@@ -6,7 +6,7 @@ import { LinesField, MoneyField, TextField } from "../fields";
 type Json = string | number | boolean | null | Json[] | { [k: string]: Json };
 
 const SECTIONS: { key: string; title: string; help: string }[] = [
-  { key: "hero", title: "Primeira dobra", help: "Título e texto de abertura do site." },
+  { key: "hero", title: "Primeira dobra", help: "Título e texto de abertura do site. A “Chamada acima do título” é o título principal para o Google (H1): mantenha a palavra-chave, ex.: Criação de sites profissionais em Caucaia – CE. A “Apresentação do fundador” aparece com sua foto logo abaixo do texto de apoio (vazia = não mostra)." },
   { key: "contact", title: "Contatos e redes", help: "WhatsApp (DDI+DDD+número), Instagram e demais links." },
   { key: "solutions", title: "Soluções", help: "Cards da seção Soluções. “service” liga o card a um serviço (identificador)." },
   { key: "maintenancePlans", title: "Planos de manutenção", help: "Textos da seção e os planos mensais. “Estilo” define o visual do card: essencial, premium ou platinum. Destaques vazios não mostram selo." },
@@ -18,7 +18,7 @@ const SECTIONS: { key: string; title: string; help: string }[] = [
 ];
 
 const LABELS: Record<string, string> = {
-  eyebrow: "Chamada acima do título", title: "Título", highlight: "Destaque do título (em azul)", subtitle: "Texto de apoio",
+  eyebrow: "Chamada acima do título", intro: "Apresentação do fundador", title: "Título", highlight: "Destaque do título (em azul)", subtitle: "Texto de apoio",
   whatsapp: "WhatsApp (só números, com 55)", whatsappDisplay: "WhatsApp (como aparece no site)", instagram: "Instagram", linkedin: "LinkedIn",
   github: "GitHub", city: "Cidade", name: "Nome", text: "Texto", service: "Serviço ligado (identificador)", icon: "Ícone",
   price_cents: "Valor", items: "Itens", note: "Observação", headline: "Título", included: "Incluído", notIncluded: "Não incluído",

@@ -9,11 +9,13 @@ export function buildLlmsTxt({ services, projects, settings }) {
   const lines = [
     "# Raster Digital",
     "",
-    "> Empresa de Fortaleza (CE) que desenvolve sites, landing pages, lojas virtuais, cardápios digitais, sistemas de agendamento e sistemas de gestão sob medida para pequenas e médias empresas, com preço fechado e sem mensalidade obrigatória.",
+    "> Empresa de tecnologia que faz criação de sites profissionais em Caucaia e Fortaleza (CE): sites, landing pages, lojas virtuais, cardápios digitais, sistemas de agendamento, dashboards e sistemas de gestão sob medida para pequenas e médias empresas, com preço fechado e sem mensalidade obrigatória.",
     "",
     `- Site: ${SITE}/`,
-    `- Cidade: ${c.city || "Fortaleza — CE"} (atende todo o Brasil, de forma remota)`,
+    `- Cidade: ${c.city || "Fortaleza — CE"} (atende Caucaia, Fortaleza e Região Metropolitana; demais cidades do Brasil de forma remota)`,
   ];
+  const f = settings.founder || {};
+  if (f.name) lines.push(`- Fundador e desenvolvedor: ${f.name} (atendimento direto com quem desenvolve)`);
   if (c.whatsapp) lines.push(`- WhatsApp: ${c.whatsappDisplay || c.whatsapp} — https://wa.me/${c.whatsapp}`);
   if (c.instagram) lines.push(`- Instagram: ${c.instagram}`);
   if (c.linkedin) lines.push(`- LinkedIn: ${c.linkedin}`);

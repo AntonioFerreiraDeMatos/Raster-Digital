@@ -11,7 +11,11 @@ export default function Solutions() {
   return (
     <section id="solucoes" className="section">
       <div className="shell">
-        <SectionHead eyebrow="Soluções" title={<>O que desenvolvemos <span className="grad">para o seu negócio</span></>} />
+        <SectionHead
+          eyebrow="Soluções digitais para empresas"
+          title={<>Tecnologia sob medida para <span className="grad">cada desafio do seu negócio</span></>}
+          sub="Do site que coloca sua empresa no Google ao sistema que organiza a rotina: cada solução é planejada para atrair clientes, vender mais ou economizar tempo."
+        />
         <div className="solutions">
           {settings.solutions.map((item, i) => {
             const Icon = iconFor(item.icon);
@@ -31,7 +35,8 @@ export default function Solutions() {
             );
           })}
         </div>
-        <Reveal className="center-cta">
+        <Reveal className="center-cta cta-close">
+          <p>Transforme sua presença digital em uma oportunidade de negócio.</p>
           <button className="btn btn--primary" onClick={() => goToProposal()}>
             Quero desenvolver meu projeto <ArrowRight size={17} />
           </button>

@@ -21,6 +21,7 @@ function can3D() {
 export default function Hero() {
   const { settings } = useContent();
   const h = settings.hero;
+  const f = settings.founder;
   const reduce = useReducedMotion();
   const heroRef = useRef<HTMLElement>(null);
   const artRef = useRef<HTMLDivElement>(null);
@@ -87,21 +88,34 @@ export default function Hero() {
       <div className="hero__scrim" aria-hidden="true" />
       <div className="hero__inner shell">
         <div className="hero__copy">
-          <motion.p className="eyebrow" {...fade(0)}>{h.eyebrow}</motion.p>
-          <motion.h1 {...fade(0.08)}>
+          {/* H1 = palavra-chave local (visual de "chamada"); o título grande é a mensagem principal. */}
+          <motion.h1 className="eyebrow" {...fade(0)}>{h.eyebrow}</motion.h1>
+          <motion.p className="hero__title" {...fade(0.08)}>
             {h.title} <span className="grad grad--shine">{h.highlight}</span>
-          </motion.h1>
+          </motion.p>
           <motion.p className="hero__lead" {...fade(0.16)}>{h.subtitle}</motion.p>
+          {h.intro && (
+            <motion.div className="hero__founder" {...fade(0.2)}>
+              <picture>
+                <source srcSet="/img/antonio-matos.webp" type="image/webp" />
+                <img src="/img/antonio-matos.jpg" alt={f.name} width="48" height="48" decoding="async" />
+              </picture>
+              <p>
+                <b>{f.name}, {f.role.toLowerCase()} da Raster Digital.</b> {h.intro}
+              </p>
+            </motion.div>
+          )}
           <motion.div className="hero__actions" {...fade(0.24)}>
             <button className="btn btn--primary btn--lg" onClick={() => goToProposal()}>
-              Solicitar orçamento <ArrowRight size={18} />
+              Quero uma solução para meu negócio <ArrowRight size={18} />
             </button>
-            <a className="btn btn--ghost btn--lg" href="#projetos">Conhecer projetos</a>
+            <a className="btn btn--ghost btn--lg" href="#projetos">Conhecer projetos reais</a>
           </motion.div>
           <motion.ul className="hero__facts" {...fade(0.32)}>
             <li><Check size={15} /> Preço fechado</li>
             <li><Check size={15} /> 12 meses de hospedagem grátis</li>
             <li><Check size={15} /> Sem fidelidade</li>
+            <li><Check size={15} /> Análise sem compromisso</li>
           </motion.ul>
         </div>
 

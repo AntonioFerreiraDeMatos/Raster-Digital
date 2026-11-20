@@ -4,6 +4,18 @@ Mudanças publicadas em https://www.rasterdigital.com.br (cada item foi para o a
 
 ## 2026-11-20
 
+### Textos de conversão e SEO local (Caucaia e Fortaleza)
+- **Primeira dobra:** novo título "Seu negócio merece mais do que estar na internet. Merece crescer com tecnologia.", subtítulo e botões "Quero uma solução para meu negócio" / "Conhecer projetos reais". Apresentação do fundador com foto logo abaixo do texto (editável em **/admin → Conteúdo → Primeira dobra → Apresentação do fundador**).
+- **H1 para o Google:** "Criação de sites profissionais em Caucaia – CE" (campo "Chamada acima do título", mesmo visual de antes).
+- **Nova seção "Quantas oportunidades seu negócio pode estar perdendo?"** com 6 desafios do empresário e botão para a proposta (`#desafios`).
+- Textos orientados a benefício nos cards de Soluções, nas descrições dos 16 serviços e nas frases dos planos de manutenção; novos títulos em Soluções, Projetos, Preços, Manutenção, Simulador, Segmentos, FAQ e formulário.
+- Fundador: novo texto e destaques; botão "Falar com o desenvolvedor" no WhatsApp.
+- Frases comerciais acima dos botões de Soluções e Projetos; botão do formulário "Quero receber minha proposta".
+- FAQ com Caucaia e duas perguntas novas (atendimento direto com o desenvolvedor e botão de WhatsApp).
+- SEO: title "Raster Digital | Criação de Sites em Caucaia e Fortaleza", nova meta description, Open Graph, schema com Caucaia e Região Metropolitana em `areaServed`, HTML para buscadores e `/llms.txt` atualizados, sitemap com nova data.
+- Textos do banco trocados pela migration 007, só onde ainda estavam iguais ao original (o que foi editado no painel fica como está).
+- **Sem mudança** em preços, parcelamento, escopos, planos, simulador, formulário, gravação de leads, integração com o ERP, imagens, cores, fontes ou animações.
+
 ### Site mais imersivo
 - **"R" da marca em 3D** no topo (Three.js), com órbitas, chão de grade e reflexos. Clicar no "R" faz ele girar.
   - Carrega depois que a página abre, em arquivo separado, sem atrasar o carregamento.

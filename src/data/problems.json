@@ -1,0 +1,8 @@
+[
+  { "icon": "search", "title": "Clientes não encontram sua empresa no Google", "text": "Quem pesquisa pelo seu serviço encontra o concorrente primeiro e fecha com ele." },
+  { "icon": "phone", "title": "Tudo depende do Instagram e do WhatsApp", "text": "Sem um site profissional, sua empresa fica refém do alcance das redes e passa menos confiança a quem ainda não a conhece." },
+  { "icon": "chat", "title": "Atendimento desorganizado", "text": "Mensagens se perdem, respostas demoram e o cliente desiste antes de comprar." },
+  { "icon": "calendar", "title": "Agendamentos feitos à mão", "text": "Horários anotados no caderno ou na conversa geram conflitos, esquecimentos e retrabalho." },
+  { "icon": "stock", "title": "Vendas, estoque e clientes sem controle", "text": "Sem números confiáveis, decidir o que comprar, cobrar ou vender vira palpite." },
+  { "icon": "time", "title": "Processos repetitivos que consomem tempo", "text": "Planilhas, cópias e tarefas manuais tomam horas que poderiam ir para o crescimento do negócio." }
+]

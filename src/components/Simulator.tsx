@@ -50,7 +50,7 @@ export default function Simulator() {
   return (
     <section id="simulador" className="section section--alt">
       <div className="shell">
-        <SectionHead eyebrow="Simulador" title={<>Simule seu <span className="grad">orçamento</span></>} sub="Uma estimativa inicial em segundos. O valor final vem na proposta." />
+        <SectionHead eyebrow="Simulador" title={<>Simule seu <span className="grad">orçamento</span></>} sub="Descubra em segundos uma estimativa para o seu projeto. O valor final vem na proposta, sem compromisso." />
         <Reveal className="sim">
           <div className="sim__form">
             <label className="field">

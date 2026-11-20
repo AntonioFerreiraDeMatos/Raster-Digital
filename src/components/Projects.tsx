@@ -28,12 +28,12 @@ function ProjectCard({ p, delay }: { p: Project; delay: number }) {
             style={reduce ? undefined : { rotateX: laptopTilt, y: laptopY, transformPerspective: 1100, transformOrigin: "50% 100%" }}
           >
             <div className="device__bar"><i /><i /><i /><span>{hostOf(p.url)}</span></div>
-            <img src={p.cover_url} alt={`Página inicial do site da ${p.client}`} loading="lazy" width="1280" height="800" />
+            <img src={p.cover_url} alt={`${p.title} ${p.client}, projeto da Raster Digital, na versão para computador`} loading="lazy" width="1280" height="800" />
           </motion.div>
         )}
         {p.mobile_url && (
           <motion.div className="device device--phone" style={reduce ? undefined : { y: phoneY }}>
-            <img src={p.mobile_url} alt={`Site da ${p.client} no celular`} loading="lazy" width="390" height="844" />
+            <img src={p.mobile_url} alt={`${p.title} ${p.client}, projeto da Raster Digital, na versão para celular`} loading="lazy" width="390" height="844" />
           </motion.div>
         )}
         {!p.mobile_url && p.gallery.length > 0 && (
@@ -78,14 +78,19 @@ export default function Projects() {
   return (
     <section id="projetos" className="section section--alt">
       <div className="shell">
-        <SectionHead eyebrow="Projetos de sucesso" title={<>Projetos reais, <span className="grad">no ar</span></>} />
+        <SectionHead
+          eyebrow="Portfólio"
+          title={<>Não vendemos apenas ideias. <span className="grad">Desenvolvemos soluções reais.</span></>}
+          sub="Conheça projetos desenvolvidos pela Raster Digital e veja como a tecnologia pode transformar a presença digital e a operação de uma empresa."
+        />
         <div className="projects">
           {projects.map((p, i) => <ProjectCard key={p.id} p={p} delay={i * 0.08} />)}
         </div>
         {pendingVideo && (
           <p className="note-line"><PlayCircle size={15} /> Depoimento em vídeo da Amanda Cosméticos em breve.</p>
         )}
-        <Reveal className="center-cta">
+        <Reveal className="center-cta cta-close">
+          <p>Vamos desenvolver uma solução para sua empresa?</p>
           <button className="btn btn--primary" onClick={() => goToProposal()}>
             Quero um projeto assim <ArrowRight size={17} />
           </button>

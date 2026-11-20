@@ -118,9 +118,9 @@ export default function LeadForm() {
     <section id="contato" className="section lead">
       <div className="shell lead__grid">
         <Reveal className="lead__intro">
-          <p className="eyebrow">Solicitar orçamento</p>
-          <h2>Vamos tirar seu projeto <span className="grad">do papel?</span></h2>
-          <p>Conte o que você precisa. Respondemos pelo WhatsApp com uma proposta sem compromisso.</p>
+          <p className="eyebrow">Proposta sem compromisso</p>
+          <h2>Conte o que sua empresa precisa. <span className="grad">Nós encontramos o caminho.</span></h2>
+          <p>Responda algumas perguntas e receba uma proposta pensada para a realidade do seu negócio. O retorno vem pelo WhatsApp, direto com quem vai desenvolver o projeto.</p>
           <a className="btn btn--whatsapp" href={waLink(settings.contact.whatsapp)} target="_blank" rel="noopener noreferrer">
             <FaWhatsapp size={18} /> Prefiro o WhatsApp
           </a>
@@ -130,8 +130,8 @@ export default function LeadForm() {
           {state === "done" ? (
             <div className="lead__success" role="status" aria-live="polite">
               <CheckCircle2 size={46} strokeWidth={1.5} />
-              <h3>Recebemos seu interesse!</h3>
-              <p>Nossa equipe irá analisar sua necessidade para apresentar a melhor solução para seu negócio.</p>
+              <h3>Recebemos sua solicitação!</h3>
+              <p>Vamos analisar sua necessidade e retornar pelo WhatsApp com uma proposta pensada para o seu negócio. Se quiser adiantar a conversa, é só chamar.</p>
               <a className="btn btn--whatsapp" href={waLink(settings.contact.whatsapp, sentText)} target="_blank" rel="noopener noreferrer">
                 <FaWhatsapp size={18} /> Continuar pelo WhatsApp
               </a>
@@ -206,8 +206,8 @@ export default function LeadForm() {
                   </select>
                 </label>
                 <label className="field field--full">
-                  <span>O que você precisa? <i>(opcional)</i></span>
-                  <textarea name="message" rows={3} maxLength={2000} placeholder="Ex.: quero receber pedidos pelo site." value={f.message} onChange={(e) => set("message", e.target.value)} />
+                  <span>Qual desafio você quer resolver? <i>(opcional)</i></span>
+                  <textarea name="message" rows={3} maxLength={2000} placeholder="Ex.: quero que meus clientes encontrem minha empresa no Google e façam pedidos pelo site." value={f.message} onChange={(e) => set("message", e.target.value)} />
                 </label>
                 <label className="hp" aria-hidden="true">
                   Site <input name="website" tabIndex={-1} autoComplete="off" value={f.website} onChange={(e) => set("website", e.target.value)} />
@@ -220,7 +220,7 @@ export default function LeadForm() {
               </div>
               {state === "error" && <p className="form-alert" role="alert"><AlertCircle size={16} /> {serverError}</p>}
               <button className="btn btn--primary btn--lg btn--block" type="submit" disabled={state === "sending"}>
-                {state === "sending" ? <><Loader2 size={18} className="spin" /> Enviando...</> : <>Quero receber uma proposta <ArrowRight size={18} /></>}
+                {state === "sending" ? <><Loader2 size={18} className="spin" /> Enviando...</> : <>Quero receber minha proposta <ArrowRight size={18} /></>}
               </button>
               <p className="form-note">Sem compromisso. Seus dados não são compartilhados.</p>
             </form>

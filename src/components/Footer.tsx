@@ -9,7 +9,7 @@ export default function Footer() {
       <div className="shell footer__grid">
         <div className="footer__brand">
           <img src="/img/logo.webp" alt="Raster Digital" width="138" height="44" loading="lazy" />
-          <p>Sites, lojas virtuais e sistemas para negócios.</p>
+          <p>Criação de sites, lojas virtuais e sistemas para empresas de Caucaia, Fortaleza e região.</p>
         </div>
         <nav className="footer__col" aria-label="Rodapé">
           <a href="#solucoes">Soluções</a>

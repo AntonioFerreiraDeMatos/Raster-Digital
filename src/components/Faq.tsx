@@ -6,7 +6,7 @@ export default function Faq() {
   return (
     <section id="duvidas" className="section">
       <div className="shell">
-        <SectionHead eyebrow="Dúvidas frequentes" title={<>Criação de sites e sistemas em <span className="grad">Fortaleza</span></>} />
+        <SectionHead eyebrow="Dúvidas frequentes" title={<>Criação de sites em <span className="grad">Caucaia, Fortaleza e região</span></>} />
         <Reveal className="faq">
           {faq.map((f) => (
             <details key={f.q} className="faq__item">

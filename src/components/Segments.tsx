@@ -11,7 +11,7 @@ export default function Segments() {
         <SectionHead
           eyebrow="Por segmento"
           title={<>Soluções para <span className="grad">cada tipo de negócio</span></>}
-          sub="Possibilidades que desenvolvemos sob medida, com controle de acesso e cuidado com os dados (LGPD)."
+          sub="Sistemas para comércios, restaurantes, barbearias, escritórios de advocacia e empresas, desenvolvidos sob medida, com controle de acesso e cuidado com os dados (LGPD)."
         />
         <div className="segments">
           {settings.segments.map((s, i) => {

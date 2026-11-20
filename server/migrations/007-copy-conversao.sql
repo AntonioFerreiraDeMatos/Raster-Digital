@@ -1,0 +1,52 @@
+-- Copywriting de conversão e SEO local (Caucaia/Fortaleza): somente TEXTOS.
+-- Nenhum preço, escopo, parcela, link ou imagem é alterado.
+-- Cada troca só acontece se o texto ainda for o original exato; o que já foi editado no /admin fica como está.
+-- Num banco novo as tabelas estão vazias e os textos novos vêm de server/data/defaults.js.
+
+-- Primeira dobra: H1 com palavra-chave local, nova mensagem e apresentação do fundador (campo novo "intro").
+UPDATE settings SET value = '{"eyebrow":"Criação de sites profissionais em Caucaia – CE","title":"Seu negócio merece mais do que estar na internet.","highlight":"Merece crescer com tecnologia.","subtitle":"Desenvolvemos sites profissionais, lojas virtuais e sistemas personalizados para empresas que querem conquistar clientes, aumentar oportunidades de vendas e simplificar sua operação.","intro":"Você conversa diretamente com quem desenvolve sua solução. Entendemos sua necessidade, planejamos o projeto e construímos uma tecnologia pensada para a realidade do seu negócio."}'
+WHERE name = 'hero' AND value = '{"eyebrow":"Desenvolvimento de soluções digitais","title":"Seu negócio precisa de soluções digitais.","highlight":"A Raster Digital desenvolve.","subtitle":"Sites, lojas virtuais e sistemas sob medida, com preço fechado e sem mensalidade obrigatória."}';
+
+-- Descrições dos serviços (cards de preço): foco no benefício.
+UPDATE services SET description = 'Ideal para divulgar um serviço ou campanha: uma página direta que transforma visitantes em contatos no WhatsApp.' WHERE slug = 'landing-page' AND description = 'Uma página objetiva para apresentar sua oferta e gerar contatos.';
+UPDATE services SET description = 'Seu cliente vê fotos e preços, monta o pedido e envia direto no WhatsApp. Menos erro na anotação, mais agilidade no atendimento.' WHERE slug = 'cardapio-digital' AND description = 'Cardápio com fotos e preços, pedido direto no WhatsApp.';
+UPDATE services SET description = 'Sua empresa encontrada no Google e apresentada com credibilidade, para quem pesquisa decidir falar com você.' WHERE slug = 'site-institucional' AND description = 'Sua empresa apresentada com credibilidade e fácil de encontrar.';
+UPDATE services SET description = 'Seus produtos organizados em um link fácil de compartilhar, com pedido enviado pelo WhatsApp. Chega de mandar foto por foto.' WHERE slug = 'catalogo-digital' AND description = 'Seus produtos organizados, com pedido pelo WhatsApp.';
+UPDATE services SET description = 'Venda pela internet com carrinho, pedidos e Pix, em uma loja própria que não depende do alcance das redes sociais.' WHERE slug = 'loja-virtual' AND description = 'Venda pela internet com carrinho, pedidos e Pix.';
+UPDATE services SET description = 'Clientes marcam horário sozinhos, a qualquer hora, e você acompanha a agenda sem trocar dezenas de mensagens.' WHERE slug = 'agendamento' AND description = 'Clientes marcam horário sozinhos, você acompanha tudo.';
+UPDATE services SET description = 'Saiba o que entrou, o que saiu e o que está acabando, com alerta de estoque baixo antes de perder vendas.' WHERE slug = 'controle-estoque' AND description = 'Entradas, saídas e alerta de estoque baixo.';
+UPDATE services SET description = 'Cada venda registrada e o histórico de cada cliente à mão, para vender de novo para quem já comprou.' WHERE slug = 'vendas-clientes' AND description = 'Vendas registradas e histórico de cada cliente.';
+UPDATE services SET description = 'Os números do seu negócio reunidos em um painel claro, para decidir com dados e não no palpite.' WHERE slug = 'dashboard' AND description = 'Os números do seu negócio em um só lugar.';
+UPDATE services SET description = 'Funcionários, documentos e férias organizados em um só lugar, com acesso controlado e menos papelada.' WHERE slug = 'rh-basico' AND description = 'Funcionários, documentos e férias organizados.';
+UPDATE services SET description = 'Agenda, clientes, serviços e profissionais da barbearia organizados em um só sistema, sem depender de caderno.' WHERE slug = 'gestao-barbearia' AND description = 'Agenda, clientes, serviços e profissionais.';
+UPDATE services SET description = 'Cardápio, pedidos e vendas do restaurante sob controle, com QR Code nas mesas e relatório para acompanhar o movimento.' WHERE slug = 'gestao-restaurante' AND description = 'Cardápio, pedidos e vendas sob controle.';
+UPDATE services SET description = 'Clientes, processos e prazos do escritório organizados, com agenda para acompanhar cada prazo com mais segurança.' WHERE slug = 'advocacia' AND description = 'Clientes, processos e prazos organizados.';
+UPDATE services SET description = 'Contas a pagar e a receber e fluxo de caixa organizados, para saber quanto entra, quanto sai e quanto sobra.' WHERE slug = 'financeiro' AND description = 'Contas a pagar e receber e fluxo de caixa.';
+UPDATE services SET description = 'Os processos da sua empresa reunidos em um sistema, com indicadores para acompanhar a operação de perto.' WHERE slug = 'administrativo' AND description = 'Os processos da sua empresa em um sistema.';
+UPDATE services SET description = 'Quando nenhuma solução pronta resolve: um sistema feito sob medida para a forma como sua empresa trabalha.' WHERE slug = 'personalizado' AND description = 'Feito sob medida para a sua operação.';
+
+-- Portfólio: localidade do Cumbuco (Caucaia) para SEO local; demais dados preservados.
+UPDATE projects SET summary = 'Site rápido em português, inglês e espanhol para passeios de buggy em Cumbuco (Caucaia – CE), com galeria, vídeo e reservas direto pelo WhatsApp.' WHERE slug = 'cumbuco-de-buggy' AND summary = 'Site rápido em português, inglês e espanhol para passeios de buggy em Cumbuco, com galeria, vídeo e reservas direto pelo WhatsApp.';
+
+-- solutions
+UPDATE settings SET value = REPLACE(value, '"text":"Credibilidade para sua empresa."', '"text":"Sua empresa encontrada no Google e apresentada com a credibilidade que conquista clientes."') WHERE name = 'solutions';
+UPDATE settings SET value = REPLACE(value, '"text":"Uma página que gera contatos."', '"text":"Uma página focada na sua oferta, feita para transformar visitas em contatos no WhatsApp."') WHERE name = 'solutions';
+UPDATE settings SET value = REPLACE(value, '"text":"Sua loja vendendo 24 horas por dia."', '"text":"Sua loja vendendo 24 horas por dia, com pedidos organizados e pagamento via Pix."') WHERE name = 'solutions';
+UPDATE settings SET value = REPLACE(value, '"text":"Pedidos direto no WhatsApp."', '"text":"Pedidos direto no WhatsApp, sem cardápio desatualizado e sem erro na anotação."') WHERE name = 'solutions';
+UPDATE settings SET value = REPLACE(value, '"text":"Processos organizados."', '"text":"Processos reunidos em um só lugar, com menos papel, menos planilha e mais controle."') WHERE name = 'solutions';
+UPDATE settings SET value = REPLACE(value, '"text":"Seus números em tempo real."', '"text":"Vendas e resultados em um painel claro, para decidir com dados e não no palpite."') WHERE name = 'solutions';
+UPDATE settings SET value = REPLACE(value, '"text":"Estoque, vendas e clientes."', '"text":"Estoque, vendas e clientes sob controle, sem cadernos e planilhas soltas."') WHERE name = 'solutions';
+UPDATE settings SET value = REPLACE(value, '"text":"Agenda cheia, sem confusão."', '"text":"Clientes marcam horário sozinhos, a qualquer hora, e sua agenda fica organizada."') WHERE name = 'solutions';
+UPDATE settings SET value = REPLACE(value, '"text":"Menos tarefa repetitiva."', '"text":"Tarefas repetitivas feitas pelo sistema, liberando seu tempo para atender e vender."') WHERE name = 'solutions';
+
+-- maintenancePlans
+UPDATE settings SET value = REPLACE(value, '"title":"Seu site não precisa apenas estar no ar."', '"title":"Sua presença digital precisa"') WHERE name = 'maintenancePlans';
+UPDATE settings SET value = REPLACE(value, '"highlight":"Ele precisa continuar evoluindo."', '"highlight":"continuar evoluindo."') WHERE name = 'maintenancePlans';
+UPDATE settings SET value = REPLACE(value, '"subtitle":"Com os planos de manutenção da Raster Digital, seu negócio conta com acompanhamento técnico, atualizações e suporte para manter sua presença digital funcionando."', '"subtitle":"Tenha acompanhamento técnico, atualizações e suporte para manter seu projeto funcionando e acompanhar as necessidades do seu negócio. A manutenção é opcional: você decide se quer contratar e qual plano combina com o seu momento."') WHERE name = 'maintenancePlans';
+UPDATE settings SET value = REPLACE(value, '"tagline":"O cuidado básico para seu site seguir no ar sem surpresas."', '"tagline":"Para quem quer tranquilidade: alguém de olho no site, corrigindo pequenos erros antes que eles afastem clientes."') WHERE name = 'maintenancePlans';
+UPDATE settings SET value = REPLACE(value, '"tagline":"Acompanhamento ativo para quem atualiza o site com frequência."', '"tagline":"Para quem atualiza o site com frequência e quer formulários, WhatsApp e desempenho sempre verificados, com atendimento prioritário."') WHERE name = 'maintenancePlans';
+UPDATE settings SET value = REPLACE(value, '"tagline":"Gestão completa e atenção exclusiva para sua presença digital."', '"tagline":"Para quem trata o site como canal de vendas: acompanhamento mais frequente, SEO técnico básico e relatório mensal."') WHERE name = 'maintenancePlans';
+
+-- founder
+UPDATE settings SET value = REPLACE(value, '"text":"Cuido de cada projeto do planejamento à entrega. Você fala direto com quem desenvolve."', '"text":"Sou Antonio Matos, fundador e desenvolvedor da Raster Digital. Meu trabalho é transformar desafios empresariais em soluções digitais que facilitam processos, fortalecem marcas e criam novas oportunidades de negócio."') WHERE name = 'founder';
+UPDATE settings SET value = REPLACE(value, '"highlights":["Análise e Desenvolvimento de Sistemas — Universidade de Fortaleza (Unifor), conclusão prevista para 2026","Projetos reais desenvolvidos e no ar","Soluções pensadas para a rotina do seu negócio","Compromisso com qualidade, prazos e organização"]', '"highlights":["Atendimento diretamente com o desenvolvedor, do primeiro contato à entrega","Participação pessoal no planejamento e no desenvolvimento de cada projeto","Análise e Desenvolvimento de Sistemas — Universidade de Fortaleza (Unifor), conclusão prevista para 2026","Projetos reais desenvolvidos e publicados","Compromisso com qualidade, organização e transparência"]') WHERE name = 'founder';
