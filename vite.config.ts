@@ -2,13 +2,15 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { resolve } from "node:path";
 
-// Site multipágina: página principal, política de privacidade, 404 e painel administrativo.
+// Site multipágina: página principal, modelo das páginas internas (servidas pelo Express com o conteúdo de cada uma),
+// política de privacidade, 404 e painel administrativo.
 export default defineConfig({
   plugins: [react()],
   build: {
     rollupOptions: {
       input: {
         main: resolve(import.meta.dirname, "index.html"),
+        pagina: resolve(import.meta.dirname, "pagina.html"),
         privacidade: resolve(import.meta.dirname, "privacidade.html"),
         notFound: resolve(import.meta.dirname, "404.html"),
         admin: resolve(import.meta.dirname, "admin.html"),

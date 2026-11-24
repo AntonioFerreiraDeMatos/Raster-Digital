@@ -8,7 +8,8 @@ import { useMaintenancePlans } from "../lib/maintenance";
 import Reveal from "./Reveal";
 import SectionHead from "./SectionHead";
 
-export default function Simulator() {
+/** Estimativa de investimento com os preços do catálogo. Nunca é proposta: o valor final vem depois da conversa. */
+export default function Simulator({ id = "simulador" }: { id?: string }) {
   const { services, settings } = useContent();
   const sim = settings.simulator;
   const [slug, setSlug] = useState(services[0]?.slug ?? "");
@@ -33,24 +34,40 @@ export default function Simulator() {
   const cxLabel = sim.complexity.find((c) => c.id === complexity)?.label ?? "";
   const addonLabels = sim.addons.filter((a) => addons.includes(a.id)).map((a) => a.label);
   const valueText = result.needsAnalysis
-    ? `A partir de ${money(result.min_cents)} (valor final após análise)`
+    ? `a partir de ${money(result.min_cents)} (valor final após análise)`
     : `${money(result.min_cents)} a ${money(result.max_cents!)}`;
+  const maintText = maintPlan ? `${maintPlan.name} (${money(maintPlan.price_cents)}/mês)` : "Sem manutenção";
 
+  // Resumo gravado no lead (painel /admin e CRM do ERP)
   const summary = [
     `Projeto: ${service.name}`,
     segLabel && `Segmento: ${segLabel}`,
     `Complexidade: ${cxLabel}`,
-    `Recursos: ${addonLabels.length ? addonLabels.join(", ") : "nenhum adicional"}`,
-    `Manutenção mensal: ${maintPlan ? `Plano ${maintPlan.name} (${money(maintPlan.price_cents)}/mês)` : "não"}`,
+    `Funcionalidades adicionais: ${addonLabels.length ? addonLabels.join(", ") : "nenhuma"}`,
+    `Manutenção mensal: ${maintText}`,
     `Estimativa: ${valueText}`,
   ].filter(Boolean).join("\n");
 
-  const whatsappText = `Olá! Fiz uma simulação no site da Raster Digital:\n\n${summary}\n\nGostaria de receber um orçamento.`;
+  // Mensagem do WhatsApp: uma informação por linha, com as escolhas reais (codificada em waLink).
+  const whatsappText = [
+    "Olá! Gostaria de solicitar um orçamento com a Raster Digital.",
+    `Tipo de projeto: ${service.name}`,
+    `Segmento: ${segLabel ?? "Não informado"}`,
+    `Complexidade: ${cxLabel}`,
+    `Funcionalidades adicionais: ${addonLabels.length ? addonLabels.join(", ") : "Nenhuma"}`,
+    `Plano de manutenção: ${maintText}`,
+    `Investimento estimado: ${valueText}`,
+    "Gostaria de conversar para entender melhor as possibilidades do projeto.",
+  ].join("\n\n");
 
   return (
-    <section id="simulador" className="section section--alt">
+    <section id={id} className="section section--alt">
       <div className="shell">
-        <SectionHead eyebrow="Simulador" title={<>Simule seu <span className="grad">orçamento</span></>} sub="Descubra em segundos uma estimativa para o seu projeto. O valor final vem na proposta, sem compromisso." />
+        <SectionHead
+          eyebrow="Simulador"
+          title={<>Simule o investimento do <span className="grad">seu projeto</span></>}
+          sub="Escolha as opções e veja uma estimativa na hora. É uma referência, não uma proposta: o valor final vem depois da conversa, sem compromisso."
+        />
         <Reveal className="sim">
           <div className="sim__form">
             <label className="field">
@@ -64,9 +81,9 @@ export default function Simulator() {
               </select>
             </label>
             <label className="field">
-              <span>Segmento do negócio</span>
+              <span>Segmento de atuação <i>(opcional)</i></span>
               <select value={segment} onChange={(e) => setSegment(e.target.value)}>
-                <option value="">Selecione (opcional)</option>
+                <option value="">Selecione</option>
                 {options.segments.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
               </select>
             </label>
@@ -82,7 +99,7 @@ export default function Simulator() {
               </div>
             </fieldset>
             <fieldset className="field">
-              <legend>Funcionalidades e integrações</legend>
+              <legend>Funcionalidades adicionais</legend>
               <div className="checks">
                 {sim.addons.map((a) => (
                   <label key={a.id} className={`check ${addons.includes(a.id) ? "on" : ""}`}>
@@ -95,12 +112,12 @@ export default function Simulator() {
             </fieldset>
             {maintPlans.length > 0 && (
               <fieldset className="field">
-                <legend>Plano de manutenção mensal (opcional)</legend>
+                <legend>Plano de manutenção mensal <i>(opcional)</i></legend>
                 <div className="seg-control sim__maint">
                   {[{ name: "", price_cents: 0 }, ...maintPlans].map((p) => (
                     <label key={p.name || "nenhum"} className={maintName === p.name ? "on" : ""}>
                       <input type="radio" name="maint" value={p.name} checked={maintName === p.name} onChange={() => setMaintName(p.name)} />
-                      {p.name || "Sem manutenção"}
+                      {p.name || "Sem manutenção"}{" "}
                       {p.price_cents > 0 && <small>{money(p.price_cents)}/mês</small>}
                     </label>
                   ))}
@@ -110,18 +127,28 @@ export default function Simulator() {
             )}
           </div>
 
-          <aside className="sim__result" aria-live="polite">
+          <aside className="sim__result" aria-live="polite" aria-label="Resultado da simulação">
             <Calculator size={22} />
-            <p className="sim__label">Estimativa inicial</p>
+            <p className="sim__label">Investimento estimado</p>
             <p className="sim__value">
               {result.needsAnalysis ? <>A partir de <b>{money(result.min_cents)}</b></> : <><b>{money(result.min_cents)}</b> a <b>{money(result.max_cents!)}</b></>}
             </p>
-            {installments > 0 && <p className="sim__inst">Parcele em até {installments}x</p>}
             {result.needsAnalysis && <p className="sim__warn">Inclui itens que precisam de análise ({result.reasons.join(", ")}). O valor final vem na proposta.</p>}
-            {maintPlan && <p className="sim__monthly">+ {money(result.monthly_cents)}/mês · Manutenção {maintPlan.name}</p>}
-            <p className="sim__hosting">12 meses de hospedagem grátis</p>
+            <dl className="sim__summary">
+              <div><dt>Serviço</dt><dd>{service.name}</dd></div>
+              <div><dt>Funcionalidades</dt><dd>{addonLabels.length ? addonLabels.join(", ") : "Nenhuma adicional"}</dd></div>
+              <div><dt>Manutenção</dt><dd>{maintPlan ? `${maintPlan.name} · ${money(result.monthly_cents)}/mês` : "Sem manutenção"}</dd></div>
+            </dl>
+            <ul className="sim__conditions">
+              {installments > 0 && <li>Desenvolvimento em até {installments}x</li>}
+              {service.hosting_cents != null && <li>12 meses de hospedagem grátis</li>}
+              {maintPlan && <li>Manutenção sem fidelidade</li>}
+            </ul>
+            <a className="btn btn--whatsapp btn--block" href={waLink(settings.contact.whatsapp, whatsappText)} target="_blank" rel="noopener noreferrer">
+              <FaWhatsapp size={18} /> Enviar simulação pelo WhatsApp
+            </a>
             <button
-              className="btn btn--primary btn--block"
+              className="btn btn--outline btn--block"
               onClick={() =>
                 goToProposal({
                   plan_slug: service.slug,
@@ -133,12 +160,9 @@ export default function Simulator() {
                 })
               }
             >
-              Receber minha proposta <ArrowRight size={17} />
+              Solicitar orçamento pelo formulário <ArrowRight size={17} />
             </button>
-            <a className="btn btn--whatsapp btn--block" href={waLink(settings.contact.whatsapp, whatsappText)} target="_blank" rel="noopener noreferrer">
-              <FaWhatsapp size={18} /> Solicitar orçamento pelo WhatsApp
-            </a>
-            <p className="sim__fine">Estimativa sem compromisso, baseada nos preços iniciais.</p>
+            <p className="sim__fine">Estimativa sem compromisso, calculada com os preços iniciais.</p>
           </aside>
         </Reveal>
       </div>

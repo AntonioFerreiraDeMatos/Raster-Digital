@@ -14,7 +14,8 @@ import adminRouter from "./routes/admin.js";
 import { apiPublic, media } from "./routes/public.js";
 import { getPublicContent, seedContent } from "./lib/content.js";
 import { buildLlmsTxt } from "./lib/llms.js";
-import { buildSsrHtml, buildJsonLd } from "./lib/seo.js";
+import { buildHomeSsr, buildHomeJsonLd, buildPageHead, buildPageSsr } from "./lib/seo.js";
+import { buildSitemap, resolvePage, STATIC_PATHS } from "./lib/pages.js";
 
 assertEnv();
 
@@ -64,6 +65,17 @@ app.get("/api/health", async (_req, res) => {
   }
 });
 app.use("/api/leads", leadsRouter);
+// Página interna pronta (usada pelo React em desenvolvimento, quando o servidor não embute os dados).
+app.get("/api/page", async (req, res, next) => {
+  try {
+    const page = resolvePage(String(req.query.path || ""), await getPublicContent());
+    if (!page) return res.status(404).json({ error: "Página não encontrada." });
+    res.set("Cache-Control", "public, max-age=60");
+    res.json({ page });
+  } catch (err) {
+    next(err);
+  }
+});
 app.use("/api", apiPublic);
 app.use("/media", media);
 app.use(
@@ -105,23 +117,68 @@ function notFound(req, res) {
 // A página de erro só é servida com status 404 (nunca como página válida).
 app.get(["/404", "/404.html"], notFound);
 
+// Sitemap gerado a partir das páginas e dos projetos ativos (sem o banco, lista só as páginas fixas).
+app.get("/sitemap.xml", async (_req, res) => {
+  let content = null;
+  try {
+    content = await getPublicContent();
+  } catch (err) {
+    console.error("[sitemap] sem projetos:", err.message);
+  }
+  res.set("Cache-Control", "public, max-age=3600");
+  res.type("application/xml").send(buildSitemap(content));
+});
+
+// Modelos HTML gerados pelo Vite (relidos a cada requisição fora de produção).
+const templates = {};
+const template = (name) => {
+  if (!env.isProd || !templates[name]) templates[name] = fs.readFileSync(path.join(dist, name), "utf8");
+  return templates[name];
+};
+const embed = (data) => `<script id="app-data" type="application/json">${JSON.stringify(data).replace(/</g, "\\u003c")}</script>`;
+
 // Página inicial com o conteúdo do banco embutido (sem esperar outra requisição).
-let indexTemplate = null;
 app.get("/", async (_req, res, next) => {
   try {
-    if (!env.isProd || !indexTemplate) indexTemplate = fs.readFileSync(path.join(dist, "index.html"), "utf8");
     const content = await getPublicContent();
-    const data = JSON.stringify(content).replace(/</g, "\\u003c");
     res.set("Cache-Control", "no-cache");
     res.type("html").send(
-      indexTemplate
-        .replace("</head>", `${buildJsonLd(content)}</head>`)
-        .replace('<div id="root"></div>', `<div id="root">${buildSsrHtml(content)}</div>`)
-        .replace("<!--app-data-->", `<script id="app-data" type="application/json">${data}</script>`)
+      template("index.html")
+        .replace("</head>", `${buildHomeJsonLd(content)}</head>`)
+        .replace('<div id="root"></div>', `<div id="root">${buildHomeSsr(content)}</div>`)
+        .replace("<!--app-data-->", embed(content))
     );
   } catch (err) {
     console.error("[index] conteúdo indisponível:", err.message);
     next(); // cai no arquivo estático; o site busca /api/content
+  }
+});
+
+// O modelo das páginas internas não é uma página: nunca é servido diretamente.
+app.get(["/pagina", "/pagina.html"], notFound);
+
+// Páginas internas (serviços, cidades, preços e projetos), com título, descrição, dados estruturados e texto no HTML.
+const PAGE_PATH = /^\/[a-z0-9-]+(?:\/[a-z0-9-]+)?\/?$/;
+const isPagePath = (p) => STATIC_PATHS.includes(p) || /^\/projetos\/[a-z0-9-]+$/.test(p);
+app.get(PAGE_PATH, async (req, res, next) => {
+  const clean = req.path.length > 1 && req.path.endsWith("/") ? req.path.slice(0, -1) : req.path;
+  if (!isPagePath(clean)) return next(); // /privacidade, /admin e arquivos seguem para o estático
+  try {
+    const content = await getPublicContent();
+    const page = resolvePage(clean, content);
+    if (!page) return next();
+    if (clean !== req.path) return res.redirect(301, clean + query(req)); // sem barra no fim
+    res.set("Cache-Control", "no-cache");
+    res.type("html").send(
+      template("pagina.html")
+        .replace("<!--head-->", buildPageHead(page, content))
+        .replace('<div id="root"></div>', `<div id="root">${buildPageSsr(page, content)}</div>`)
+        .replace("<!--app-data-->", embed({ ...content, page }))
+    );
+  } catch (err) {
+    // 503 (e não 404): o Google tenta de novo depois em vez de remover a página do índice.
+    console.error("[pagina] indisponível:", err.message);
+    res.status(503).set("Retry-After", "120").type("txt").send("Página temporariamente indisponível. Tente novamente em instantes ou fale conosco pelo WhatsApp: (85) 98627-5389.");
   }
 });
 app.use(express.static(dist, { extensions: ["html"], maxAge: "1h" }));

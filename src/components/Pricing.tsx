@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Check, ChevronDown, Clock, Server } from "lucide-react";
 import { CATEGORY_LABEL, goToProposal, installmentLabel, installmentsOf, leadServiceFor, money, priceLabel, splitScope, useContent, type Category, type Service } from "../lib/content";
 import Reveal from "./Reveal";
@@ -6,11 +6,15 @@ import SectionHead from "./SectionHead";
 
 const CATS: Category[] = ["presenca", "comercial", "profissional"];
 
-function PlanCard({ s, installments }: { s: Service; installments: number }) {
-  const [open, setOpen] = useState(false);
+/** Card de um serviço do catálogo (/admin → Serviços): preço, parcelas, hospedagem e escopo. */
+export function PlanCard({ s }: { s: Service }) {
+  const { settings } = useContent();
+  // Link direto para o card (#plano-slug) já abre o escopo
+  const [open, setOpen] = useState(() => location.hash === `#plano-${s.slug}`);
   const badge = s.badge || (s.highlight ? "Mais procurado" : "");
-  const inst = installmentLabel(s.price_cents, installments);
+  const inst = installmentLabel(s.price_cents, installmentsOf(settings));
   const scope = splitScope(s.scope);
+
   return (
     <article id={`plano-${s.slug}`} className={`plan ${s.highlight ? "plan--hl" : ""}`}>
       {badge && <span className="plan__badge">{badge}</span>}
@@ -22,16 +26,16 @@ function PlanCard({ s, installments }: { s: Service; installments: number }) {
       {s.hosting_cents != null && (
         <p className="plan__renew">Hospedagem grátis por 12 meses · depois {money(s.hosting_cents)}/ano</p>
       )}
-      <button className="plan__toggle" aria-expanded={open} onClick={() => setOpen((v) => !v)}>
+      <button className="plan__toggle" aria-expanded={open} aria-controls={`escopo-${s.slug}`} onClick={() => setOpen((v) => !v)}>
         O que está incluído <ChevronDown size={15} className={open ? "rot" : ""} />
       </button>
       {open && (
-        <>
+        <div id={`escopo-${s.slug}`}>
           <ul className="plan__scope">
             {scope.items.map((it) => <li key={it}><Check size={14} /> {it}</li>)}
           </ul>
           {scope.notes.map((n) => <p className="plan__note" key={n}>{n}</p>)}
-        </>
+        </div>
       )}
       <button
         className={`btn ${s.highlight ? "btn--primary" : "btn--outline"} btn--sm btn--block`}
@@ -43,65 +47,51 @@ function PlanCard({ s, installments }: { s: Service; installments: number }) {
   );
 }
 
-export default function Pricing() {
-  const { services, settings } = useContent();
-  const [cat, setCat] = useState<Category>("presenca");
-
-  // Link "Conhecer" das soluções (#plano-slug) abre a aba certa
-  useEffect(() => {
-    const onHash = () => {
-      const slug = location.hash.startsWith("#plano-") ? location.hash.slice(7) : "";
-      const s = services.find((x) => x.slug === slug);
-      if (s) {
-        setCat(s.category);
-        requestAnimationFrame(() => document.getElementById(`plano-${slug}`)?.scrollIntoView({ behavior: "smooth", block: "center" }));
-      }
-    };
-    onHash();
-    window.addEventListener("hashchange", onHash);
-    return () => window.removeEventListener("hashchange", onHash);
-  }, [services]);
-
-  const list = services.filter((s) => s.category === cat);
-  const { hosting: h } = settings;
-  const installments = installmentsOf(settings);
-
+/** Hospedagem: o que inclui e o que não inclui (/admin → Conteúdo → Hospedagem). */
+export function Hosting() {
+  const { hosting: h } = useContent().settings;
   return (
-    <section id="precos" className="section">
+    <section className="section section--tight">
+      <div className="shell">
+        <Reveal as="article" className="extra extra--hosting">
+          <span className="icon-tile"><Server size={20} /></span>
+          <h2 className="extra__title">{h.headline}</h2>
+          <ul>
+            {h.included.map((i) => <li key={i}><Check size={14} /> {i}</li>)}
+          </ul>
+          <p className="extra__note">
+            {h.notIncluded.length > 0 && <>Não inclui: {h.notIncluded.map((i) => i.charAt(0).toLowerCase() + i.slice(1)).join("; ")}. </>}
+            {h.note}
+          </p>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/** Todos os serviços do catálogo, agrupados por categoria (página /precos). */
+export default function Pricing({ id = "precos" }: { id?: string }) {
+  const { services } = useContent();
+  return (
+    <section id={id} className="section">
       <div className="shell">
         <SectionHead
-          eyebrow="Planos e preços"
-          title={<>Encontre a solução certa para <span className="grad">o momento do seu negócio.</span></>}
-          sub={`Cada empresa tem uma necessidade. Desenvolvemos soluções com investimento transparente, escopo definido e possibilidades de evolução. Preço fechado de desenvolvimento, pago uma vez e sem mensalidade obrigatória. Valores iniciais de lançamento${installments ? `, em até ${installments}x` : ""}.`}
+          eyebrow="Desenvolvimento"
+          title="Valores iniciais de cada solução"
+          sub="Preço de desenvolvimento pago uma única vez. Abra “O que está incluído” para ver o escopo de cada plano."
         />
-
-        <div className="tabs" role="tablist" aria-label="Categorias de planos">
-          {CATS.map((c) => (
-            <button key={c} role="tab" aria-selected={cat === c} className={`tab ${cat === c ? "tab--on" : ""}`} onClick={() => setCat(c)}>
-              {CATEGORY_LABEL[c]}
-            </button>
-          ))}
-        </div>
-
-        <div className="plans" role="tabpanel">
-          {list.map((s) => <PlanCard key={s.id} s={s} installments={installments} />)}
-        </div>
-
-        <div className="extras extras--single">
-          <Reveal as="article" className="extra extra--hosting">
-            <span className="icon-tile"><Server size={20} /></span>
-            <h3>{h.headline}</h3>
-            <ul>
-              {h.included.map((i) => <li key={i}><Check size={14} /> {i}</li>)}
-            </ul>
-            {h.notIncluded.length > 0 && (
-              <p className="extra__note">
-                Não inclui: {h.notIncluded.map((i) => i.charAt(0).toLowerCase() + i.slice(1)).join("; ")}. {h.note}
-              </p>
-            )}
-            {h.notIncluded.length === 0 && <p className="extra__note">{h.note}</p>}
-          </Reveal>
-        </div>
+        {CATS.map((c) => {
+          const list = services.filter((s) => s.category === c);
+          if (!list.length) return null;
+          return (
+            <div className="price-group" key={c}>
+              <h3 className="price-group__title">{CATEGORY_LABEL[c]}</h3>
+              <div className="plans">
+                {list.map((s) => <PlanCard key={s.id} s={s} />)}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </section>
   );

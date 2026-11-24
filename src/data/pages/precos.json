@@ -1,0 +1,28 @@
+{
+  "path": "/precos",
+  "kind": "precos",
+  "title": "Preços de Sites, Lojas Virtuais e Sistemas | Raster Digital",
+  "description": "Valores de landing pages, sites, lojas virtuais e sistemas, planos de manutenção mensal e simulador de orçamento. Hospedagem grátis por 12 meses.",
+  "breadcrumb": [{ "name": "Início", "path": "/" }, { "name": "Preços" }],
+  "hero": {
+    "eyebrow": "Planos e preços",
+    "h1": "Preços de sites, lojas virtuais e sistemas",
+    "lead": "Investimento transparente, escopo definido antes da contratação e desenvolvimento pago uma única vez{{parcelamento}}. A manutenção mensal é opcional.",
+    "cta": "Solicitar orçamento"
+  },
+  "sections": [{ "type": "pricing", "id": "precos" }, { "type": "hosting" }, { "type": "maintenance", "id": "manutencao" }, { "type": "simulator", "id": "simulador" }],
+  "faq": [
+    { "q": "Os valores são definitivos?", "a": "Os preços desta página são valores iniciais. Serviços marcados com “a partir de” e projetos com recursos adicionais têm o valor final definido na proposta, depois da análise do escopo." },
+    { "q": "Preciso pagar mensalidade?", "a": "Não. O desenvolvimento é pago uma única vez{{parcelamento}}. A manutenção mensal é opcional e sem fidelidade." },
+    { "q": "A hospedagem está inclusa?", "a": "Os projetos com hospedagem incluem 12 meses grátis. Depois, a renovação é anual, no valor informado em cada serviço." },
+    { "q": "Qual a diferença entre hospedagem e manutenção?", "a": "A hospedagem mantém o site ou sistema no ar. A manutenção é o acompanhamento técnico: correções, ajustes e atualizações dentro dos limites de cada plano. Uma não inclui a outra." },
+    { "q": "A manutenção tem fidelidade?", "a": "Não. Os planos de manutenção são mensais, opcionais e sem fidelidade, conforme as condições do contrato." },
+    { "q": "O simulador já é a proposta?", "a": "Não. O simulador mostra uma estimativa com base nos preços iniciais. A proposta, com escopo, prazos e valor final, é enviada depois da conversa." }
+  ],
+  "related": [
+    { "path": "/criacao-de-sites", "label": "Criação de sites", "text": "Landing pages, sites institucionais e profissionais." },
+    { "path": "/loja-virtual", "label": "Loja virtual", "text": "Do catálogo ao e-commerce avançado." },
+    { "path": "/sistemas-personalizados", "label": "Sistemas personalizados", "text": "ERP, CRM, automações e integrações." }
+  ],
+  "cta": { "title": "Quer uma proposta para o seu projeto?", "text": "Conte o que sua empresa precisa. Enviamos o escopo e o valor final antes de começar, sem compromisso." }
+}

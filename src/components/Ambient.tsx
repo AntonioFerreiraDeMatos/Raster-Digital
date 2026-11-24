@@ -2,9 +2,9 @@ import { useEffect, useRef } from "react";
 import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 
 /** Cards que ganham borda iluminada pelo cursor. */
-const GLOW = ".sol, .plan, .mplan, .extra, .segment, .proj, .lead__card, .sim__form, .sim__result";
+const GLOW = ".sol, .plan, .mplan, .extra, .segment, .proj, .case-card, .diff, .lead__card, .sim__form, .sim__result";
 /** Destes, os menores também inclinam em 3D. */
-const TILT = ".sol, .plan, .mplan, .extra, .segment";
+const TILT = ".sol, .plan, .mplan, .extra, .segment, .diff";
 const MAX_TILT = 6; // graus
 
 /**

@@ -1,15 +1,15 @@
 {
   "segments": [
-    { "value": "pizzaria", "label": "Pizzaria" },
-    { "value": "restaurante", "label": "Restaurante" },
-    { "value": "lanchonete", "label": "Lanchonete" },
-    { "value": "barbearia", "label": "Barbearia ou salão" },
-    { "value": "clinica", "label": "Clínica" },
     { "value": "loja", "label": "Loja ou comércio" },
-    { "value": "advocacia", "label": "Advocacia" },
-    { "value": "automotivo", "label": "Oficina ou automotivo" },
     { "value": "servicos", "label": "Prestador de serviços" },
     { "value": "empresa", "label": "Empresa" },
+    { "value": "clinica", "label": "Clínica" },
+    { "value": "automotivo", "label": "Oficina ou automotivo" },
+    { "value": "restaurante", "label": "Restaurante" },
+    { "value": "lanchonete", "label": "Lanchonete" },
+    { "value": "pizzaria", "label": "Pizzaria" },
+    { "value": "barbearia", "label": "Barbearia ou salão" },
+    { "value": "advocacia", "label": "Advocacia" },
     { "value": "outro", "label": "Outro" }
   ],
   "services": [

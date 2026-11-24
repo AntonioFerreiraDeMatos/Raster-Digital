@@ -96,11 +96,11 @@ export const brands = [
 
 export const settings = {
   hero: {
-    // eyebrow é o H1 da página (palavra-chave local); intro é a apresentação do fundador abaixo do texto de apoio.
-    eyebrow: "Criação de sites profissionais em Caucaia – CE",
-    title: "Seu negócio merece mais do que estar na internet.",
-    highlight: "Merece crescer com tecnologia.",
-    subtitle: "Desenvolvemos sites profissionais, lojas virtuais e sistemas personalizados para empresas que querem conquistar clientes, aumentar oportunidades de vendas e simplificar sua operação.",
+    // eyebrow é o H1 da página (atuação + região). intro não aparece mais no topo: o fundador tem seção própria.
+    eyebrow: "Sites, sistemas e soluções digitais em Fortaleza e Caucaia – CE",
+    title: "Tecnologia que transforma ideias",
+    highlight: "em soluções.",
+    subtitle: "Desenvolvemos sites, sistemas e plataformas personalizadas para empresas que desejam crescer, organizar processos e conquistar novas oportunidades.",
     intro: "Você não precisa lidar com intermediários. Aqui, conversa diretamente com Antonio Matos, fundador e desenvolvedor da Raster Digital, desde o planejamento até o desenvolvimento da sua solução.",
   },
   contact: {

@@ -3,14 +3,19 @@ import { ArrowRight, Menu, X } from "lucide-react";
 import { FaInstagram } from "react-icons/fa";
 import { goToProposal, useContent } from "../lib/content";
 
+// Endereços absolutos: funcionam em qualquer página. "#contato" fica na página atual (todas têm o formulário).
 const links = [
-  ["Soluções", "solucoes"],
-  ["Projetos", "projetos"],
-  ["Preços", "precos"],
-  ["Manutenção", "manutencao"],
-  ["Simulador", "simulador"],
-  ["Contato", "contato"],
+  ["Soluções", "/#solucoes"],
+  ["Como funciona", "/#como-funciona"],
+  ["Projetos", "/projetos"],
+  ["Preços", "/precos"],
+  ["Contato", "#contato"],
 ] as const;
+
+const isCurrent = (href: string) => {
+  if (typeof location === "undefined" || href.includes("#")) return false;
+  return location.pathname === href || location.pathname.startsWith(`${href}/`);
+};
 
 export default function Navbar() {
   const { settings } = useContent();
@@ -38,13 +43,13 @@ export default function Navbar() {
   return (
     <header className={`nav ${scrolled || open ? "nav--solid" : ""} ${open ? "nav--open" : ""}`}>
       <div className="nav__inner shell">
-        <a className="nav__brand" href="#inicio" aria-label="Raster Digital — início" onClick={close}>
+        <a className="nav__brand" href="/" aria-label="Raster Digital — início" onClick={close}>
           <img src="/img/logo.webp" alt="Raster Digital" width="138" height="44" />
         </a>
 
         <nav id="menu" className="nav__menu" aria-label="Principal">
-          {links.map(([label, id]) => (
-            <a key={id} href={`#${id}`} onClick={close}>{label}</a>
+          {links.map(([label, href]) => (
+            <a key={href} href={href} onClick={close} aria-current={isCurrent(href) ? "page" : undefined}>{label}</a>
           ))}
           <div className="nav__mobile-extra">
             <button className="btn btn--primary" onClick={() => { close(); goToProposal(); }}>

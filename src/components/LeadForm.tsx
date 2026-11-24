@@ -6,13 +6,14 @@ import { money, useContent, waLink, type Prefill } from "../lib/content";
 import { getOrigin } from "../lib/tracking";
 import Reveal from "./Reveal";
 
+// "maintenance" não aparece no formulário: vem do simulador (plano de manutenção escolhido) e segue junto no lead.
 type Fields = {
   name: string; company: string; whatsapp: string; email: string; segment: string; service: string;
-  investment: string; message: string; maintenance: "" | "sim" | "nao"; consent: boolean; website: string;
+  message: string; maintenance: "" | "sim" | "nao"; consent: boolean; website: string;
 };
 type Errors = Partial<Record<keyof Fields, string>>;
 
-const empty: Fields = { name: "", company: "", whatsapp: "", email: "", segment: "", service: "", investment: "", message: "", maintenance: "", consent: false, website: "" };
+const empty: Fields = { name: "", company: "", whatsapp: "", email: "", segment: "", service: "", message: "", maintenance: "", consent: false, website: "" };
 
 function maskPhone(v: string) {
   const d = v.replace(/\D/g, "").slice(0, 11);
@@ -30,12 +31,19 @@ function validate(f: Fields): Errors {
   if (!/^\d{10,11}$/.test(d) || (d.length === 11 && d[2] !== "9")) e.whatsapp = "WhatsApp com DDD.";
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(f.email.trim())) e.email = "E-mail inválido.";
   if (!f.segment) e.segment = "Selecione o segmento.";
-  if (!f.service) e.service = "Selecione a solução.";
+  if (!f.service) e.service = "Selecione o tipo de solução.";
   if (!f.consent) e.consent = "Autorize o contato para continuar.";
   return e;
 }
 
-export default function LeadForm() {
+type Intro = { eyebrow?: string; title?: string; text?: string };
+
+/** Chamada final + formulário de orçamento (presente em todas as páginas, com o id #contato). */
+export default function LeadForm({
+  eyebrow = "Orçamento sem compromisso",
+  title = "Tem um projeto em mente?",
+  text = "Conte o que sua empresa precisa. Vamos entender sua necessidade e desenvolver uma solução adequada ao seu negócio.",
+}: Intro) {
   const { settings } = useContent();
   const [f, setF] = useState<Fields>(empty);
   const [plan, setPlan] = useState<Prefill | null>(null);
@@ -84,7 +92,7 @@ export default function LeadForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: f.name, company: f.company, whatsapp: f.whatsapp, email: f.email, segment: f.segment, service: f.service,
-          message: f.message, investment: f.investment || null,
+          message: f.message, investment: null,
           wants_maintenance: f.maintenance === "" ? null : f.maintenance === "sim",
           plan_slug: plan?.plan_slug ?? null, estimate: plan?.estimate ?? null,
           consent: f.consent, website: f.website, startedAt: startedAt.current, ...getOrigin(),
@@ -118,11 +126,12 @@ export default function LeadForm() {
     <section id="contato" className="section lead">
       <div className="shell lead__grid">
         <Reveal className="lead__intro">
-          <p className="eyebrow">Proposta sem compromisso</p>
-          <h2>Conte o que sua empresa precisa. <span className="grad">Nós encontramos o caminho.</span></h2>
-          <p>Responda algumas perguntas e receba uma proposta pensada para a realidade do seu negócio. O retorno vem pelo WhatsApp, direto com quem vai desenvolver o projeto.</p>
+          <p className="eyebrow">{eyebrow}</p>
+          <h2>{title}</h2>
+          <p>{text}</p>
+          <p className="lead__hint">Preencha o formulário e o retorno vem pelo WhatsApp, direto com quem vai desenvolver o projeto.</p>
           <a className="btn btn--whatsapp" href={waLink(settings.contact.whatsapp)} target="_blank" rel="noopener noreferrer">
-            <FaWhatsapp size={18} /> Prefiro o WhatsApp
+            <FaWhatsapp size={18} /> Prefiro conversar pelo WhatsApp
           </a>
         </Reveal>
 
@@ -143,7 +152,7 @@ export default function LeadForm() {
                 <div className="plan-pill">
                   <div>
                     <small>{plan.estimate ? "Simulação" : "Plano escolhido"}</small>
-                    <b>{plan.plan_name}</b>
+                    <b>{plan.plan_name}</b>{" "}
                     {plan.estimate && (
                       <span>
                         {plan.estimate.max_cents ? `${money(plan.estimate.min_cents)} a ${money(plan.estimate.max_cents)}` : `A partir de ${money(plan.estimate.min_cents)}`}
@@ -160,14 +169,14 @@ export default function LeadForm() {
                   {err("name")}
                 </label>
                 <label className="field">
-                  <span>Empresa ou estabelecimento</span>
-                  <input name="company" autoComplete="organization" value={f.company} onChange={(e) => set("company", e.target.value)} maxLength={120} {...aria("company")} />
-                  {err("company")}
-                </label>
-                <label className="field">
                   <span>WhatsApp</span>
                   <input name="whatsapp" type="tel" inputMode="numeric" autoComplete="tel-national" placeholder="(00) 00000-0000" value={f.whatsapp} onChange={(e) => set("whatsapp", maskPhone(e.target.value))} {...aria("whatsapp")} />
                   {err("whatsapp")}
+                </label>
+                <label className="field">
+                  <span>Empresa</span>
+                  <input name="company" autoComplete="organization" value={f.company} onChange={(e) => set("company", e.target.value)} maxLength={120} {...aria("company")} />
+                  {err("company")}
                 </label>
                 <label className="field">
                   <span>E-mail</span>
@@ -183,30 +192,15 @@ export default function LeadForm() {
                   {err("segment")}
                 </label>
                 <label className="field">
-                  <span>Solução desejada</span>
+                  <span>Tipo de solução</span>
                   <select name="service" value={f.service} onChange={(e) => set("service", e.target.value)} {...aria("service")}>
                     <option value="" disabled>Selecione</option>
                     {options.services.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
                   </select>
                   {err("service")}
                 </label>
-                <label className="field">
-                  <span>Investimento <i>(opcional)</i></span>
-                  <select name="investment" value={f.investment} onChange={(e) => set("investment", e.target.value)}>
-                    <option value="">Prefiro não informar</option>
-                    {options.investments.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
-                  </select>
-                </label>
-                <label className="field">
-                  <span>Manutenção mensal? <i>(opcional)</i></span>
-                  <select name="maintenance" value={f.maintenance} onChange={(e) => set("maintenance", e.target.value as Fields["maintenance"])}>
-                    <option value="">Ainda não sei</option>
-                    <option value="sim">Tenho interesse</option>
-                    <option value="nao">Não preciso</option>
-                  </select>
-                </label>
                 <label className="field field--full">
-                  <span>Qual desafio você quer resolver? <i>(opcional)</i></span>
+                  <span>Conte brevemente o que você precisa <i>(opcional)</i></span>
                   <textarea name="message" rows={3} maxLength={2000} placeholder="Ex.: quero que meus clientes encontrem minha empresa no Google e façam pedidos pelo site." value={f.message} onChange={(e) => set("message", e.target.value)} />
                 </label>
                 <label className="hp" aria-hidden="true">
@@ -220,7 +214,7 @@ export default function LeadForm() {
               </div>
               {state === "error" && <p className="form-alert" role="alert"><AlertCircle size={16} /> {serverError}</p>}
               <button className="btn btn--primary btn--lg btn--block" type="submit" disabled={state === "sending"}>
-                {state === "sending" ? <><Loader2 size={18} className="spin" /> Enviando...</> : <>Quero receber minha proposta <ArrowRight size={18} /></>}
+                {state === "sending" ? <><Loader2 size={18} className="spin" /> Enviando...</> : <>Solicitar orçamento <ArrowRight size={18} /></>}
               </button>
               <p className="form-note">Sem compromisso. Seus dados não são compartilhados.</p>
             </form>

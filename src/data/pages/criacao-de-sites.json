@@ -1,0 +1,79 @@
+{
+  "path": "/criacao-de-sites",
+  "kind": "service",
+  "title": "Criação de Sites Profissionais para Empresas | Raster Digital",
+  "description": "Landing pages, sites institucionais e sites profissionais com versão para celular, otimização para o Google e 12 meses de hospedagem grátis.",
+  "breadcrumb": [{ "name": "Início", "path": "/" }, { "name": "Criação de sites" }],
+  "schema": { "service": { "name": "Criação de sites profissionais", "serviceType": "Criação de sites" } },
+  "hero": {
+    "eyebrow": "Presença digital",
+    "h1": "Criação de sites profissionais para empresas",
+    "lead": "Sites rápidos, responsivos e preparados para o Google, para sua empresa ser encontrada, transmitir confiança e transformar visitas em contatos.",
+    "cta": "Quero um site para minha empresa"
+  },
+  "sections": [
+    {
+      "type": "cards",
+      "id": "sinais",
+      "eyebrow": "Quando um site faz diferença",
+      "title": "Sua empresa está perdendo clientes na internet?",
+      "items": [
+        { "icon": "search", "title": "Clientes não encontram sua empresa no Google", "text": "Quem pesquisa pelo seu serviço encontra o concorrente primeiro e fecha com ele." },
+        { "icon": "phone", "title": "Tudo depende do Instagram e do WhatsApp", "text": "Sem um site, sua empresa fica refém do alcance das redes e passa menos confiança a quem ainda não a conhece." },
+        { "icon": "chat", "title": "Informações espalhadas", "text": "Serviços, horários e contatos ficam perdidos em conversas e posts antigos, e o cliente desiste antes de perguntar." }
+      ]
+    },
+    {
+      "type": "offers",
+      "id": "modalidades",
+      "eyebrow": "Modalidades",
+      "title": "Qual site combina com o momento da sua empresa",
+      "sub": "Da página única para uma campanha ao site completo da empresa. Cada modalidade tem escopo definido antes da contratação.",
+      "items": [
+        { "service": "landing-page" },
+        { "service": "site-institucional" },
+        {
+          "name": "Site profissional",
+          "description": "Estrutura mais completa, com páginas personalizadas, recursos adicionais e mais profundidade para apresentar serviços e públicos diferentes.",
+          "bullets": ["Páginas personalizadas para cada serviço ou público", "Recursos adicionais definidos no planejamento", "Estrutura preparada para crescer com a empresa"]
+        }
+      ],
+      "note": "Não sabe qual escolher? Conte o que você precisa e indicamos a modalidade adequada."
+    },
+    {
+      "type": "checklist",
+      "id": "inclui",
+      "eyebrow": "Em todos os sites",
+      "title": "O que vem em cada projeto",
+      "items": [
+        "Versão para celular, tablet e computador",
+        "Botão de WhatsApp para o visitante falar com você",
+        "Otimização básica para o Google: títulos, descrições, velocidade e dados da empresa",
+        "1 rodada de ajustes após a entrega",
+        "12 meses de hospedagem grátis, com HTTPS",
+        "Atendimento direto com o fundador"
+      ]
+    },
+    {
+      "type": "cases",
+      "id": "projetos",
+      "eyebrow": "Projetos reais",
+      "title": "Sites desenvolvidos pela Raster Digital",
+      "projects": ["js-retifica", "cumbuco-de-buggy"]
+    }
+  ],
+  "faq": [
+    { "q": "Quanto custa criar um site?", "a": "Os valores atuais são: Landing Page, {{preco:landing-page}}; Site Institucional, {{preco:site-institucional}}. O Site Profissional é orçado depois da análise do escopo, e você pode simular o investimento na página de preços." },
+    { "q": "A hospedagem está inclusa?", "a": "Sim. Os sites incluem 12 meses de hospedagem grátis. Depois, a renovação é anual, no valor informado em cada plano. Domínio e e-mail profissional não estão inclusos." },
+    { "q": "Preciso pagar mensalidade?", "a": "Não. O desenvolvimento é pago uma única vez{{parcelamento}}. A manutenção mensal é opcional e sem fidelidade." },
+    { "q": "Meu site vai aparecer no Google?", "a": "O site sai com a otimização básica para o Google: títulos, descrições, velocidade e dados da empresa. Ninguém pode garantir posição nos resultados, mas um site bem estruturado é a base para ser encontrado. Para buscas na sua região, vale combinar com o Perfil da Empresa no Google." },
+    { "q": "Posso alterar o site depois de pronto?", "a": "Sim. Pequenas alterações entram nos planos de manutenção mensal. Novas páginas e recursos são orçados à parte." }
+  ],
+  "related": [
+    { "path": "/loja-virtual", "label": "Loja virtual", "text": "Para vender pela internet com carrinho, pedidos e Pix." },
+    { "path": "/cardapio-digital", "label": "Cardápio digital", "text": "Pedidos enviados direto no WhatsApp." },
+    { "path": "/criacao-de-sites-fortaleza", "label": "Sites em Fortaleza", "text": "Atendimento para empresas de Fortaleza." },
+    { "path": "/criacao-de-sites-caucaia", "label": "Sites em Caucaia", "text": "Comércio, serviços e turismo em Caucaia." }
+  ],
+  "cta": { "title": "Vamos conversar sobre o seu site?", "text": "Conte como é a sua empresa e o que você espera do site. Indicamos a modalidade adequada e enviamos o escopo e o investimento antes de começar." }
+}
