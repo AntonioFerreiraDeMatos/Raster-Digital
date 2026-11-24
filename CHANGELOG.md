@@ -2,7 +2,7 @@
 
 Mudanças publicadas em https://www.rasterdigital.com.br (cada item foi para o ar com um push na `main`).
 
-## 2026-11-24 — Reestruturação (branch `reestruturacao`, ainda não publicada)
+## 2026-11-24 — Reestruturação (publicada em 24/11, merge 992c4d8)
 
 Ponto de restauração: tag `pre-reestruturacao-2026-11-24` (o site no ar até aqui).
 
