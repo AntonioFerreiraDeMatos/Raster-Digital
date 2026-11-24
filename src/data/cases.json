@@ -1,0 +1,48 @@
+{
+  "_sobre": "Cases dos projetos (por slug). Só o que está documentado: campos null não aparecem no site. Imagens, link e segmento vêm do cadastro do projeto no /admin. Nunca invente depoimentos, números ou resultados.",
+  "amanda-cosmeticos": {
+    "location": null,
+    "need": null,
+    "solution": "Loja virtual própria, com vitrine por categorias, carrinho e checkout, e um painel administrativo para a loja acompanhar pedidos, pagamentos, estoque e clientes.",
+    "goal": null,
+    "features": [
+      "Catálogo de produtos com categorias",
+      "Carrinho e checkout em etapas",
+      "Login de clientes com a conta Google",
+      "Pedidos com pagamento via Pix e confirmação pela loja",
+      "Link para continuar o atendimento no WhatsApp",
+      "Painel com dashboard, catálogo, estoque, clientes e pedidos",
+      "Relatórios por período com exportação de dados"
+    ],
+    "testimonial": null
+  },
+  "js-retifica": {
+    "location": null,
+    "need": null,
+    "solution": "Site institucional com identidade industrial, que apresenta os serviços de retífica de motores e cabeçotes e leva o cliente direto para o orçamento no WhatsApp.",
+    "goal": null,
+    "features": [
+      "Apresentação dos serviços: retificação de motores, calibragem de válvulas, descarbonização, solda de alumínio, plaina e jato",
+      "Identidade visual industrial",
+      "Pedido de orçamento pelo WhatsApp",
+      "Versão para celular"
+    ],
+    "testimonial": null
+  },
+  "cumbuco-de-buggy": {
+    "location": "Caucaia – CE",
+    "need": "Divulgar os passeios de buggy com uma presença digital profissional, alcançar turistas do Brasil e do exterior e facilitar a contratação das experiências.",
+    "solution": "Site responsivo em português, inglês e espanhol, com comunicação voltada tanto ao turista estrangeiro quanto ao público da região.",
+    "goal": "Ampliar o alcance comercial, atrair turistas e facilitar o acesso aos passeios de buggy em Cumbuco.",
+    "features": [
+      "Português, inglês e espanhol",
+      "Apresentação dos passeios e das brincadeiras opcionais",
+      "Formulário de busca no hotel com envio pelo WhatsApp",
+      "Reservas pelo WhatsApp com mensagem no idioma do visitante",
+      "Galeria de fotos e vídeos",
+      "Depoimentos de clientes",
+      "SEO para turismo"
+    ],
+    "testimonial": null
+  }
+}

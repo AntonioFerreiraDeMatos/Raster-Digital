@@ -1,0 +1,77 @@
+{
+  "path": "/loja-virtual",
+  "kind": "service",
+  "title": "Loja Virtual para Vender pela Internet | Raster Digital",
+  "description": "Loja virtual com catálogo, carrinho, pedidos e Pix, painel para acompanhar as vendas e versão para celular. Do catálogo digital ao e-commerce avançado.",
+  "breadcrumb": [{ "name": "Início", "path": "/" }, { "name": "Loja virtual" }],
+  "schema": { "service": { "name": "Criação de loja virtual", "serviceType": "Desenvolvimento de e-commerce" } },
+  "hero": {
+    "eyebrow": "Presença digital · E-commerce",
+    "h1": "Loja virtual para vender pela internet",
+    "lead": "Uma loja própria, com catálogo, carrinho e pedidos organizados, para vender todos os dias sem depender só do alcance das redes sociais.",
+    "cta": "Quero minha loja virtual"
+  },
+  "sections": [
+    {
+      "type": "offers",
+      "id": "modalidades",
+      "eyebrow": "Modalidades",
+      "title": "Do catálogo ao e-commerce avançado",
+      "sub": "Comece pelo formato que resolve a sua venda hoje e evolua quando a operação crescer.",
+      "items": [
+        { "service": "catalogo-digital" },
+        { "service": "loja-virtual" },
+        {
+          "name": "E-commerce completo",
+          "description": "Para uma operação comercial mais estruturada: gestão de pedidos, controle de estoque e integrações de pagamento, conforme o escopo.",
+          "bullets": ["Gestão de pedidos e estoque", "Integrações de pagamento", "Recursos definidos no planejamento"]
+        },
+        {
+          "name": "E-commerce avançado",
+          "description": "Para operações mais complexas: integrações, automações, regras comerciais e recursos personalizados.",
+          "bullets": ["Integrações com outros sistemas", "Automações e regras comerciais próprias", "Recursos desenvolvidos sob medida"]
+        }
+      ],
+      "note": "O escopo de cada loja é definido antes da contratação. Recursos fora dele são orçados à parte."
+    },
+    {
+      "type": "checklist",
+      "id": "recursos",
+      "eyebrow": "Recursos",
+      "title": "O que uma loja virtual pode ter",
+      "sub": "Os recursos de cada projeto dependem da modalidade e do escopo combinado.",
+      "items": [
+        "Catálogo com categorias, fotos e preços",
+        "Carrinho e registro de pedidos",
+        "Pagamento via Pix",
+        "Painel para acompanhar pedidos e clientes",
+        "Controle de estoque",
+        "Atendimento integrado ao WhatsApp",
+        "Versão para celular",
+        "12 meses de hospedagem grátis"
+      ]
+    },
+    {
+      "type": "cases",
+      "id": "case",
+      "eyebrow": "Projeto real",
+      "title": "Loja virtual da Amanda Cosméticos",
+      "sub": "Vitrine, carrinho, pedidos com Pix e um painel para a loja acompanhar pedidos, pagamentos, estoque e clientes.",
+      "projects": ["amanda-cosmeticos"]
+    }
+  ],
+  "faq": [
+    { "q": "Quanto custa uma loja virtual?", "a": "A Loja Virtual Essencial custa {{preco:loja-virtual}} e o Catálogo Digital, {{preco:catalogo-digital}}. Lojas com gestão de estoque, integrações de pagamento ou regras comerciais próprias são orçadas conforme o escopo." },
+    { "q": "A loja aceita Pix?", "a": "Sim. A Loja Virtual Essencial registra o pedido e recebe por Pix, com confirmação manual. Pagamento online automático e outras formas de pagamento entram conforme o escopo." },
+    { "q": "Quantos produtos posso cadastrar?", "a": "A Loja Virtual Essencial comporta até 100 produtos, e o Catálogo Digital também. Catálogos maiores são definidos no planejamento." },
+    { "q": "Eu mesmo consigo acompanhar os pedidos?", "a": "Sim. A loja tem um painel de pedidos com acesso de administrador, para você acompanhar cada venda." },
+    { "q": "Qual a diferença entre catálogo digital e loja virtual?", "a": "No catálogo, o cliente escolhe os produtos e envia o pedido pelo WhatsApp, sem pagamento online. Na loja virtual, há carrinho, registro de pedidos e pagamento por Pix." }
+  ],
+  "related": [
+    { "path": "/painel-administrativo", "label": "Painel administrativo", "text": "Pedidos, estoque e clientes em um só lugar." },
+    { "path": "/cardapio-digital", "label": "Cardápio digital", "text": "Pedidos pelo WhatsApp para restaurantes." },
+    { "path": "/criacao-de-sites", "label": "Criação de sites", "text": "Landing pages e sites institucionais." },
+    { "path": "/precos", "label": "Preços e simulador", "text": "Valores atuais e estimativa do seu projeto." }
+  ],
+  "cta": { "title": "Vamos montar a sua loja virtual?", "text": "Conte o que você vende, quantos produtos tem e como recebe hoje. Indicamos a modalidade adequada e enviamos escopo e investimento antes de começar." }
+}

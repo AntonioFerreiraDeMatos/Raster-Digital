@@ -1,0 +1,64 @@
+{
+  "pillars": {
+    "eyebrow": "Soluções",
+    "title": "Tecnologia que se adapta ao seu negócio",
+    "sub": "Desenvolvemos sites, sistemas e soluções digitais personalizadas para empresas que desejam fortalecer sua presença online, organizar processos e evoluir por meio da tecnologia.",
+    "items": [
+      {
+        "id": "presenca",
+        "icon": "globe",
+        "title": "Presença digital",
+        "text": "Sites e plataformas para sua empresa ser encontrada, transmitir confiança e transformar visitas em contatos.",
+        "items": ["Landing pages", "Sites institucionais", "Sites profissionais", "Lojas virtuais", "Cardápios digitais", "Plataformas digitais"],
+        "priceFrom": ["landing-page", "site-institucional", "cardapio-digital", "catalogo-digital", "loja-virtual"],
+        "link": { "path": "/criacao-de-sites", "label": "Ver presença digital" },
+        "more": [
+          { "path": "/loja-virtual", "label": "Loja virtual" },
+          { "path": "/cardapio-digital", "label": "Cardápio digital" }
+        ]
+      },
+      {
+        "id": "gestao",
+        "icon": "layout",
+        "title": "Gestão inteligente",
+        "text": "Sistemas para organizar a rotina, reunir as informações da empresa e acompanhar a operação com dados confiáveis.",
+        "items": ["Painéis administrativos", "Controle financeiro", "Sistemas de agendamento", "Gestão de clientes", "Controle operacional", "Sistemas empresariais"],
+        "priceFrom": ["personalizado", "administrativo", "dashboard", "agendamento", "financeiro", "vendas-clientes", "controle-estoque", "rh-basico"],
+        "link": { "path": "/painel-administrativo", "label": "Ver gestão inteligente" },
+        "more": [{ "path": "/sistemas-personalizados#solucoes", "label": "Sistemas de gestão" }]
+      },
+      {
+        "id": "personalizadas",
+        "icon": "puzzle",
+        "title": "Soluções personalizadas",
+        "text": "Quando nenhuma ferramenta pronta resolve: tecnologia desenvolvida sob medida para os processos da sua empresa.",
+        "items": ["ERP", "CRM", "Automações", "Integrações", "Sistemas exclusivos", "Plataformas sob medida"],
+        "priceFrom": [],
+        "link": { "path": "/sistemas-personalizados", "label": "Ver soluções personalizadas" },
+        "more": []
+      }
+    ]
+  },
+  "differentials": {
+    "eyebrow": "Diferenciais",
+    "title": "Por que trabalhar com a Raster Digital",
+    "items": [
+      { "icon": "handshake", "title": "Atendimento direto com o fundador", "text": "Você conversa com quem planeja e desenvolve o projeto, do primeiro contato à entrega." },
+      { "icon": "puzzle", "title": "Projetos personalizados", "text": "Cada solução parte da rotina e dos objetivos do seu negócio, não de um modelo pronto." },
+      { "icon": "server", "title": "12 meses de hospedagem grátis", "text": "Incluída nos projetos com hospedagem, conforme as condições da proposta. Depois, a renovação é anual." },
+      { "icon": "filecheck", "title": "Preço e escopo definidos antes", "text": "Você sabe o que será entregue e quanto vai investir antes de contratar." },
+      { "icon": "unlock", "title": "Manutenção sem fidelidade", "text": "Os planos mensais são opcionais e sem fidelidade, conforme o contrato." },
+      { "icon": "message", "title": "Análise inicial sem compromisso", "text": "Conte o que você precisa e receba uma orientação antes de decidir." }
+    ]
+  },
+  "steps": {
+    "eyebrow": "Como funciona",
+    "title": "Do primeiro contato à entrega",
+    "items": [
+      { "title": "Entendimento da necessidade", "text": "Conversamos pelo WhatsApp para entender seu negócio, seus processos e o que você quer resolver." },
+      { "title": "Planejamento da solução", "text": "Definimos escopo, funcionalidades, investimento e etapas antes de começar." },
+      { "title": "Desenvolvimento e validação", "text": "Você acompanha cada etapa e valida o resultado antes da publicação." },
+      { "title": "Entrega e acompanhamento", "text": "Publicamos o projeto e seguimos com suporte, conforme o plano escolhido." }
+    ]
+  }
+}

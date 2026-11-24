@@ -3,16 +3,16 @@ import { iconFor } from "../lib/icons";
 import Reveal from "./Reveal";
 import SectionHead from "./SectionHead";
 
-export default function Segments() {
+type Props = { id?: string; eyebrow?: string; title: string; sub?: string };
+
+/** Exemplos de aplicação por segmento (/admin → Conteúdo → Segmentos). Exemplos, nunca limites de atuação. */
+export default function Segments({ id = "segmentos", eyebrow = "Exemplos", title, sub }: Props) {
   const { settings } = useContent();
+  if (!settings.segments?.length) return null;
   return (
-    <section id="segmentos" className="section">
+    <section id={id} className="section">
       <div className="shell">
-        <SectionHead
-          eyebrow="Por segmento"
-          title={<>Soluções para <span className="grad">cada tipo de negócio</span></>}
-          sub="Sistemas para comércios, restaurantes, barbearias, escritórios de advocacia e empresas, desenvolvidos sob medida, com controle de acesso e cuidado com os dados (LGPD)."
-        />
+        <SectionHead eyebrow={eyebrow} title={title} sub={sub} />
         <div className="segments">
           {settings.segments.map((s, i) => {
             const Icon = iconFor(s.icon);

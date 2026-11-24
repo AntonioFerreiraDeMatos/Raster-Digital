@@ -1,0 +1,74 @@
+{
+  "path": "/criacao-de-sites-caucaia",
+  "kind": "local",
+  "title": "Criação de Sites em Caucaia – CE | Raster Digital",
+  "description": "Sites para comércio, serviços e turismo em Caucaia, inclusive em mais de um idioma, com atendimento direto com o fundador. Conheça o case Cumbuco de Buggy.",
+  "breadcrumb": [{ "name": "Início", "path": "/" }, { "name": "Criação de sites", "path": "/criacao-de-sites" }, { "name": "Caucaia" }],
+  "schema": { "service": { "name": "Criação de sites em Caucaia", "serviceType": "Criação de sites" }, "city": "Caucaia" },
+  "hero": {
+    "eyebrow": "Caucaia – CE",
+    "h1": "Criação de sites em Caucaia",
+    "lead": "Sites para empresas de Caucaia, do comércio da cidade aos negócios de turismo do litoral, com atendimento direto com quem desenvolve.",
+    "cta": "Quero um site para meu negócio"
+  },
+  "sections": [
+    {
+      "type": "text",
+      "id": "sobre",
+      "eyebrow": "Negócios de Caucaia",
+      "title": "Moradores e turistas procuram na internet",
+      "paragraphs": [
+        "Caucaia reúne comércio, serviços e um litoral turístico, com praias como Cumbuco e Icaraí. Cada negócio fala com um público diferente: o morador que procura um serviço perto de casa ou o turista que planeja o passeio antes de chegar.",
+        "Um site bem feito organiza essas informações e leva o visitante para o WhatsApp, onde a venda acontece."
+      ]
+    },
+    {
+      "type": "cards",
+      "id": "recursos",
+      "eyebrow": "Recursos",
+      "title": "Para quem atende moradores e turistas",
+      "items": [
+        { "icon": "languages", "title": "Site em mais de um idioma", "text": "Português, inglês e espanhol para receber o turista estrangeiro com a mesma clareza do público local." },
+        { "icon": "message", "title": "Pedidos e reservas pelo WhatsApp", "text": "Mensagens já escritas e formulários que chegam prontos na conversa." },
+        { "icon": "image", "title": "Galeria de fotos e vídeos", "text": "Mostrar a experiência antes da compra ajuda o cliente a decidir." },
+        { "icon": "search", "title": "Perfil da Empresa no Google", "text": "Para aparecer nas buscas e no mapa de quem procura em Caucaia, por {{preco:sua-empresa-no-google}}." }
+      ]
+    },
+    {
+      "type": "cases",
+      "id": "case",
+      "eyebrow": "Projeto em Caucaia",
+      "title": "Cumbuco de Buggy",
+      "sub": "Site em português, inglês e espanhol para passeios de buggy em Cumbuco, com reservas pelo WhatsApp no idioma do visitante.",
+      "projects": ["cumbuco-de-buggy"]
+    },
+    {
+      "type": "offers",
+      "id": "solucoes",
+      "eyebrow": "Soluções",
+      "title": "Por onde começar",
+      "items": [{ "service": "landing-page" }, { "service": "site-institucional" }]
+    },
+    {
+      "type": "text",
+      "id": "atendimento",
+      "eyebrow": "Atendimento",
+      "title": "Atendimento direto, pelo WhatsApp",
+      "paragraphs": [
+        "Atendemos empresas de Caucaia de forma remota, pelo WhatsApp, diretamente com Antonio Matos, fundador da Raster Digital. Escopo e investimento são definidos antes de começar."
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Vocês fazem site em inglês e espanhol?", "a": "Sim. O site do Cumbuco de Buggy, em Caucaia, foi desenvolvido em português, inglês e espanhol. Os idiomas entram no escopo de cada projeto." },
+    { "q": "Atendem empresas de Caucaia e da Região Metropolitana?", "a": "Sim. Atendemos Caucaia, Fortaleza e toda a Região Metropolitana, além de outras cidades, com o projeto conduzido pelo WhatsApp." },
+    { "q": "Quanto custa um site para meu negócio em Caucaia?", "a": "A Landing Page custa {{preco:landing-page}} e o Site Institucional, {{preco:site-institucional}}. Recursos como mais idiomas ou galeria entram conforme o escopo, e o valor final vem na proposta." }
+  ],
+  "related": [
+    { "path": "/projetos/cumbuco-de-buggy", "label": "Case Cumbuco de Buggy", "text": "Necessidade, solução e o que foi desenvolvido." },
+    { "path": "/criacao-de-sites", "label": "Criação de sites", "text": "Modalidades e o que vem em cada projeto." },
+    { "path": "/criacao-de-sites-fortaleza", "label": "Sites em Fortaleza", "text": "Atendimento para empresas de Fortaleza." },
+    { "path": "/precos", "label": "Preços e simulador", "text": "Valores atuais e estimativa do seu projeto." }
+  ],
+  "cta": { "title": "Tem um negócio em Caucaia?", "text": "Conte o que você precisa. Vamos entender a sua necessidade e indicar a solução adequada, com escopo e investimento antes de começar." }
+}

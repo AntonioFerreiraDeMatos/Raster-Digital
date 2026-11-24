@@ -1,0 +1,68 @@
+{
+  "path": "/painel-administrativo",
+  "kind": "service",
+  "title": "Painel Administrativo Sob Medida | Raster Digital",
+  "description": "Painel administrativo sob medida para controlar pedidos, clientes, produtos, agenda e indicadores do seu site, loja ou sistema, com usuários e permissões.",
+  "breadcrumb": [{ "name": "Início", "path": "/" }, { "name": "Painel administrativo" }],
+  "schema": { "service": { "name": "Painel administrativo sob medida", "serviceType": "Desenvolvimento de painel administrativo" } },
+  "hero": {
+    "eyebrow": "Gestão inteligente",
+    "h1": "Painel administrativo sob medida",
+    "lead": "Um painel para controlar as informações e as operações do seu negócio em um só lugar: pedidos, clientes, produtos, agenda e indicadores, com acesso por usuário.",
+    "cta": "Quero um painel para meu negócio"
+  },
+  "sections": [
+    {
+      "type": "text",
+      "id": "o-que-e",
+      "eyebrow": "O que é",
+      "title": "A área de controle do seu site ou sistema",
+      "paragraphs": [
+        "O painel administrativo é a área interna, acessada com login, onde você e sua equipe cadastram, consultam e acompanham as informações do dia a dia.",
+        "Ele pode acompanhar um site ou uma loja virtual, ou ser o centro de um sistema de gestão. O que entra no painel é definido a partir da sua rotina, sem telas que você não vai usar."
+      ]
+    },
+    {
+      "type": "cards",
+      "id": "recursos",
+      "eyebrow": "O que controlar",
+      "title": "O que o painel pode reunir",
+      "items": [
+        { "icon": "bag", "title": "Pedidos e vendas", "text": "Cada pedido registrado, com status e histórico." },
+        { "icon": "users", "title": "Clientes", "text": "Cadastro e histórico de cada cliente em um só lugar." },
+        { "icon": "boxes", "title": "Produtos e estoque", "text": "Catálogo, preços e movimentações de estoque." },
+        { "icon": "calendar-check", "title": "Agenda", "text": "Horários, serviços e profissionais organizados." },
+        { "icon": "chart", "title": "Indicadores e relatórios", "text": "Números do negócio com filtros por período e exportação." },
+        { "icon": "shield", "title": "Usuários e permissões", "text": "Cada pessoa da equipe acessa só o que precisa." }
+      ]
+    },
+    {
+      "type": "cases",
+      "id": "case",
+      "eyebrow": "Projeto real",
+      "title": "Painel da Amanda Cosméticos",
+      "sub": "Dashboard, catálogo, estoque, clientes, pedidos e pagamentos Pix reunidos em um painel, com relatórios por período.",
+      "projects": ["amanda-cosmeticos"]
+    },
+    {
+      "type": "text",
+      "id": "investimento",
+      "eyebrow": "Investimento",
+      "title": "Quanto custa um painel administrativo",
+      "paragraphs": [
+        "O valor depende de quantas áreas o painel vai controlar e se ele acompanha um site, uma loja ou um sistema. Você recebe o escopo e o investimento antes de contratar, sem compromisso."
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Posso ter um painel no meu site atual?", "a": "Depende de como o site foi construído. Avaliamos o site atual e indicamos se é possível integrar o painel ou se vale desenvolver uma nova estrutura." },
+    { "q": "Quantas pessoas podem usar o painel?", "a": "O número de usuários e as permissões de cada um são definidos no escopo do projeto." },
+    { "q": "O painel mostra relatórios?", "a": "Pode mostrar indicadores, filtros por período e exportação de dados, conforme o escopo." }
+  ],
+  "related": [
+    { "path": "/sistemas-personalizados", "label": "Sistemas personalizados", "text": "ERP, CRM, automações e integrações." },
+    { "path": "/loja-virtual", "label": "Loja virtual", "text": "Vendas pela internet com painel de pedidos." },
+    { "path": "/precos", "label": "Preços e simulador", "text": "Valores atuais e estimativa do seu projeto." }
+  ],
+  "cta": { "title": "Vamos desenhar o seu painel?", "text": "Conte o que você precisa controlar no dia a dia. Enviamos o escopo e o investimento antes de começar." }
+}

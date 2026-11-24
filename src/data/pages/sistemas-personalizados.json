@@ -1,0 +1,83 @@
+{
+  "path": "/sistemas-personalizados",
+  "kind": "service",
+  "title": "Sistemas Personalizados: ERP, CRM e Automações | Raster Digital",
+  "description": "Desenvolvimento de sistemas sob medida: ERP, CRM, controle financeiro, agendamento, automações e integrações, planejados para a forma como sua empresa trabalha.",
+  "breadcrumb": [{ "name": "Início", "path": "/" }, { "name": "Sistemas personalizados" }],
+  "schema": { "service": { "name": "Desenvolvimento de sistemas personalizados", "serviceType": "Desenvolvimento de software sob medida" } },
+  "hero": {
+    "eyebrow": "Gestão e soluções personalizadas",
+    "h1": "Sistemas personalizados para empresas",
+    "lead": "Quando planilhas e ferramentas prontas não dão conta, desenvolvemos um sistema sob medida para organizar processos, reunir informações e apoiar decisões.",
+    "cta": "Quero um sistema para minha empresa"
+  },
+  "sections": [
+    {
+      "type": "cards",
+      "id": "sinais",
+      "eyebrow": "Quando um sistema faz diferença",
+      "title": "Sinais de que é hora de organizar a operação",
+      "items": [
+        { "icon": "chat", "title": "Atendimento desorganizado", "text": "Mensagens se perdem, respostas demoram e o cliente desiste antes de comprar." },
+        { "icon": "calendar", "title": "Agendamentos feitos à mão", "text": "Horários anotados no caderno ou na conversa geram conflitos, esquecimentos e retrabalho." },
+        { "icon": "stock", "title": "Vendas, estoque e clientes sem controle", "text": "Sem números confiáveis, decidir o que comprar, cobrar ou vender vira palpite." },
+        { "icon": "time", "title": "Processos repetitivos", "text": "Planilhas, cópias e tarefas manuais tomam horas que poderiam ir para o crescimento do negócio." }
+      ]
+    },
+    {
+      "type": "cards",
+      "id": "solucoes",
+      "eyebrow": "O que desenvolvemos",
+      "title": "Sistemas para cada parte da empresa",
+      "sub": "Cada sistema é planejado a partir dos seus processos. Os exemplos abaixo podem ser combinados em uma mesma solução.",
+      "items": [
+        { "icon": "building", "title": "ERP", "text": "Integra financeiro, estoque, vendas, compras e operação, conforme os módulos contratados." },
+        { "icon": "users", "title": "CRM", "text": "Clientes, oportunidades e histórico de atendimento organizados para vender de novo para quem já comprou." },
+        { "icon": "wallet", "title": "Controle financeiro", "text": "Contas a pagar e a receber e fluxo de caixa, para saber quanto entra, quanto sai e quanto sobra." },
+        { "icon": "calendar-check", "title": "Sistema de agendamento", "text": "Clientes marcam horário sozinhos e você acompanha a agenda sem trocar dezenas de mensagens." },
+        { "icon": "zap", "title": "Automações", "text": "Tarefas repetitivas feitas pelo sistema, liberando tempo para atender e vender." },
+        { "icon": "plug", "title": "Integrações", "text": "Conexão entre os sistemas e serviços que sua empresa já usa, para os dados não ficarem espalhados." }
+      ]
+    },
+    {
+      "type": "segments",
+      "id": "segmentos",
+      "eyebrow": "Exemplos de aplicação",
+      "title": "Para diferentes tipos de negócio",
+      "sub": "Alguns exemplos de módulos para áreas diferentes. Cada sistema é desenhado para o seu processo, seja qual for o segmento."
+    },
+    {
+      "type": "steps",
+      "id": "como-funciona",
+      "eyebrow": "Como funciona",
+      "title": "Como desenvolvemos um sistema",
+      "items": [
+        { "title": "Análise do processo", "text": "Entendemos como sua empresa trabalha hoje e onde estão os gargalos." },
+        { "title": "Escopo e proposta", "text": "Definimos módulos, etapas e investimento antes de começar." },
+        { "title": "Desenvolvimento por etapas", "text": "Você acompanha e valida cada parte antes da próxima." },
+        { "title": "Entrega e acompanhamento", "text": "O sistema entra em uso e segue com suporte, conforme o plano escolhido." }
+      ]
+    },
+    {
+      "type": "offers",
+      "id": "investimento",
+      "eyebrow": "Investimento",
+      "title": "Quanto custa um sistema",
+      "sub": "Cada sistema é orçado após a análise do escopo, com proposta, prazos e etapas definidos antes de começar.",
+      "items": [{ "service": "personalizado" }]
+    }
+  ],
+  "faq": [
+    { "q": "Quanto custa um sistema personalizado?", "a": "Depende dos módulos e das integrações. Hoje, os sistemas de gestão custam {{preco:personalizado}}, e o valor final vem na proposta, após a análise do escopo." },
+    { "q": "Posso começar com poucos módulos e evoluir depois?", "a": "Sim. A proposta pode ser dividida em etapas, começando pelo que resolve o problema mais urgente da empresa." },
+    { "q": "Os dados da minha empresa ficam seguros?", "a": "Os sistemas têm controle de acesso por usuário e são desenvolvidos com cuidado com os dados, conforme a LGPD." },
+    { "q": "Vocês integram com sistemas que eu já uso?", "a": "Integrações são avaliadas caso a caso, porque dependem do que o outro sistema permite. Elas entram no escopo depois dessa análise." }
+  ],
+  "related": [
+    { "path": "/painel-administrativo", "label": "Painel administrativo", "text": "Controle de pedidos, clientes e indicadores." },
+    { "path": "/loja-virtual", "label": "Loja virtual", "text": "Vendas pela internet com painel próprio." },
+    { "path": "/projetos", "label": "Projetos", "text": "Soluções desenvolvidas e publicadas." },
+    { "path": "/precos", "label": "Preços e simulador", "text": "Valores atuais e estimativa do seu projeto." }
+  ],
+  "cta": { "title": "Vamos conversar sobre o seu sistema?", "text": "Conte quais processos você quer organizar. Analisamos a sua rotina e enviamos escopo, etapas e investimento antes de começar." }
+}

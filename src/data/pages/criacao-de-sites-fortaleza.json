@@ -1,0 +1,73 @@
+{
+  "path": "/criacao-de-sites-fortaleza",
+  "kind": "local",
+  "title": "Criação de Sites em Fortaleza – CE | Raster Digital",
+  "description": "Criação de sites, lojas virtuais e sistemas para empresas de Fortaleza, com atendimento direto com o fundador pelo WhatsApp. Escopo e preço definidos antes.",
+  "breadcrumb": [{ "name": "Início", "path": "/" }, { "name": "Criação de sites", "path": "/criacao-de-sites" }, { "name": "Fortaleza" }],
+  "schema": { "service": { "name": "Criação de sites em Fortaleza", "serviceType": "Criação de sites" }, "city": "Fortaleza" },
+  "hero": {
+    "eyebrow": "Fortaleza – CE",
+    "h1": "Criação de sites em Fortaleza",
+    "lead": "Sites, lojas virtuais e sistemas para empresas de Fortaleza que querem ser encontradas no Google e atender melhor quem chega pela internet.",
+    "cta": "Quero um site para minha empresa"
+  },
+  "sections": [
+    {
+      "type": "text",
+      "id": "sobre",
+      "eyebrow": "Empresa de Fortaleza",
+      "title": "Tecnologia desenvolvida em Fortaleza",
+      "paragraphs": [
+        "A Raster Digital é uma empresa de Fortaleza que desenvolve sites, sistemas e soluções digitais. O atendimento é feito diretamente com Antonio Matos, fundador da empresa, do primeiro contato à entrega.",
+        "Em uma cidade com muitas opções para cada serviço, quem pesquisa compara antes de chamar. Um site claro, rápido e com as informações certas ajuda o cliente a escolher a sua empresa."
+      ]
+    },
+    {
+      "type": "cards",
+      "id": "local",
+      "eyebrow": "Busca local",
+      "title": "Para ser encontrado por quem está perto",
+      "items": [
+        { "icon": "map", "title": "Informações locais no site", "text": "Bairros ou região atendida, horários e contatos organizados para quem busca na cidade." },
+        { "icon": "search", "title": "Perfil da Empresa no Google", "text": "Configuração do perfil que aparece no Google Maps e nas buscas locais, por {{preco:sua-empresa-no-google}}." },
+        { "icon": "message", "title": "WhatsApp em um toque", "text": "Botões que levam o visitante direto para a conversa, no celular ou no computador." }
+      ]
+    },
+    {
+      "type": "offers",
+      "id": "solucoes",
+      "eyebrow": "Soluções",
+      "title": "Por onde começar",
+      "items": [{ "service": "landing-page" }, { "service": "site-institucional" }, { "service": "loja-virtual" }]
+    },
+    {
+      "type": "text",
+      "id": "atendimento",
+      "eyebrow": "Atendimento",
+      "title": "Como funciona o atendimento",
+      "paragraphs": [
+        "O projeto é conduzido de forma remota, pelo WhatsApp, sem intermediários. Você conversa com quem planeja e desenvolve a solução.",
+        "Antes de começar, você recebe o escopo e o investimento definidos. Depois da entrega, a manutenção mensal é opcional e sem fidelidade."
+      ]
+    },
+    {
+      "type": "cases",
+      "id": "projetos",
+      "eyebrow": "Projetos reais",
+      "title": "Projetos publicados",
+      "projects": ["amanda-cosmeticos", "js-retifica", "cumbuco-de-buggy"]
+    }
+  ],
+  "faq": [
+    { "q": "Vocês atendem empresas de toda Fortaleza?", "a": "Sim. Como o atendimento é feito pelo WhatsApp, atendemos empresas de qualquer bairro de Fortaleza e da Região Metropolitana, além de outras cidades." },
+    { "q": "Quanto custa um site em Fortaleza?", "a": "Os valores são os mesmos em qualquer cidade: Landing Page, {{preco:landing-page}}; Site Institucional, {{preco:site-institucional}}. Os sites incluem 12 meses de hospedagem grátis, e o desenvolvimento é pago uma única vez{{parcelamento}}." },
+    { "q": "Preciso de endereço físico para aparecer no Google?", "a": "Não necessariamente. Empresas que atendem na casa do cliente ou de forma remota podem configurar o Perfil da Empresa no Google com área de atendimento, sem exibir o endereço. A aprovação e a verificação dependem das regras do Google." }
+  ],
+  "related": [
+    { "path": "/criacao-de-sites", "label": "Criação de sites", "text": "Modalidades e o que vem em cada projeto." },
+    { "path": "/criacao-de-sites-caucaia", "label": "Sites em Caucaia", "text": "Comércio, serviços e turismo em Caucaia." },
+    { "path": "/loja-virtual", "label": "Loja virtual", "text": "Vendas pela internet com Pix." },
+    { "path": "/precos", "label": "Preços e simulador", "text": "Valores atuais e estimativa do seu projeto." }
+  ],
+  "cta": { "title": "Tem uma empresa em Fortaleza?", "text": "Conte o que você precisa. Vamos entender a sua necessidade e indicar a solução adequada, com escopo e investimento antes de começar." }
+}

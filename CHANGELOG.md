@@ -2,6 +2,36 @@
 
 Mudanças publicadas em https://www.rasterdigital.com.br (cada item foi para o ar com um push na `main`).
 
+## 2026-11-24 — Reestruturação (branch `reestruturacao`, ainda não publicada)
+
+Ponto de restauração: tag `pre-reestruturacao-2026-11-24` (o site no ar até aqui).
+
+### Página inicial mais curta (12 → 7 seções, ~2.060 → ~730 palavras)
+- **Topo:** "Tecnologia que transforma ideias em soluções." com o "R" 3D de volta como destaque (cena 3D sem alterações). H1: "Sites, sistemas e soluções digitais em Fortaleza e Caucaia – CE" (migration 009, só onde o texto ainda era o original).
+- **Soluções em 3 pilares** (Presença digital, Gestão inteligente, Soluções personalizadas) com "a partir de" calculado dos preços do /admin.
+- **Diferenciais** (6) e **Como funciona** (4 etapas) reúnem o que antes se repetia no topo, nos preços e no FAQ.
+- **Projetos** em cards compactos com link para o case. A vitrine com os aparelhos em perspectiva foi para `/projetos`.
+- **Fundador:** uma única apresentação, com a mesma composição da foto (bordas que se dissolvem, luz azul, placa com nome e cargo) e o selo de formação.
+- **Chamada final** "Tem um projeto em mente?" com o formulário.
+- Saíram da página inicial (o conteúdo foi para as páginas internas): Desafios, 9 cards de Soluções, Preços, Manutenção, Simulador, Segmentos, FAQ e a faixa de marcas.
+
+### Páginas internas (SEO em silo)
+- Novas: `/criacao-de-sites`, `/loja-virtual`, `/cardapio-digital`, `/sistemas-personalizados`, `/painel-administrativo`, `/criacao-de-sites-fortaleza`, `/criacao-de-sites-caucaia`, `/precos`, `/projetos` e um case por projeto.
+- Cada uma com título, descrição, canonical, H1, breadcrumb, FAQ, links relacionados, formulário e dados estruturados. Preços sempre vêm do /admin (marcadores `{{preco:slug}}`).
+- Sitemap gerado pelo servidor; `/llms.txt` com o novo posicionamento e a lista de páginas.
+- Dados estruturados da empresa gerados com os dados do banco (faixa de preço atualizada). Sem endereço, avaliações ou números inventados.
+
+### Preços, simulador e formulário
+- **Nenhum preço foi alterado.** A tabela proposta no briefing aguarda aprovação.
+- Preços em grupos visíveis (sem abas); escopo sem marcadores duplicados; "Não inclui…" como observação.
+- Simulador: mensagem do WhatsApp no modelo pedido (uma informação por linha), resumo das escolhas e condições.
+- Formulário com 7 campos (saíram "Investimento" e "Manutenção mensal?", que eram opcionais). Empresa, e-mail e segmento continuam obrigatórios até confirmar o que o CRM do ERP aceita.
+
+### Correções e acessibilidade
+- Textos colados para leitores de tela e buscadores ("sistemasob análise", "EssencialA partir de", "PremiumR$ 99,90").
+- Alvos de toque de pelo menos 24 px; menu mais opaco; /404 com status 404; 301 dos endereços .html.
+- Testado em 390 px e 1366 px: sem rolagem horizontal, um H1 por página, sem erros no console.
+
 ## 2026-11-20
 
 ### Primeira dobra com o fundador e a logo 3D

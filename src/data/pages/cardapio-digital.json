@@ -1,0 +1,59 @@
+{
+  "path": "/cardapio-digital",
+  "kind": "service",
+  "title": "Cardápio Digital com Pedidos pelo WhatsApp | Raster Digital",
+  "description": "Cardápio digital com fotos, preços e pedido enviado direto no WhatsApp, QR Code para mesas e balcão e atualização feita por você. Também em formato de catálogo.",
+  "breadcrumb": [{ "name": "Início", "path": "/" }, { "name": "Cardápio digital" }],
+  "schema": { "service": { "name": "Cardápio digital", "serviceType": "Desenvolvimento de cardápio digital" } },
+  "hero": {
+    "eyebrow": "Presença digital",
+    "h1": "Cardápio digital com pedidos pelo WhatsApp",
+    "lead": "Seu cliente vê fotos e preços, monta o pedido e envia direto no WhatsApp. Menos erro na anotação e mais agilidade no atendimento.",
+    "cta": "Quero meu cardápio digital"
+  },
+  "sections": [
+    {
+      "type": "steps",
+      "id": "como-funciona",
+      "eyebrow": "Como funciona",
+      "title": "Do QR Code ao pedido no WhatsApp",
+      "items": [
+        { "title": "O cliente abre o cardápio", "text": "Pelo link nas redes sociais ou pelo QR Code na mesa e no balcão." },
+        { "title": "Escolhe os itens", "text": "Com fotos, descrições e preços organizados por categoria." },
+        { "title": "Envia o pedido pronto", "text": "O pedido chega no seu WhatsApp já montado, sem erro de anotação." },
+        { "title": "Você confirma e atende", "text": "A conversa continua no WhatsApp, como você já está acostumado." }
+      ]
+    },
+    {
+      "type": "offers",
+      "id": "modalidades",
+      "eyebrow": "Formatos",
+      "title": "Cardápio ou catálogo",
+      "sub": "O cardápio é pensado para quem vende refeições. O catálogo organiza produtos de qualquer tipo de comércio.",
+      "items": [{ "service": "cardapio-digital" }, { "service": "catalogo-digital" }]
+    },
+    {
+      "type": "cards",
+      "id": "para-quem",
+      "eyebrow": "Para quem é",
+      "title": "Para quem vende pelo WhatsApp",
+      "items": [
+        { "icon": "utensils", "title": "Restaurantes, lanchonetes e pizzarias", "text": "Cardápio sempre atualizado, com pedido pronto para separar." },
+        { "icon": "store", "title": "Lojas e comércios", "text": "Produtos em um link fácil de compartilhar, sem mandar foto por foto." },
+        { "icon": "bag", "title": "Quem vende por encomenda", "text": "Itens, preços e opções organizados para o cliente escolher com calma." }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Quanto custa o cardápio digital?", "a": "O Cardápio Digital custa {{preco:cardapio-digital}} e o Catálogo Digital, {{preco:catalogo-digital}}, com 12 meses de hospedagem grátis." },
+    { "q": "Eu consigo atualizar preços e itens?", "a": "Sim. No cardápio, você mesmo atualiza preços e itens quando precisar." },
+    { "q": "Quantos itens cabem?", "a": "O Cardápio Digital comporta até 60 itens em até 8 categorias. O Catálogo Digital comporta até 100 produtos com categorias." },
+    { "q": "O cliente paga pelo cardápio?", "a": "Não. O pedido é enviado pelo WhatsApp e o pagamento é combinado com você. Se precisar de carrinho e pagamento por Pix, a loja virtual é o caminho." }
+  ],
+  "related": [
+    { "path": "/loja-virtual", "label": "Loja virtual", "text": "Carrinho, pedidos e Pix." },
+    { "path": "/criacao-de-sites", "label": "Criação de sites", "text": "Site completo para a sua empresa." },
+    { "path": "/precos", "label": "Preços e simulador", "text": "Valores atuais e estimativa do seu projeto." }
+  ],
+  "cta": { "title": "Vamos criar o seu cardápio digital?", "text": "Conte o que você vende e como recebe os pedidos hoje. Enviamos o escopo e o investimento antes de começar." }
+}

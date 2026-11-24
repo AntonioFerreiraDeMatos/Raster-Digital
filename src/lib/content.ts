@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 export type Category = "presenca" | "comercial" | "profissional";
 
@@ -61,7 +61,48 @@ export type Settings = {
   };
 };
 
-export type Content = { services: Service[]; projects: Project[]; brands: Brand[]; settings: Settings };
+export type Content = { services: Service[]; projects: Project[]; brands: Brand[]; settings: Settings; page?: PageDef };
+
+/* ---------- Páginas internas (conteúdo em src/data/pages/*.json, montado pelo servidor) ---------- */
+export type PageCard = { title: string; text: string; icon?: string; bullets?: string[] };
+/** Card de oferta: um serviço do catálogo (preço do banco) ou uma modalidade ainda sem preço publicado. */
+export type Offer = { service: string } | { name: string; description: string; bullets?: string[] };
+type Head = { id?: string; eyebrow?: string; title: string; sub?: string };
+export type PageSection =
+  | (Head & { type: "text"; paragraphs: string[] })
+  | (Head & { type: "cards"; items: PageCard[] })
+  | (Head & { type: "checklist"; items: string[] })
+  | (Head & { type: "steps"; items: { title: string; text: string }[] })
+  | (Head & { type: "offers"; items: Offer[]; note?: string })
+  | (Head & { type: "cases"; projects: string[] })
+  | (Head & { type: "segments" })
+  | { type: "pricing" | "hosting" | "maintenance" | "simulator" | "projects" | "brands" | "case"; id?: string };
+
+/** Case de projeto (src/data/cases.json): só o que está documentado; campos vazios não aparecem. */
+export type CaseInfo = {
+  location?: string | null;
+  need?: string | null;
+  solution?: string | null;
+  goal?: string | null;
+  features?: string[];
+  testimonial?: { text: string; author: string; role?: string } | null;
+};
+
+export type PageDef = {
+  path: string;
+  kind: "service" | "local" | "precos" | "projetos" | "case";
+  title: string;
+  description: string;
+  breadcrumb: { name: string; path?: string }[];
+  hero: { eyebrow: string; h1: string; lead: string; cta?: string };
+  sections: PageSection[];
+  faq?: { q: string; a: string }[];
+  related?: { path: string; label: string; text?: string }[];
+  cta?: { title: string; text: string };
+  project?: string;
+  case?: CaseInfo;
+  cases?: Record<string, CaseInfo>;
+};
 
 export const CATEGORY_LABEL: Record<Category, string> = {
   presenca: "Sites e presença digital",
@@ -87,27 +128,19 @@ export function useContent(): Content {
   return c;
 }
 
-const brlInt = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
-const brlDec = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 });
-/** R$ 249 para valores inteiros; R$ 59,90 quando há centavos. */
-export const money = (cents: number) => (cents % 100 === 0 ? brlInt : brlDec).format(cents / 100);
+// Preços: mesma formatação no site e no servidor (src/shared/format.js).
+export { money, priceLabel, installmentsOf, installmentLabel, startingPrice } from "../shared/format.js";
 
-export function priceLabel(s: Pick<Service, "price_cents" | "price_from">) {
-  if (s.price_cents == null) return "Sob orçamento";
-  return s.price_from ? `A partir de ${money(s.price_cents)}` : money(s.price_cents);
+/**
+ * Separa o escopo cadastrado em itens incluídos e observações. Marcadores digitados no painel ("•", "-")
+ * são removidos (o card já tem o próprio ícone) e, a partir do primeiro "Não inclui…", tudo vira observação.
+ */
+export function splitScope(scope: string[]) {
+  const clean = scope.map((s) => s.replace(/^[\s•·*–—-]+/, "").trim()).filter(Boolean);
+  const i = clean.findIndex((s) => /^não inclui/i.test(s));
+  return i < 0 ? { items: clean, notes: [] as string[] } : { items: clean.slice(0, i), notes: clean.slice(i) };
 }
 
-/** Número de parcelas exibido no site (0 = parcelamento desligado). */
-export function installmentsOf(settings: Pick<Settings, "payment">) {
-  const n = Math.trunc(Number(settings.payment?.installments) || 0);
-  return n >= 2 && n <= 12 ? n : 0;
-}
-
-/** "ou em até 3x de R$ 116,63"; vazio quando não há preço ou parcelamento. */
-export function installmentLabel(cents: number | null, n: number) {
-  if (cents == null || cents <= 0 || n < 2) return "";
-  return `ou em até ${n}x de ${money(Math.round(cents / n))}`;
-}
 
 /** Converte o serviço do catálogo no "tipo de solução" do formulário. */
 export function leadServiceFor(slug: string | null | undefined): string {
@@ -125,6 +158,9 @@ export function leadServiceFor(slug: string | null | undefined): string {
   return map[slug] ?? "sistema";
 }
 
+/** "amandacosmeticos.com.br" a partir do endereço completo. */
+export const hostOf = (url: string | null) => url?.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "") ?? "";
+
 export function waLink(phone: string, text?: string) {
   const msg = text ?? "Olá! Vim pelo site da Raster Digital e gostaria de um orçamento.";
   return `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
@@ -139,8 +175,28 @@ export type Prefill = {
   estimate?: { min_cents: number; max_cents: number | null; summary: string };
 };
 
-/** Abre o formulário já preenchido (plano, simulação...) e rola até ele. */
+/** Abre o formulário já preenchido (plano, simulação...) e rola até ele. Toda página tem o formulário (#contato). */
 export function goToProposal(prefill?: Prefill) {
   if (prefill) window.dispatchEvent(new CustomEvent<Prefill>("raster:prefill", { detail: prefill }));
-  document.getElementById("contato")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  const form = document.getElementById("contato");
+  if (form) form.scrollIntoView({ behavior: "smooth", block: "start" });
+  else location.href = "/#contato";
+}
+
+/** Conteúdo embutido pelo servidor ou, em desenvolvimento, buscado na API. */
+export function useSiteContent(apiUrl: string) {
+  const [content, setContent] = useState<Content | null>(readEmbedded);
+  const [failed, setFailed] = useState(false);
+  useEffect(() => {
+    if (content) return;
+    let alive = true;
+    fetch(apiUrl)
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
+      .then((c: Content) => alive && setContent(c))
+      .catch(() => alive && setFailed(true));
+    return () => {
+      alive = false;
+    };
+  }, [content, apiUrl]);
+  return { content, failed };
 }

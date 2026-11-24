@@ -1,0 +1,20 @@
+{
+  "path": "/projetos",
+  "kind": "projetos",
+  "title": "Projetos Desenvolvidos | Portfólio da Raster Digital",
+  "description": "Projetos reais da Raster Digital: {{projetos}}.",
+  "breadcrumb": [{ "name": "Início", "path": "/" }, { "name": "Projetos" }],
+  "hero": {
+    "eyebrow": "Portfólio",
+    "h1": "Projetos desenvolvidos pela Raster Digital",
+    "lead": "Sites, lojas virtuais e sistemas publicados e em uso por empresas reais. Conheça a necessidade de cada cliente e o que foi desenvolvido.",
+    "cta": "Quero um projeto assim"
+  },
+  "sections": [{ "type": "projects" }, { "type": "brands" }],
+  "related": [
+    { "path": "/criacao-de-sites", "label": "Criação de sites", "text": "Landing pages, sites institucionais e profissionais." },
+    { "path": "/loja-virtual", "label": "Loja virtual", "text": "Do catálogo ao e-commerce avançado." },
+    { "path": "/sistemas-personalizados", "label": "Sistemas personalizados", "text": "ERP, CRM, automações e integrações." }
+  ],
+  "cta": { "title": "Vamos conversar sobre seu projeto?", "text": "Conte o que sua empresa precisa. Vamos entender a sua necessidade e desenvolver uma solução adequada ao seu negócio." }
+}
