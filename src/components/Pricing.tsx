@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Check, ChevronDown, Clock, Server } from "lucide-react";
-import { CATEGORY_LABEL, goToProposal, installmentLabel, installmentsOf, leadServiceFor, money, priceLabel, useContent, type Category, type Service } from "../lib/content";
+import { CATEGORY_LABEL, goToProposal, installmentLabel, installmentsOf, leadServiceFor, money, priceLabel, splitScope, useContent, type Category, type Service } from "../lib/content";
 import Reveal from "./Reveal";
 import SectionHead from "./SectionHead";
 
@@ -10,6 +10,7 @@ function PlanCard({ s, installments }: { s: Service; installments: number }) {
   const [open, setOpen] = useState(false);
   const badge = s.badge || (s.highlight ? "Mais procurado" : "");
   const inst = installmentLabel(s.price_cents, installments);
+  const scope = splitScope(s.scope);
   return (
     <article id={`plano-${s.slug}`} className={`plan ${s.highlight ? "plan--hl" : ""}`}>
       {badge && <span className="plan__badge">{badge}</span>}
@@ -18,16 +19,19 @@ function PlanCard({ s, installments }: { s: Service; installments: number }) {
       <p className="plan__desc">{s.description}</p>
       <p className="plan__price">{priceLabel(s)}</p>
       {inst && <p className="plan__inst">{inst}</p>}
-      <p className="plan__renew">
-        {s.hosting_cents != null ? <>Hospedagem grátis por 12 meses · depois {money(s.hosting_cents)}/ano</> : "Hospedagem sob orçamento"}
-      </p>
+      {s.hosting_cents != null && (
+        <p className="plan__renew">Hospedagem grátis por 12 meses · depois {money(s.hosting_cents)}/ano</p>
+      )}
       <button className="plan__toggle" aria-expanded={open} onClick={() => setOpen((v) => !v)}>
         O que está incluído <ChevronDown size={15} className={open ? "rot" : ""} />
       </button>
       {open && (
-        <ul className="plan__scope">
-          {s.scope.map((it) => <li key={it}><Check size={14} /> {it}</li>)}
-        </ul>
+        <>
+          <ul className="plan__scope">
+            {scope.items.map((it) => <li key={it}><Check size={14} /> {it}</li>)}
+          </ul>
+          {scope.notes.map((n) => <p className="plan__note" key={n}>{n}</p>)}
+        </>
       )}
       <button
         className={`btn ${s.highlight ? "btn--primary" : "btn--outline"} btn--sm btn--block`}

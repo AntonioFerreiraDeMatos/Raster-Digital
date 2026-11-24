@@ -100,7 +100,7 @@ h3 { font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1rem); font-weight: 650; letter-
 
 /* ---------- Navegação ---------- */
 .nav { position: fixed; inset: 0 0 auto; z-index: 50; border-bottom: 1px solid transparent; transition: background 0.3s, border-color 0.3s; }
-.nav--solid { background: rgba(3, 8, 20, 0.8); backdrop-filter: blur(16px) saturate(150%); -webkit-backdrop-filter: blur(16px) saturate(150%); border-bottom-color: var(--line); box-shadow: 0 18px 40px -30px rgba(10, 124, 255, 0.55); }
+.nav--solid { background: rgba(3, 8, 20, 0.93); backdrop-filter: blur(16px) saturate(150%); -webkit-backdrop-filter: blur(16px) saturate(150%); border-bottom-color: var(--line); box-shadow: 0 18px 40px -30px rgba(10, 124, 255, 0.55); }
 .nav__inner { display: flex; align-items: center; gap: 20px; height: 68px; }
 .nav__brand img { width: 124px; height: auto; }
 .nav__menu { display: flex; gap: 2px; margin-left: auto; }
@@ -292,6 +292,7 @@ h3 { font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1rem); font-weight: 650; letter-
 .plan__scope { display: grid; gap: 6px; font-size: 0.82rem; color: var(--text-2); }
 .plan__scope li { display: flex; gap: 7px; align-items: flex-start; }
 .plan__scope svg { color: var(--cyan); flex: none; margin-top: 3px; }
+.plan__note { font-size: 0.76rem; color: var(--text-3); line-height: 1.5; }
 .plan .btn { margin-top: 6px; }
 .extras { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 20px; }
 .extra { display: flex; flex-direction: column; gap: 10px; padding: 22px; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line); }

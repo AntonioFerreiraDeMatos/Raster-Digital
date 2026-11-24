@@ -90,9 +90,24 @@ app.get("/llms.txt", async (_req, res, next) => {
   }
 });
 
+// Endereço único para cada página: as versões ".html" redirecionam (301) para o endereço limpo,
+// mantendo a query string (ex.: UTMs).
+const query = (req) => req.originalUrl.slice(req.path.length);
+app.get(["/index", "/index.html"], (req, res) => res.redirect(301, "/" + query(req)));
+app.get(["/privacidade.html", "/admin.html"], (req, res) => res.redirect(301, req.path.replace(/\.html$/, "") + query(req)));
+
+function notFound(req, res) {
+  const file = path.join(dist, "404.html");
+  res.status(404);
+  if (req.accepts("html") && fs.existsSync(file)) return res.sendFile(file);
+  res.type("txt").send("Página não encontrada");
+}
+// A página de erro só é servida com status 404 (nunca como página válida).
+app.get(["/404", "/404.html"], notFound);
+
 // Página inicial com o conteúdo do banco embutido (sem esperar outra requisição).
 let indexTemplate = null;
-app.get(["/", "/index.html"], async (_req, res, next) => {
+app.get("/", async (_req, res, next) => {
   try {
     if (!env.isProd || !indexTemplate) indexTemplate = fs.readFileSync(path.join(dist, "index.html"), "utf8");
     const content = await getPublicContent();
@@ -110,12 +125,7 @@ app.get(["/", "/index.html"], async (_req, res, next) => {
   }
 });
 app.use(express.static(dist, { extensions: ["html"], maxAge: "1h" }));
-app.use((req, res) => {
-  const notFound = path.join(dist, "404.html");
-  res.status(404);
-  if (req.accepts("html") && fs.existsSync(notFound)) return res.sendFile(notFound);
-  res.type("txt").send("Página não encontrada");
-});
+app.use(notFound);
 
 app.use((err, _req, res, _next) => {
   if (err.type === "entity.parse.failed" || err.type === "entity.too.large") {

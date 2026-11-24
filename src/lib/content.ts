@@ -97,6 +97,16 @@ export function priceLabel(s: Pick<Service, "price_cents" | "price_from">) {
   return s.price_from ? `A partir de ${money(s.price_cents)}` : money(s.price_cents);
 }
 
+/**
+ * Separa o escopo cadastrado em itens incluídos e observações. Marcadores digitados no painel ("•", "-")
+ * são removidos (o card já tem o próprio ícone) e, a partir do primeiro "Não inclui…", tudo vira observação.
+ */
+export function splitScope(scope: string[]) {
+  const clean = scope.map((s) => s.replace(/^[\s•·*–—-]+/, "").trim()).filter(Boolean);
+  const i = clean.findIndex((s) => /^não inclui/i.test(s));
+  return i < 0 ? { items: clean, notes: [] as string[] } : { items: clean.slice(0, i), notes: clean.slice(i) };
+}
+
 /** Número de parcelas exibido no site (0 = parcelamento desligado). */
 export function installmentsOf(settings: Pick<Settings, "payment">) {
   const n = Math.trunc(Number(settings.payment?.installments) || 0);

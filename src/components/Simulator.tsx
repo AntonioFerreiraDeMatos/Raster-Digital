@@ -87,7 +87,7 @@ export default function Simulator() {
                 {sim.addons.map((a) => (
                   <label key={a.id} className={`check ${addons.includes(a.id) ? "on" : ""}`}>
                     <input type="checkbox" checked={addons.includes(a.id)} onChange={() => toggle(a.id)} />
-                    <span>{a.label}</span>
+                    <span>{a.label}</span>{" "}
                     <small>{a.price_cents == null ? "sob análise" : `+ ${money(a.price_cents)}`}</small>
                   </label>
                 ))}
