@@ -235,7 +235,7 @@ test("selo dos cards e parcelamento: padrão, edição pelo painel e validação
     assert.equal((await call(admin, "/settings/payment", "PUT", { value: { installments: 4 } })).status, 200);
     const c = await (await fetch(BASE + "/api/content")).json();
     assert.equal(c.settings.payment.installments, 4);
-    assert.match(await (await fetch(BASE + "/llms.txt")).text(), /com parcelamento facilitado/);
+    assert.match(await (await fetch(BASE + "/llms.txt")).text(), /com condições de pagamento facilitadas/);
   } finally {
     await call(admin, "/settings/payment", "PUT", { value: original });
   }
@@ -247,5 +247,5 @@ test("llms.txt: mostra os planos de manutenção atuais, não o valor antigo", a
   assert.match(txt, /\*\*Essencial\*\* \(R\$\s?49,90\/mês\)/);
   assert.match(txt, /\*\*Platinum\*\* \(R\$\s?149,90\/mês\)/);
   assert.doesNotMatch(txt, /59,90/);
-  assert.match(txt, /pagamento único, com parcelamento facilitado/);
+  assert.match(txt, /sem mensalidade obrigatória, com condições de pagamento facilitadas/);
 });

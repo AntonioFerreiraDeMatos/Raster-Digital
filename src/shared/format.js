@@ -18,8 +18,8 @@ export function priceText(s) {
   return priceLabel(s).replace(/^A partir de/, "a partir de").replace(/^Sob orçamento/, "sob orçamento");
 }
 
-/** Texto do parcelamento no site. O número de parcelas não aparece: o /admin só liga ou desliga (0). */
-export const INSTALLMENTS_TEXT = "parcelamento facilitado";
+/** Frase de pagamento nos textos. O número de parcelas não aparece: o /admin só liga ou desliga (0). */
+export const PAYMENT_TERMS = "condições de pagamento facilitadas";
 
 /** Número de parcelas configurado no /admin (0 = parcelamento desligado). */
 export function installmentsOf(settings) {
@@ -43,7 +43,7 @@ export function startingPrice(services, slugs) {
 /**
  * Troca os marcadores dos textos pelos dados atuais:
  * {{preco:slug}} → "a partir de R$ 349,90" / "R$ 449,90" / "sob orçamento" / "valor sob consulta" (serviço inativo)
- * {{parcelamento}} → ", com parcelamento facilitado" (ou vazio, se o parcelamento estiver desligado)
+ * {{parcelamento}} → ", com condições de pagamento facilitadas" (ou vazio, se o parcelamento estiver desligado)
  */
 export function fillText(text, services, settings) {
   if (typeof text !== "string" || !text.includes("{{")) return text;
@@ -53,7 +53,7 @@ export function fillText(text, services, settings) {
       return s ? priceText(s) : "valor sob consulta";
     })
     .replace(/\{\{parcelamento\}\}/g, () => {
-      return installmentsOf(settings) ? `, com ${INSTALLMENTS_TEXT}` : "";
+      return installmentsOf(settings) ? `, com ${PAYMENT_TERMS}` : "";
     });
 }
 

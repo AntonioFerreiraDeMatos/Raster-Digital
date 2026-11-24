@@ -1,5 +1,5 @@
 // Gera o /llms.txt (resumo do site para assistentes de IA) com o conteúdo atual do banco.
-import { money, installmentsOf, INSTALLMENTS_TEXT } from "../../src/shared/format.js";
+import { money, installmentsOf, PAYMENT_TERMS } from "../../src/shared/format.js";
 import { SITE } from "./pages.js";
 
 const CATEGORIES = { presenca: "Sites e presença digital", comercial: "Lojas e sistemas comerciais", profissional: "Sistemas profissionais" };
@@ -36,7 +36,7 @@ export function buildLlmsTxt({ services, projects, settings }) {
   if (c.linkedin) lines.push(`- LinkedIn: ${c.linkedin}`);
   lines.push(`- Orçamento: simulador em ${SITE}/precos#simulador e formulário em todas as páginas`, "");
 
-  const pay = installmentsOf(settings) ? `pagamento único, com ${INSTALLMENTS_TEXT}` : "pagamento único";
+  const pay = installmentsOf(settings) ? `sem mensalidade obrigatória, com ${PAYMENT_TERMS}` : "sem mensalidade obrigatória";
   lines.push("## Serviços e preços", "", `Valores iniciais de desenvolvimento (${pay}). O valor final é definido na proposta. Hospedagem anual informada quando se aplica; os 12 primeiros meses são grátis.`, "");
   for (const [key, title] of Object.entries(CATEGORIES)) {
     const list = services.filter((s) => s.category === key);

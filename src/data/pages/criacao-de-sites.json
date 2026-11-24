@@ -65,7 +65,7 @@
   "faq": [
     { "q": "Quanto custa criar um site?", "a": "Os valores atuais são: Landing Page, {{preco:landing-page}}; Site Institucional, {{preco:site-institucional}}. O Site Profissional é orçado depois da análise do escopo, e você pode simular o investimento na página de preços." },
     { "q": "A hospedagem está inclusa?", "a": "Sim. Os sites incluem 12 meses de hospedagem grátis. Depois, a renovação é anual, no valor informado em cada plano. Domínio e e-mail profissional não estão inclusos." },
-    { "q": "Preciso pagar mensalidade?", "a": "Não. O desenvolvimento é pago uma única vez{{parcelamento}}. A manutenção mensal é opcional e sem fidelidade." },
+    { "q": "Preciso pagar mensalidade?", "a": "Não. Você paga apenas pelo desenvolvimento do projeto{{parcelamento}}. A manutenção mensal é opcional e sem fidelidade." },
     { "q": "Meu site vai aparecer no Google?", "a": "O site sai com a otimização básica para o Google: títulos, descrições, velocidade e dados da empresa. Ninguém pode garantir posição nos resultados, mas um site bem estruturado é a base para ser encontrado. Para buscas na sua região, vale combinar com o Perfil da Empresa no Google." },
     { "q": "Posso alterar o site depois de pronto?", "a": "Sim. Pequenas alterações entram nos planos de manutenção mensal. Novas páginas e recursos são orçados à parte." }
   ],

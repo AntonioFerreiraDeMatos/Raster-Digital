@@ -60,7 +60,7 @@
   ],
   "faq": [
     { "q": "Vocês atendem empresas de toda Fortaleza?", "a": "Sim. Como o atendimento é feito pelo WhatsApp, atendemos empresas de qualquer bairro de Fortaleza e da Região Metropolitana, além de outras cidades." },
-    { "q": "Quanto custa um site em Fortaleza?", "a": "Os valores são os mesmos em qualquer cidade: Landing Page, {{preco:landing-page}}; Site Institucional, {{preco:site-institucional}}. Os sites incluem 12 meses de hospedagem grátis, e o desenvolvimento é pago uma única vez{{parcelamento}}." },
+    { "q": "Quanto custa um site em Fortaleza?", "a": "Os valores são os mesmos em qualquer cidade: Landing Page, {{preco:landing-page}}; Site Institucional, {{preco:site-institucional}}. Os sites incluem 12 meses de hospedagem grátis{{parcelamento}}." },
     { "q": "Preciso de endereço físico para aparecer no Google?", "a": "Não necessariamente. Empresas que atendem na casa do cliente ou de forma remota podem configurar o Perfil da Empresa no Google com área de atendimento, sem exibir o endereço. A aprovação e a verificação dependem das regras do Google." }
   ],
   "related": [

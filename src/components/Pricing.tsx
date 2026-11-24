@@ -78,7 +78,7 @@ export default function Pricing({ id = "precos" }: { id?: string }) {
         <SectionHead
           eyebrow="Desenvolvimento"
           title="Valores iniciais de cada solução"
-          sub="Preço de desenvolvimento pago uma única vez. Abra “O que está incluído” para ver o escopo de cada plano."
+          sub="Valores de desenvolvimento, sem mensalidade obrigatória. Abra “O que está incluído” para ver o escopo de cada plano."
         />
         {CATS.map((c) => {
           const list = services.filter((s) => s.category === c);
