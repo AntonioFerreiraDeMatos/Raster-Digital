@@ -18,16 +18,19 @@ export function priceText(s) {
   return priceLabel(s).replace(/^A partir de/, "a partir de").replace(/^Sob orçamento/, "sob orçamento");
 }
 
-/** Número de parcelas exibido no site (0 = parcelamento desligado). */
+/** Texto do parcelamento no site. O número de parcelas não aparece: o /admin só liga ou desliga (0). */
+export const INSTALLMENTS_TEXT = "parcelamento facilitado";
+
+/** Número de parcelas configurado no /admin (0 = parcelamento desligado). */
 export function installmentsOf(settings) {
   const n = Math.trunc(Number(settings?.payment?.installments) || 0);
   return n >= 2 && n <= 12 ? n : 0;
 }
 
-/** "ou em até 3x de R$ 116,63"; vazio quando não há preço ou parcelamento. */
+/** "Parcelamento facilitado" nos cards; vazio quando não há preço ou o parcelamento está desligado. */
 export function installmentLabel(cents, n) {
   if (cents == null || cents <= 0 || n < 2) return "";
-  return `ou em até ${n}x de ${money(Math.round(cents / n))}`;
+  return "Parcelamento facilitado";
 }
 
 /** Menor preço entre os serviços ativos da lista: "A partir de R$ 349,90"; null se nenhum tiver preço. */
@@ -40,7 +43,7 @@ export function startingPrice(services, slugs) {
 /**
  * Troca os marcadores dos textos pelos dados atuais:
  * {{preco:slug}} → "a partir de R$ 349,90" / "R$ 449,90" / "sob orçamento" / "valor sob consulta" (serviço inativo)
- * {{parcelamento}} → ", em até 3x" (ou vazio, se o parcelamento estiver desligado)
+ * {{parcelamento}} → ", com parcelamento facilitado" (ou vazio, se o parcelamento estiver desligado)
  */
 export function fillText(text, services, settings) {
   if (typeof text !== "string" || !text.includes("{{")) return text;
@@ -50,8 +53,7 @@ export function fillText(text, services, settings) {
       return s ? priceText(s) : "valor sob consulta";
     })
     .replace(/\{\{parcelamento\}\}/g, () => {
-      const n = installmentsOf(settings);
-      return n ? `, em até ${n}x` : "";
+      return installmentsOf(settings) ? `, com ${INSTALLMENTS_TEXT}` : "";
     });
 }
 

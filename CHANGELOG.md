@@ -6,6 +6,10 @@ Mudanças publicadas em https://www.rasterdigital.com.br (cada item foi para o a
 
 Ponto de restauração: tag `pre-reestruturacao-2026-11-24` (o site no ar até aqui).
 
+### Ajustes depois da publicação
+- Segmentos de /sistemas-personalizados em áreas amplas de negócio, no lugar de nichos (migration 010).
+- "Parcelamento facilitado" no lugar de "em até 3x" (cards, simulador, textos das páginas e llms.txt). O número de parcelas do /admin só liga ou desliga o texto (0 = não mostra).
+
 ### Página inicial mais curta (12 → 7 seções, ~2.060 → ~730 palavras)
 - **Topo:** "Tecnologia que transforma ideias em soluções." com o "R" 3D de volta como destaque (cena 3D sem alterações). H1: "Sites, sistemas e soluções digitais em Fortaleza e Caucaia – CE" (migration 009, só onde o texto ainda era o original).
 - **Soluções em 3 pilares** (Presença digital, Gestão inteligente, Soluções personalizadas) com "a partir de" calculado dos preços do /admin.

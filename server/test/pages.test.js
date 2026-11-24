@@ -27,7 +27,7 @@ test("formatação: preços, 'a partir de', marcadores e parcelamento", () => {
   assert.equal(startingPrice(services, ["sob"]), null);
   const settings = { payment: { installments: 3 } };
   assert.match(fillText("LP: {{preco:lp}}; C: {{preco:card}}; X: {{preco:nao-existe}}", services, settings), /LP: a partir de R\$\s349,90; C: R\$\s449,90; X: valor sob consulta/);
-  assert.equal(fillText("Pago uma vez{{parcelamento}}.", services, settings), "Pago uma vez, em até 3x.");
+  assert.equal(fillText("Pago uma vez{{parcelamento}}.", services, settings), "Pago uma vez, com parcelamento facilitado.");
   assert.equal(fillText("Pago uma vez{{parcelamento}}.", services, { payment: { installments: 0 } }), "Pago uma vez.");
 });
 
@@ -43,6 +43,7 @@ test("páginas internas: 200, título, descrição, canonical, um H1 e dados est
     assert.equal((ssr.match(/<h1>/g) || []).length, 1, `${path}: um H1`);
     assert.doesNotMatch(html, /\{\{[a-z]/, `${path}: marcador de preço não trocado`);
     assert.doesNotMatch(html, /\br\$/, `${path}: "r$" em minúscula`);
+    assert.doesNotMatch(html, /em até \d+x/, `${path}: número de parcelas exposto (usar "parcelamento facilitado")`);
     const ld = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
     const types = ld["@graph"].map((n) => n["@type"]);
     assert.ok(types.includes("BreadcrumbList") && types.includes("ProfessionalService"), `${path}: JSON-LD`);

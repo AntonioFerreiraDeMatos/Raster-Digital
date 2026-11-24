@@ -140,7 +140,7 @@ export default function Simulator({ id = "simulador" }: { id?: string }) {
               <div><dt>Manutenção</dt><dd>{maintPlan ? `${maintPlan.name} · ${money(result.monthly_cents)}/mês` : "Sem manutenção"}</dd></div>
             </dl>
             <ul className="sim__conditions">
-              {installments > 0 && <li>Desenvolvimento em até {installments}x</li>}
+              {installments > 0 && <li>Parcelamento facilitado</li>}
               {service.hosting_cents != null && <li>12 meses de hospedagem grátis</li>}
               {maintPlan && <li>Manutenção sem fidelidade</li>}
             </ul>
