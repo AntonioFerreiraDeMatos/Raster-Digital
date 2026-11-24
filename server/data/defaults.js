@@ -180,13 +180,14 @@ export const settings = {
       "Compromisso com qualidade, organização e transparência",
     ],
   },
+  // Exemplos por área de negócio (/sistemas-personalizados): áreas amplas, nunca limites de atuação.
   segments: [
-    { name: "Comércio e lojas", icon: "store", items: ["Estoque", "Produtos", "Vendas", "Clientes", "Relatórios"] },
-    { name: "Restaurantes", icon: "utensils", items: ["Cardápio digital", "Pedidos", "QR Code", "Produtos", "Vendas"] },
-    { name: "Advocacia", icon: "scale", items: ["Clientes", "Processos", "Prazos", "Documentos", "Dashboard"] },
-    { name: "Recursos Humanos", icon: "users", items: ["Funcionários", "Documentos", "Férias", "Departamentos", "Indicadores"] },
-    { name: "Barbearias e salões", icon: "scissors", items: ["Agendamento", "Clientes", "Serviços", "Profissionais", "Histórico"] },
-    { name: "Empresas", icon: "building", items: ["Dashboards", "Indicadores", "Financeiro", "Operacional", "Relatórios"] },
+    { name: "Comércio e varejo", icon: "store", items: ["Estoque", "Produtos", "Vendas", "Clientes", "Relatórios"] },
+    { name: "Prestadores de serviço", icon: "calendar", items: ["Agendamento", "Ordens de serviço", "Clientes", "Profissionais", "Histórico"] },
+    { name: "Alimentação e delivery", icon: "utensils", items: ["Cardápio digital", "Pedidos", "QR Code", "Entregas", "Vendas"] },
+    { name: "Escritórios e consultorias", icon: "building", items: ["Clientes", "Contratos", "Prazos", "Documentos", "Atendimentos"] },
+    { name: "Indústria e operação", icon: "boxes", items: ["Produção", "Estoque", "Compras", "Fornecedores", "Indicadores"] },
+    { name: "Gestão e equipes", icon: "chart", items: ["Financeiro", "Funcionários", "Departamentos", "Dashboards", "Relatórios"] },
   ],
   simulator: {
     complexity: [
