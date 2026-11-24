@@ -8,22 +8,40 @@ Site institucional e comercial da Raster Digital (**https://www.rasterdigital.co
 
 O histórico de mudanças está em [CHANGELOG.md](CHANGELOG.md).
 
-## Seções do site
+## Página inicial (curta: apresentação comercial)
 
-| Seção (âncora) | Componente | Conteúdo editável no /admin |
+| Seção (âncora) | Componente | Onde editar |
 |---|---|---|
-| Início `#inicio` | `Hero.tsx` | Primeira dobra |
-| Soluções `#solucoes` | `Solutions.tsx` | Soluções |
-| Marcas | `BrandMarquee.tsx` | Marcas |
-| Projetos `#projetos` | `Projects.tsx` | Projetos |
-| Preços `#precos` | `Pricing.tsx` | Serviços (planos de desenvolvimento) e Hospedagem |
-| **Manutenção `#manutencao`** | `Maintenance.tsx` | **Planos de manutenção** |
-| Simulador `#simulador` | `Simulator.tsx` | Simulador (complexidade e adicionais) + planos de manutenção |
-| Segmentos | `Segments.tsx` | Soluções por segmento |
-| Fundador | `Founder.tsx` | Fundador |
-| Contato `#contato` | `LeadForm.tsx` | — (formulário de proposta) |
+| Início `#inicio` | `Hero.tsx` | /admin → Primeira dobra (o campo "Apresentação do fundador" não aparece mais no topo) |
+| Soluções `#solucoes` | `Pillars.tsx` | `src/data/home.json` (3 pilares); o "a partir de" vem dos preços do /admin |
+| Diferenciais `#diferenciais` | `Differentials.tsx` | `src/data/home.json` |
+| Como funciona `#como-funciona` | `Steps.tsx` | `src/data/home.json` |
+| Projetos `#projetos` | `Projects.tsx` | /admin → Projetos |
+| Fundador `#fundador` | `Founder.tsx` | /admin → Fundador (os "Destaques" não aparecem mais) |
+| Contato `#contato` | `LeadForm.tsx` | — (formulário; presente em todas as páginas) |
 
-Páginas: `/` · `/privacidade` · `/admin` (painel, não indexado).
+## Páginas internas (SEO em silo)
+
+Cada página tem título, descrição, canonical, H1, breadcrumb, dados estruturados (Service, BreadcrumbList, FAQPage) e texto no HTML, montados pelo servidor (`server/lib/pages.js` + `server/lib/seo.js`) sobre o modelo `pagina.html`.
+
+| Endereço | Conteúdo |
+|---|---|
+| `/criacao-de-sites`, `/loja-virtual`, `/cardapio-digital` | Presença digital |
+| `/sistemas-personalizados`, `/painel-administrativo` | Gestão e sistemas (os Segmentos do /admin aparecem aqui como exemplos) |
+| `/criacao-de-sites-fortaleza`, `/criacao-de-sites-caucaia` | SEO local (conteúdo próprio de cada cidade) |
+| `/precos` | Todos os serviços, hospedagem, planos de manutenção e simulador |
+| `/projetos`, `/projetos/<slug>` | Portfólio e um case por projeto ativo no /admin |
+
+- **Textos:** `src/data/pages/<pagina>.json`. Preços nunca são escritos no texto: use `{{preco:slug-do-servico}}` e `{{parcelamento}}`, trocados pelos valores atuais do /admin.
+- **Cases:** `src/data/cases.json` (necessidade, solução, objetivo, funcionalidades e depoimento). Só o que está documentado: campos `null` não aparecem. Nunca invente depoimentos ou resultados.
+- **Serviço inativo** no /admin some das páginas (sem card quebrado); no texto, o marcador vira "valor sob consulta".
+- **Sitemap** (`/sitemap.xml`) é gerado pelo servidor com as páginas e os projetos ativos. Ao revisar textos, atualize `CONTENT_UPDATED` em `server/lib/pages.js`.
+- **Endereços únicos:** `/index.html`, `/privacidade.html`, barra no fim → 301; `/404` responde 404; o modelo `/pagina` nunca é servido.
+- **Links antigos** da página inicial (`#precos`, `#simulador`, `#manutencao`, `#plano-…`) levam para `/precos` (`src/main.tsx`).
+
+Outras páginas: `/privacidade` · `/admin` (painel, não indexado).
+
+Em desenvolvimento (Vite), abra uma página interna em `/pagina.html?p=/criacao-de-sites`.
 
 ## Painel /admin
 
@@ -71,6 +89,7 @@ npm test                     # em outro (BASE_URL=http://localhost:PORTA se não
 ```
 
 - **Nunca** rode os testes contra o banco de produção (eles criam e apagam registros `@raster.test`).
+- `server/test/pages.test.js` só faz leituras (páginas, SEO técnico, sitemap, formatação de preços): `BASE_URL=http://localhost:PORTA node --test server/test/pages.test.js`.
 - Cada arquivo de teste limpa só os dados que ele mesmo criou, porque os arquivos rodam em paralelo.
 - O formulário aceita no máximo 8 envios a cada 15 minutos por IP. Para repetir a suíte, reinicie o servidor entre as execuções, senão os testes de formulário recebem `429`.
 
