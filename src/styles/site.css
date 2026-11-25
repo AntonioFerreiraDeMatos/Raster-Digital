@@ -455,19 +455,19 @@ h3 { font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1rem); font-weight: 650; letter-
 .cases--1 { grid-template-columns: minmax(0, 560px); justify-content: center; }
 .cases--2 { grid-template-columns: repeat(2, 1fr); max-width: 900px; margin-inline: auto; }
 .case-card { display: flex; flex-direction: column; overflow: hidden; border-radius: 20px; background: var(--surface); border: 1px solid var(--line); }
-.case-card__media { display: block; aspect-ratio: 16 / 10; overflow: hidden; padding: 16px 16px 0; background: linear-gradient(160deg, #0d1f42, #081429); }
+/* Mídia do card: janela de navegador (print inteiro, proporção 16:10, sem cortar as laterais) + celular no canto direito */
+.case-card__media { position: relative; display: block; overflow: hidden; padding: 18px 18px 0; background: linear-gradient(160deg, #0d1f42, #081429); }
 .case-card.proj--beleza .case-card__media { background: linear-gradient(160deg, #fbe9f0, #f3d9e4 55%, #e9c99a); }
 .case-card.proj--industrial .case-card__media { background: linear-gradient(160deg, #1a1a1a, #2b2b2b 60%, #3a3000); }
-.case-card__media img { width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: 10px 10px 0 0; box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.8); transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
-.case-card:hover .case-card__media img { transform: translateY(-4px) scale(1.02); }
-/* Computador + celular: o print do site fica à esquerda e o celular sobrepõe o canto direito */
-.case-card__media--duo { position: relative; }
-.case-card__media--duo .case-card__desktop { width: 84%; }
+.case-card__media .device { transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+.case-card__media .case-card__desktop { border-radius: 10px 10px 0 0; border-bottom: 0; }
+.case-card__media--duo .case-card__desktop { margin-right: 16%; }
 .case-card__media .case-card__phone {
-  position: absolute; right: 16px; bottom: 0; width: 26%; height: auto; aspect-ratio: 9 / 16;
-  border: 4px solid #0e1a33; border-bottom: 0; border-radius: 14px 14px 0 0;
+  position: absolute; right: 18px; bottom: 0; width: 25%;
+  border-width: 4px; border-bottom: 0; border-radius: 14px 14px 0 0;
   box-shadow: -12px 18px 36px -14px rgba(0, 0, 0, 0.75);
 }
+.case-card:hover .case-card__media .case-card__desktop { transform: translateY(-4px); }
 .case-card:hover .case-card__media .case-card__phone { transform: translateY(-8px); }
 .case-card__body { display: flex; flex-direction: column; gap: 12px; padding: 18px 20px 20px; flex: 1; }
 .case-card__body h3 a { display: inline-block; padding: 3px 0; }

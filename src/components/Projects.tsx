@@ -83,8 +83,18 @@ export function CaseCard({ p, delay = 0 }: { p: Project; delay?: number }) {
   return (
     <Reveal as="article" className={`case-card proj--${p.theme}`} delay={delay}>
       <a className={`case-card__media${p.mobile_url ? " case-card__media--duo" : ""}`} href={`/projetos/${p.slug}`} tabIndex={-1} aria-hidden="true">
-        {p.cover_url && <img className="case-card__desktop" src={p.cover_url} alt="" loading="lazy" width="1280" height="800" />}
-        {p.mobile_url && <img className="case-card__phone" src={p.mobile_url} alt="" loading="lazy" width="390" height="844" />}
+        {/* Janela de navegador com o print inteiro (sem cortar as laterais) e o celular no canto */}
+        {p.cover_url && (
+          <div className="device device--laptop case-card__desktop">
+            <div className="device__bar"><i /><i /><i /><span>{hostOf(p.url)}</span></div>
+            <img src={p.cover_url} alt="" loading="lazy" width="1280" height="800" />
+          </div>
+        )}
+        {p.mobile_url && (
+          <div className="device device--phone case-card__phone">
+            <img src={p.mobile_url} alt="" loading="lazy" width="390" height="844" />
+          </div>
+        )}
       </a>
       <div className="case-card__body">
         <div className="proj__top">
