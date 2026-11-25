@@ -4,6 +4,7 @@ import Hero from "./components/Hero";
 import Pillars from "./components/Pillars";
 import Differentials from "./components/Differentials";
 import Steps from "./components/Steps";
+import BrandMarquee from "./components/BrandMarquee";
 import Projects from "./components/Projects";
 import Founder from "./components/Founder";
 import LeadForm from "./components/LeadForm";
@@ -23,6 +24,8 @@ export default function App() {
       <Pillars />
       <Differentials />
       <Steps id="como-funciona" {...home.steps} />
+      {/* Faixa contínua com as logos dos clientes (correndo), antes dos cards de projeto */}
+      <BrandMarquee />
       <Projects />
       <Founder />
       <LeadForm

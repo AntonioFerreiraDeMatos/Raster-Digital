@@ -560,7 +560,10 @@ h3 { font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1rem); font-weight: 650; letter-
   .hero { min-height: 0; }
   /* Véu só atrás do texto: a foto e a logo 3D, logo abaixo, ficam com o brilho original */
   .hero__scrim { background: linear-gradient(180deg, rgba(3, 8, 20, 0.55), rgba(3, 8, 20, 0.62) 34%, rgba(3, 8, 20, 0.3) 44%, transparent 52%); }
-  .hero__visual { justify-self: center; max-width: 440px; margin-top: 8px; }
+  /* Celular/tablet: o "R" inteiro à esquerda, dentro da tela (nada cortado na borda), e a foto à direita */
+  .hero__visual { justify-self: center; max-width: 440px; aspect-ratio: 1 / 0.92; margin-top: 4px; margin-bottom: -6%; }
+  .hero__portrait { width: 72%; }
+  .hero__art { left: 0; top: 4%; width: 56%; }
   .pillars { grid-template-columns: 1fr; max-width: 560px; margin-inline: auto; }
   .cases--3 { grid-template-columns: 1fr; max-width: 560px; margin-inline: auto; }
   .sim__result { position: static; }
@@ -580,7 +583,6 @@ h3 { font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1rem); font-weight: 650; letter-
   .hero { padding-top: 92px; }
   .hero__actions .btn { width: 100%; }
   .hero__visual { max-width: 380px; }
-  .hero__art { left: -8%; top: 3%; width: 62%; }
   .page-hero { padding-top: 96px; }
   .page-hero .hero__actions { justify-content: stretch; }
   .proj__media .device--laptop { margin-right: 18%; }

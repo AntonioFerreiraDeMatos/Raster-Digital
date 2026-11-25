@@ -14,6 +14,8 @@ Ponto de restauração: tag `pre-reestruturacao-2026-11-24` (o site no ar até a
 - Cards de projetos (página inicial e páginas internas) mostram o print do computador e, sobreposto no canto, o do celular (`mobile_url` do /admin).
 - Saiu o link "Área restrita" do rodapé; o painel continua em /admin.
 - Topo: a foto do fundador volta ao lado do "R" 3D (cena 3D sem alterações), só a foto, sem nome, cargo ou selos por cima. A apresentação com textos continua na seção "Quem desenvolve o seu projeto".
+- Topo no celular/tablet: o "R" aparece inteiro à esquerda, dentro da tela, e a foto à direita, com menos espaço vazio embaixo.
+- Página inicial: a faixa "Marcas que confiaram em nosso desenvolvimento" (logos correndo) volta, logo antes dos projetos.
 
 ### Página inicial mais curta (12 → 7 seções, ~2.060 → ~730 palavras)
 - **Topo:** "Tecnologia que transforma ideias em soluções." com o "R" 3D de volta como destaque (cena 3D sem alterações). H1: "Sites, sistemas e soluções digitais em Fortaleza e Caucaia – CE" (migration 009, só onde o texto ainda era o original).
