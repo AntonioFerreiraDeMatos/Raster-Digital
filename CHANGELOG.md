@@ -9,6 +9,7 @@ Ponto de restauração: tag `pre-reestruturacao-2026-11-24` (o site no ar até a
 ### Ajustes depois da publicação
 - Segmentos de /sistemas-personalizados em áreas amplas de negócio, no lugar de nichos (migration 010).
 - Sem o número de parcelas: cards e simulador mostram "Parcelamento facilitado"; nos textos, "pago uma única vez, em até 3x" virou "com condições de pagamento facilitadas". O número de parcelas do /admin só liga ou desliga esses textos (0 = não mostra).
+- "Sistemas de Gestão Completo": a partir de R$ 799,90 → a partir de R$ 589,90 (migration 011, a pedido do Antonio); hospedagem sem alteração. É o "a partir de" do pilar Gestão inteligente.
 
 ### Página inicial mais curta (12 → 7 seções, ~2.060 → ~730 palavras)
 - **Topo:** "Tecnologia que transforma ideias em soluções." com o "R" 3D de volta como destaque (cena 3D sem alterações). H1: "Sites, sistemas e soluções digitais em Fortaleza e Caucaia – CE" (migration 009, só onde o texto ainda era o original).
