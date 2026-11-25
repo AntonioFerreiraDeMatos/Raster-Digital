@@ -7,37 +7,35 @@
       {
         "id": "presenca",
         "icon": "globe",
-        "title": "Presença digital",
-        "text": "Sites e plataformas para sua empresa ser encontrada, transmitir confiança e transformar visitas em contatos.",
-        "items": ["Landing pages", "Sites institucionais", "Sites profissionais", "Lojas virtuais", "Cardápios digitais", "Plataformas digitais"],
-        "priceFrom": ["landing-page", "site-institucional", "cardapio-digital", "catalogo-digital", "loja-virtual"],
-        "link": { "path": "/criacao-de-sites", "label": "Ver presença digital" },
-        "more": [
-          { "path": "/loja-virtual", "label": "Loja virtual" },
-          { "path": "/cardapio-digital", "label": "Cardápio digital" }
-        ]
+        "label": "Presença digital",
+        "title": "Sua empresa online",
+        "text": "Construa uma presença profissional e conquiste mais oportunidades na internet.",
+        "items": ["Sites institucionais", "Landing pages", "Lojas virtuais", "Catálogos digitais", "Cardápios digitais", "Plataformas digitais"],
+        "itemLinks": { "Lojas virtuais": "/loja-virtual", "Cardápios digitais": "/cardapio-digital" },
+        "link": { "path": "/criacao-de-sites", "label": "Conhecer presença digital" }
       },
       {
         "id": "gestao",
         "icon": "layout",
-        "title": "Gestão inteligente",
-        "text": "Sistemas para organizar a rotina, reunir as informações da empresa e acompanhar a operação com dados confiáveis.",
-        "items": ["Painéis administrativos", "Controle financeiro", "Sistemas de agendamento", "Gestão de clientes", "Controle operacional", "Sistemas empresariais"],
-        "priceFrom": ["personalizado", "administrativo", "dashboard", "agendamento", "financeiro", "vendas-clientes", "controle-estoque", "rh-basico"],
-        "link": { "path": "/painel-administrativo", "label": "Ver gestão inteligente" },
-        "more": [{ "path": "/sistemas-personalizados#solucoes", "label": "Sistemas de gestão" }]
+        "label": "Gestão empresarial",
+        "title": "Organize sua empresa",
+        "text": "Tenha mais controle sobre clientes, serviços, finanças e atividades do negócio.",
+        "items": ["Painéis administrativos", "Gestão de clientes", "Ordens de serviço", "Controle financeiro", "Agendamentos", "Gestão de estoque", "Relatórios gerenciais", "Controle operacional"],
+        "itemLinks": { "Painéis administrativos": "/painel-administrativo" },
+        "link": { "path": "/sistemas-personalizados#solucoes", "label": "Conhecer sistemas de gestão" }
       },
       {
-        "id": "personalizadas",
+        "id": "sob-medida",
         "icon": "puzzle",
-        "title": "Soluções personalizadas",
-        "text": "Quando nenhuma ferramenta pronta resolve: tecnologia desenvolvida sob medida para os processos da sua empresa.",
-        "items": ["ERP", "CRM", "Automações", "Integrações", "Sistemas exclusivos", "Plataformas sob medida"],
-        "priceFrom": [],
-        "link": { "path": "/sistemas-personalizados", "label": "Ver soluções personalizadas" },
-        "more": []
+        "label": "Tecnologia sob medida",
+        "title": "Sua necessidade, nossa solução",
+        "text": "Desenvolvemos tecnologias personalizadas para processos que precisam de soluções específicas.",
+        "items": ["Sistemas ERP e CRM", "Automações empresariais", "Integrações entre sistemas", "Plataformas exclusivas", "Sistemas empresariais integrados", "Desenvolvimento sob medida"],
+        "itemLinks": {},
+        "link": { "path": "/sistemas-personalizados", "label": "Desenvolver minha solução" }
       }
-    ]
+    ],
+    "note": "Não importa o tamanho da sua empresa ou o segmento em que atua. Desenvolvemos soluções digitais de acordo com suas necessidades, seus processos e seus objetivos."
   },
   "differentials": {
     "eyebrow": "Diferenciais",

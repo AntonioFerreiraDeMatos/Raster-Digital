@@ -2,7 +2,7 @@
 // metadados de cada página e dados estruturados (Schema.org). O React substitui o texto ao carregar.
 // Tudo é montado com os dados reais (banco + src/data); nada de avaliações, endereços ou números inventados.
 import home from "../../src/data/home.json" with { type: "json" };
-import { money, priceText, startingPrice } from "../../src/shared/format.js";
+import { money, priceText } from "../../src/shared/format.js";
 import { SITE } from "./pages.js";
 
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
@@ -159,7 +159,7 @@ export function buildPageHead(page, content) {
 const projectsList = (projects) =>
   `<ul>${projects.map((p) => `<li><a href="/projetos/${esc(p.slug)}">${esc(p.client)}</a>: ${esc(p.title)}. ${esc(p.summary)}</li>`).join("")}</ul>`;
 
-export function buildHomeSsr({ services, projects, settings }) {
+export function buildHomeSsr({ projects, settings }) {
   const h = settings.hero || {};
   const f = settings.founder || {};
   const c = settings.contact || {};
@@ -170,8 +170,9 @@ export function buildHomeSsr({ services, projects, settings }) {
 <p>${esc(h.subtitle)}</p>
 <h2>${esc(pillars.title)}</h2>
 <p>${esc(pillars.sub)}</p>
-${pillars.items.map((p) => `<h3>${esc(p.title)}</h3><p>${esc(p.text)}</p><ul>${p.items.map((i) => `<li>${esc(i)}</li>`).join("")}</ul>
-<p>${esc(startingPrice(services, p.priceFrom) || "Sob orçamento")} · <a href="${p.link.path}">${esc(p.link.label)}</a></p>`).join("\n")}
+${pillars.items.map((p) => `<h3>${esc(p.label)}: ${esc(p.title)}</h3><p>${esc(p.text)}</p><ul>${p.items.map((i) => `<li>${esc(i)}</li>`).join("")}</ul>
+<p><a href="${p.link.path}">${esc(p.link.label)}</a></p>`).join("\n")}
+<p>${esc(pillars.note)}</p>
 <h2>${esc(differentials.title)}</h2>
 <ul>${differentials.items.map((d) => `<li><strong>${esc(d.title)}</strong>: ${esc(d.text)}</li>`).join("")}</ul>
 <h2>${esc(steps.title)}</h2>

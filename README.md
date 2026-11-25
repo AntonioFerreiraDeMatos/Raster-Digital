@@ -13,7 +13,7 @@ O histórico de mudanças está em [CHANGELOG.md](CHANGELOG.md).
 | Seção (âncora) | Componente | Onde editar |
 |---|---|---|
 | Início `#inicio` | `Hero.tsx` | /admin → Primeira dobra (o campo "Apresentação do fundador" não aparece mais no topo) |
-| Soluções `#solucoes` | `Pillars.tsx` | `src/data/home.json` (3 pilares); o "a partir de" vem dos preços do /admin |
+| Soluções `#solucoes` | `Pillars.tsx` | `src/data/home.json` (3 pilares e a frase final); sem preços: o investimento fica em /precos. `itemLinks` liga um item da lista à página interna |
 | Diferenciais `#diferenciais` | `Differentials.tsx` | `src/data/home.json` |
 | Como funciona `#como-funciona` | `Steps.tsx` | `src/data/home.json` |
 | Projetos `#projetos` | `Projects.tsx` | /admin → Projetos |
