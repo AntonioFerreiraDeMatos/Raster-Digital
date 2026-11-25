@@ -37,7 +37,6 @@ export default function Footer() {
         </div>
         <span className="footer__links">
           <a href="/privacidade">Privacidade</a>
-          <a href="/admin" rel="nofollow">Área restrita</a>
         </span>
       </div>
     </footer>

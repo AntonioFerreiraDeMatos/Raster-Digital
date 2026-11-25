@@ -82,8 +82,9 @@ export function ProjectCard({ p, delay = 0 }: { p: Project; delay?: number }) {
 export function CaseCard({ p, delay = 0 }: { p: Project; delay?: number }) {
   return (
     <Reveal as="article" className={`case-card proj--${p.theme}`} delay={delay}>
-      <a className="case-card__media" href={`/projetos/${p.slug}`} tabIndex={-1} aria-hidden="true">
-        {p.cover_url && <img src={p.cover_url} alt="" loading="lazy" width="1280" height="800" />}
+      <a className={`case-card__media${p.mobile_url ? " case-card__media--duo" : ""}`} href={`/projetos/${p.slug}`} tabIndex={-1} aria-hidden="true">
+        {p.cover_url && <img className="case-card__desktop" src={p.cover_url} alt="" loading="lazy" width="1280" height="800" />}
+        {p.mobile_url && <img className="case-card__phone" src={p.mobile_url} alt="" loading="lazy" width="390" height="844" />}
       </a>
       <div className="case-card__body">
         <div className="proj__top">

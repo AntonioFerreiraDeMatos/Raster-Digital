@@ -11,6 +11,8 @@ Ponto de restauração: tag `pre-reestruturacao-2026-11-24` (o site no ar até a
 - Sem o número de parcelas: cards e simulador mostram "Parcelamento facilitado"; nos textos, "pago uma única vez, em até 3x" virou "com condições de pagamento facilitadas". O número de parcelas do /admin só liga ou desliga esses textos (0 = não mostra).
 - "Sistemas de Gestão Completo": a partir de R$ 799,90 → a partir de R$ 589,90 (migration 011, a pedido do Antonio); hospedagem sem alteração. É o "a partir de" do pilar Gestão inteligente.
 - Seção Soluções reorganizada em Presença digital, Gestão empresarial e Tecnologia sob medida, com novos títulos, listas e botões. Os cards não mostram mais o "a partir de" (os preços ficam em /precos). /loja-virtual, /cardapio-digital e /painel-administrativo agora abrem pelos próprios itens da lista. O botão de Gestão vai para /sistemas-personalizados#solucoes, e uma frase final antecede o link de preços.
+- Cards de projetos (página inicial e páginas internas) mostram o print do computador e, sobreposto no canto, o do celular (`mobile_url` do /admin).
+- Saiu o link "Área restrita" do rodapé; o painel continua em /admin.
 
 ### Página inicial mais curta (12 → 7 seções, ~2.060 → ~730 palavras)
 - **Topo:** "Tecnologia que transforma ideias em soluções." com o "R" 3D de volta como destaque (cena 3D sem alterações). H1: "Sites, sistemas e soluções digitais em Fortaleza e Caucaia – CE" (migration 009, só onde o texto ainda era o original).
