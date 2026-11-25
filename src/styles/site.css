@@ -135,8 +135,37 @@ h3 { font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1rem); font-weight: 650; letter-
 .hero__title { font-size: clamp(1.95rem, 1.2rem + 3.2vw, 3.25rem); line-height: 1.15; letter-spacing: -0.022em; font-weight: 750; text-wrap: balance; }
 .hero__lead { margin-top: 16px; color: var(--text-2); font-size: clamp(1rem, 0.95rem + 0.35vw, 1.12rem); max-width: 520px; }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
-/* Marca: .hero__art é a âncora da cena 3D (heroScene.ts lê o tamanho e a posição dela para desenhar o "R"). */
-.hero__art { position: relative; aspect-ratio: 1; width: 100%; max-width: 500px; justify-self: center; }
+/* ---- Composição: foto do fundador + logo 3D ----
+   .hero__art é a âncora da cena 3D (heroScene.ts lê o tamanho e a posição dela para desenhar o "R").
+   A marca fica à esquerda, atrás da foto; as bordas da foto se dissolvem e deixam o "R" aparecer. */
+.hero__visual { position: relative; width: 100%; max-width: 540px; aspect-ratio: 27 / 28; justify-self: end; perspective: 1200px; }
+.hero__art { position: absolute; left: -10%; top: 7%; width: 56%; aspect-ratio: 1; z-index: 0; }
+.hero__portrait {
+  position: absolute; right: 0; top: 0; width: 78%; z-index: 1; pointer-events: none;
+  translate: calc(var(--px, 0) * -8px) calc(var(--py, 0) * -6px); rotate: 0 1 0 calc(var(--px, 0) * -3deg);
+  transition: translate 0.8s cubic-bezier(0.22, 1, 0.36, 1), rotate 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+/* Luz azul/ciano atrás do fundador + arco que ecoa as órbitas da marca */
+.hero__portrait::before {
+  content: ""; position: absolute; left: 4%; right: -4%; top: -2%; height: 78%; z-index: -1; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(10, 124, 255, 0.42), rgba(34, 200, 255, 0.12) 55%, transparent); filter: blur(6px);
+}
+.hero__portrait::after {
+  content: ""; position: absolute; left: 12%; top: 3%; width: 84%; aspect-ratio: 1; z-index: -1; border-radius: 50%;
+  border: 1px solid rgba(34, 200, 255, 0.45); box-shadow: 0 0 40px rgba(34, 200, 255, 0.18), inset 0 0 30px rgba(10, 124, 255, 0.15);
+  -webkit-mask-image: linear-gradient(180deg, #000 30%, transparent 62%); mask-image: linear-gradient(180deg, #000 30%, transparent 62%);
+}
+/* A foto real, sem retoque: bordas e base se dissolvem no fundo do site */
+.hero__photo {
+  aspect-ratio: 720 / 959;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 28%, #000 88%, transparent 100%), linear-gradient(180deg, transparent 0%, #000 14%, #000 70%, transparent 99%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 28%, #000 88%, transparent 100%), linear-gradient(180deg, transparent 0%, #000 14%, #000 70%, transparent 99%);
+  mask-composite: intersect;
+}
+.hero__photo picture { display: block; height: 100%; }
+.hero__photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+@media (prefers-reduced-motion: reduce) { .hero__portrait { translate: none; rotate: none; transition: none; } }
 .orbit { position: absolute; inset: 0; margin: auto; border-radius: 50%; border: 1px solid var(--line-strong); }
 .orbit--1 { width: 100%; height: 100%; border-style: dashed; opacity: 0.45; animation: spin 60s linear infinite; }
 .orbit--2 { width: 74%; height: 74%; opacity: 0.6; }
@@ -529,9 +558,9 @@ h3 { font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1rem); font-weight: 650; letter-
   .hero__lead { margin-inline: auto; }
   .hero__actions { justify-content: center; }
   .hero { min-height: 0; }
-  /* Véu só atrás do texto: a logo 3D, logo abaixo, fica com o brilho original */
-  .hero__scrim { background: linear-gradient(180deg, rgba(3, 8, 20, 0.55), rgba(3, 8, 20, 0.7) 55%, transparent 75%); }
-  .hero__art { max-width: 340px; }
+  /* Véu só atrás do texto: a foto e a logo 3D, logo abaixo, ficam com o brilho original */
+  .hero__scrim { background: linear-gradient(180deg, rgba(3, 8, 20, 0.55), rgba(3, 8, 20, 0.62) 34%, rgba(3, 8, 20, 0.3) 44%, transparent 52%); }
+  .hero__visual { justify-self: center; max-width: 440px; margin-top: 8px; }
   .pillars { grid-template-columns: 1fr; max-width: 560px; margin-inline: auto; }
   .cases--3 { grid-template-columns: 1fr; max-width: 560px; margin-inline: auto; }
   .sim__result { position: static; }
@@ -550,7 +579,8 @@ h3 { font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1rem); font-weight: 650; letter-
   .nav__brand img { width: 112px; }
   .hero { padding-top: 92px; }
   .hero__actions .btn { width: 100%; }
-  .hero__art { max-width: 300px; }
+  .hero__visual { max-width: 380px; }
+  .hero__art { left: -8%; top: 3%; width: 62%; }
   .page-hero { padding-top: 96px; }
   .page-hero .hero__actions { justify-content: stretch; }
   .proj__media .device--laptop { margin-right: 18%; }

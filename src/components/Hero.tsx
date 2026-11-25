@@ -19,14 +19,17 @@ function can3D() {
 }
 
 /**
- * Primeira dobra: a marca (o "R" em 3D) e a mensagem principal.
- * Textos editáveis em /admin → Conteúdo → Primeira dobra. A apresentação do fundador fica na seção própria (Founder.tsx).
+ * Primeira dobra: a mensagem principal, a foto do fundador e a marca (o "R" em 3D) ao lado.
+ * No topo vai só a foto, sem nome, cargo ou selos: a apresentação com textos fica na seção própria (Founder.tsx).
+ * Textos editáveis em /admin → Conteúdo → Primeira dobra.
  */
 export default function Hero() {
   const { settings } = useContent();
   const h = settings.hero;
+  const f = settings.founder;
   const reduce = useReducedMotion();
   const heroRef = useRef<HTMLElement>(null);
+  const visualRef = useRef<HTMLDivElement>(null);
   const artRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const sceneRef = useRef<HeroScene | null>(null);
@@ -65,6 +68,26 @@ export default function Hero() {
     };
   }, [reduce]);
 
+  // A foto acompanha o mouse de leve, dando profundidade (só com mouse e sem "reduzir movimento").
+  useEffect(() => {
+    const visual = visualRef.current;
+    if (reduce || !visual || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    let raf = 0;
+    const onMove = (e: PointerEvent) => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        visual.style.setProperty("--px", ((e.clientX / window.innerWidth) * 2 - 1).toFixed(3));
+        visual.style.setProperty("--py", ((e.clientY / window.innerHeight) * 2 - 1).toFixed(3));
+      });
+    };
+    window.addEventListener("pointermove", onMove, { passive: true });
+    return () => {
+      window.removeEventListener("pointermove", onMove);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, [reduce]);
+
   return (
     <section id="inicio" ref={heroRef} className={`hero${ready3D ? " hero--3d" : ""}`}>
       <div className="hero__grid-bg" aria-hidden="true" />
@@ -86,23 +109,41 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Marca (decorativa). Sem 3D, fica a versão em CSS; com 3D, o "R" animado é desenhado no canvas aqui. Clique gira o "R". */}
-        <motion.div
-          ref={artRef}
-          className="hero__art"
-          aria-hidden="true"
-          onClick={() => sceneRef.current?.spin()}
-          initial={reduce ? false : { opacity: 0, scale: 0.94 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9, delay: 0.15, ease }}
-        >
-          <div className="orbit orbit--1" />
-          <div className="orbit orbit--2" />
-          <div className="orbit orbit--3" />
-          <div className="hero__core">
-            <img src="/img/r-mark.webp" alt="" width="720" height="595" fetchPriority="high" />
-          </div>
-        </motion.div>
+        {/* Composição: a foto do fundador (confiança) + a marca em 3D (identidade). */}
+        <div className="hero__visual" ref={visualRef}>
+          {/* Marca (decorativa). Sem 3D, fica a versão em CSS; com 3D, o "R" animado é desenhado no canvas aqui. Clique gira o "R". */}
+          <motion.div
+            ref={artRef}
+            className="hero__art"
+            aria-hidden="true"
+            onClick={() => sceneRef.current?.spin()}
+            initial={reduce ? false : { opacity: 0, scale: 0.94 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.9, delay: 0.15, ease }}
+          >
+            <div className="orbit orbit--1" />
+            <div className="orbit orbit--2" />
+            <div className="orbit orbit--3" />
+            <div className="hero__core">
+              <img src="/img/r-mark.webp" alt="" width="720" height="595" />
+            </div>
+          </motion.div>
+
+          {/* Só a foto: sem nome, cargo ou selos por cima. */}
+          <motion.div
+            className="hero__portrait"
+            initial={reduce ? false : { opacity: 0, y: 28, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 1, delay: 0.2, ease }}
+          >
+            <div className="hero__photo">
+              <picture>
+                <source srcSet="/img/antonio-matos.webp" type="image/webp" />
+                <img src="/img/antonio-matos.jpg" alt={`${f.name}, ${f.role.toLowerCase()} da Raster Digital`} width="720" height="959" fetchPriority="high" />
+              </picture>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

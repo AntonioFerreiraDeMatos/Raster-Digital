@@ -13,6 +13,7 @@ Ponto de restauração: tag `pre-reestruturacao-2026-11-24` (o site no ar até a
 - Seção Soluções reorganizada em Presença digital, Gestão empresarial e Tecnologia sob medida, com novos títulos, listas e botões. Os cards não mostram mais o "a partir de" (os preços ficam em /precos). /loja-virtual, /cardapio-digital e /painel-administrativo agora abrem pelos próprios itens da lista. O botão de Gestão vai para /sistemas-personalizados#solucoes, e uma frase final antecede o link de preços.
 - Cards de projetos (página inicial e páginas internas) mostram o print do computador e, sobreposto no canto, o do celular (`mobile_url` do /admin).
 - Saiu o link "Área restrita" do rodapé; o painel continua em /admin.
+- Topo: a foto do fundador volta ao lado do "R" 3D (cena 3D sem alterações), só a foto, sem nome, cargo ou selos por cima. A apresentação com textos continua na seção "Quem desenvolve o seu projeto".
 
 ### Página inicial mais curta (12 → 7 seções, ~2.060 → ~730 palavras)
 - **Topo:** "Tecnologia que transforma ideias em soluções." com o "R" 3D de volta como destaque (cena 3D sem alterações). H1: "Sites, sistemas e soluções digitais em Fortaleza e Caucaia – CE" (migration 009, só onde o texto ainda era o original).
